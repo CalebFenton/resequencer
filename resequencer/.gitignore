@@ -1,0 +1,10 @@
+# Generated files
+bin/
+
+# Eclipse project files
+.classpath
+.project
+.settings
+
+# Our beautiful little jar file baby
+resequencer.jar
