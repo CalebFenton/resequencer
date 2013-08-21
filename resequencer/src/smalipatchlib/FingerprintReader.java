@@ -192,7 +192,7 @@ public class FingerprintReader {
 
         // Force inclusion of StrHolder if using obfuscated hooks
         if (ObfuscateHooks) {
-            parseSmaliHook("StrHolder");
+            // parseSmaliHook("StrHolder");
         }
 
         for (String hookName : HooksAvailable) {

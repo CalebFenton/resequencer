@@ -10,7 +10,7 @@ import smalipatchlib.SmaliHinter;
 import dexequencelib.Console;
 
 /**
- * Convienent storage of all command line options
+ * Convenient storage of all command line options
  * 
  * @author Caleb Fenton
  */

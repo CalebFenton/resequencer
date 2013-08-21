@@ -5,7 +5,7 @@
 -->
 
 <fingerprints>
-	<fingerprint name="Hook Method Invocation" install="Monolith,ReflectedInvoke,Base64">
+	<fingerprint name="Hook Method Invocation" install="Monolith,ReflectedInvoke,CryptUtils">
 		<!-- Hook ALL method invocation as it could be hiding anything. Also useful for logging. -->
 		<region name="riFile">
 			<op type="match" name="matchRI">(?im)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+, [vp]\d+\}, Ljava/lang/reflect/Method;-&gt;invoke\(Ljava/lang/Object;\[Ljava/lang/Object;\)Ljava/lang/Object;</op>
@@ -136,10 +136,11 @@
     invoke-static {}, %!Hook:hooks/Monolith.getDeviceId%()Ljava/lang/String;</op>
 		</region>
 	</fingerprint>
-	
+
+<!--	disabled for now...
 	<fingerprint name="Hook Device Model" install="Biuld" enabled="false">
-		<!-- May need to lie about the model.
-		Some Apps/games needlessly restrict functionality based on this. -->
+		<!- May need to lie about the model.
+		Some Apps/games needlessly restrict functionality based on this. ->
 		<region name="hdevModelFile">
 			<op type="match" name="matchGetModel">(?im)^[ \t]*sget-object [vp]\d+, Landroid/os/Build;->MODEL:Ljava/lang/String;</op>
 			<op type="find" name="findVarName" insideOP="matchGetModel">[vp]\d+</op>
@@ -147,10 +148,10 @@
     sget-object %findVarName:0%, Landroid/os/Biuld;->MODEL:Ljava/lang/String;</op>
 		</region>
 	</fingerprint>
-
+ 
 	<fingerprint name="Hook Device Manufacturer" install="Biuld" enabled="false">
-		<!-- May need to lie about device manufacturer.
-		Some Apps/games needlessly restrict functionality based on this. -->
+		<!- May need to lie about device manufacturer.
+		Some Apps/games needlessly restrict functionality based on this. ->
 		<region name="hdevManufacturerFile">
 			<op type="match" name="matchGetManufacturer">(?im)^[ \t]*sget-object [vp]\d+, Landroid/os/Build;->MANUFACTURER:Ljava/lang/String;</op>
 			<op type="find" name="findVarName" insideOP="matchGetManufacturer">[vp]\d+</op>
@@ -158,6 +159,7 @@
     sget-object %findVarName:0%, Landroid/os/Biuld;->MANUFACTURER:Ljava/lang/String;</op>
 		</region>
 	</fingerprint>
+ -->
 
 	<fingerprint name="Hook Network Operator" install="Monolith" enabled="false">
 		<!-- Some Apps only work on specific operators
@@ -372,7 +374,7 @@
 		</region>
 	</fingerprint>
 	
-	<fingerprint name="Hook Get MessageDigest Value" install="Monolith,Base64">
+	<fingerprint name="Hook Get MessageDigest Value" install="Monolith,CryptUtils">
 		<!-- Same as checksum value, except for MessageDigest objects. -->
 		<region name="mdvFile">
 			<op type="match" name="matchMDV">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Ljava/security/MessageDigest;->digest\(\)\[B</op>

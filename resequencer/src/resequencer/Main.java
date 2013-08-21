@@ -470,20 +470,27 @@ public class Main {
     }
 
     public static FingerprintReader getFingerprintReader() {
-        String resPath = "/sequencer/fingerprints/";
+        String resPath = "/resequencer/fingerprints/";
         ArrayList<String> xmlFileList = new ArrayList<String>();
 
         xmlFileList.add(resPath + "fingerprints.xml");
         xmlFileList.add(resPath + "hooks.xml");
 
-        String hooksPath = "/sequencer/hooks/";
+        String hooksPath = "/resequencer/hooks/";
         if (Options.DebugHooks) {
-            hooksPath = "/sequencer/hooks_dbg/";
+            // TODO: implement debug hooks :D
+            hooksPath = "/resequencer/hooks/";
             Console.debug("Using debug hooks.");
         }
 
+        /*
+         * return new FingerprintReader(xmlFileList.toArray(new String[xmlFileList.size()]), Options.ExcludedFPs,
+         * Options.IncludedFPs, Options.SmaliDir, hooksPath, !Options.DebugHooks, getScriptVarsForSmali());
+         */
+        // Obfuscation needs to be rewritten, force false for now
         return new FingerprintReader(xmlFileList.toArray(new String[xmlFileList.size()]), Options.ExcludedFPs,
-                        Options.IncludedFPs, Options.SmaliDir, hooksPath, !Options.DebugHooks, getScriptVarsForSmali());
+                        Options.IncludedFPs, Options.SmaliDir, hooksPath, false, getScriptVarsForSmali());
+
     }
 
     private static void showHeader() {
