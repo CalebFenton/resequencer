@@ -8,3 +8,9 @@ bin/
 
 # Our beautiful little jar file baby
 resequencer.jar
+
+# Google might not like us distrubuting their binaries
+aapt
+zipalign
+aapt.exe
+zipalign.exe
