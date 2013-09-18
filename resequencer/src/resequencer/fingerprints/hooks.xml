@@ -492,14 +492,14 @@
     move-object/from16 v0, p0
     instance-of v1, v0, Landroid/content/Context;
     if-eqz v1, :alt_var_type
-    invoke-static {v0}, %!Hook:hooks/Monolith.sm%(Landroid/content/Context;)V
+    invoke-static {v0}, %!Hook:hooks/Monolith.setAppContext%(Landroid/content/Context;)V
     goto/16 :end_sig
     :alt_var_type
     instance-of v1, v0, Landroid/app/Activity;
     if-eqz v1, :end_sig
     invoke-virtual/range {p0 .. p0}, L%!LaunchActivity%;->getBaseContext()Landroid/content/Context;
     move-result-object v0
-    invoke-static {v0}, %!Hook:hooks/Monolith.sm%(Landroid/content/Context;)V
+    invoke-static {v0}, %!Hook:hooks/Monolith.setAppContext%(Landroid/content/Context;)V
     :end_sig
 
     </op>
@@ -517,7 +517,8 @@
 
 			<op type="find" name="mmsigMethodStarts">%!MethodStarts%</op>
 			<op type="insert" name="smInsert" afterOP="mmsigMethodStarts">
-invoke-static {p1}, %!Hook:hooks/Monolith.sm%(Landroid/content/Context;)V
+    move-object/from16 v0, p1  
+    invoke-static {v0}, %!Hook:hooks/Monolith.setAppContext%(Landroid/content/Context;)V
 
     </op>
 		</region>

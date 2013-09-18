@@ -29,7 +29,7 @@
 
     const/4 v8, -0x1
 
-    .line 56
+    .line 51
     const/16 v6, 0xff
 
     new-array v5, v6, [I
@@ -84,7 +84,6 @@
 
     const/16 v6, 0xe
 
-    .line 57
     aput v8, v5, v6
 
     const/16 v6, 0xf
@@ -125,6 +124,7 @@
 
     const/16 v6, 0x18
 
+    .line 52
     aput v8, v5, v6
 
     const/16 v6, 0x19
@@ -149,7 +149,6 @@
 
     const/16 v6, 0x1e
 
-    .line 58
     aput v8, v5, v6
 
     const/16 v6, 0x1f
@@ -216,7 +215,6 @@
 
     const/16 v6, 0x2e
 
-    .line 59
     aput v8, v5, v6
 
     const/16 v6, 0x2f
@@ -227,6 +225,7 @@
 
     const/16 v6, 0x30
 
+    .line 53
     const/16 v7, 0x34
 
     aput v7, v5, v6
@@ -303,7 +302,6 @@
 
     const/16 v6, 0x3e
 
-    .line 60
     aput v8, v5, v6
 
     const/16 v6, 0x3f
@@ -356,6 +354,7 @@
 
     const/16 v6, 0x4a
 
+    .line 54
     const/16 v7, 0x9
 
     aput v7, v5, v6
@@ -392,7 +391,6 @@
 
     const/16 v6, 0x50
 
-    .line 61
     const/16 v7, 0xf
 
     aput v7, v5, v6
@@ -479,7 +477,6 @@
 
     const/16 v6, 0x60
 
-    .line 62
     aput v8, v5, v6
 
     const/16 v6, 0x61
@@ -490,6 +487,7 @@
 
     const/16 v6, 0x62
 
+    .line 55
     const/16 v7, 0x1b
 
     aput v7, v5, v6
@@ -574,7 +572,6 @@
 
     const/16 v6, 0x70
 
-    .line 63
     const/16 v7, 0x29
 
     aput v7, v5, v6
@@ -635,6 +632,7 @@
 
     const/16 v6, 0x7a
 
+    .line 56
     const/16 v7, 0x33
 
     aput v7, v5, v6
@@ -661,7 +659,6 @@
 
     const/16 v6, 0x80
 
-    .line 64
     aput v8, v5, v6
 
     const/16 v6, 0x81
@@ -726,7 +723,6 @@
 
     const/16 v6, 0x90
 
-    .line 65
     aput v8, v5, v6
 
     const/16 v6, 0x91
@@ -735,6 +731,7 @@
 
     const/16 v6, 0x92
 
+    .line 57
     aput v8, v5, v6
 
     const/16 v6, 0x93
@@ -791,7 +788,6 @@
 
     const/16 v6, 0xa0
 
-    .line 66
     aput v8, v5, v6
 
     const/16 v6, 0xa1
@@ -832,6 +828,7 @@
 
     const/16 v6, 0xaa
 
+    .line 58
     aput v8, v5, v6
 
     const/16 v6, 0xab
@@ -856,7 +853,6 @@
 
     const/16 v6, 0xb0
 
-    .line 67
     aput v8, v5, v6
 
     const/16 v6, 0xb1
@@ -921,7 +917,6 @@
 
     const/16 v6, 0xc0
 
-    .line 68
     aput v8, v5, v6
 
     const/16 v6, 0xc1
@@ -930,6 +925,7 @@
 
     const/16 v6, 0xc2
 
+    .line 59
     aput v8, v5, v6
 
     const/16 v6, 0xc3
@@ -986,7 +982,6 @@
 
     const/16 v6, 0xd0
 
-    .line 69
     aput v8, v5, v6
 
     const/16 v6, 0xd1
@@ -1027,6 +1022,7 @@
 
     const/16 v6, 0xda
 
+    .line 60
     aput v8, v5, v6
 
     const/16 v6, 0xdb
@@ -1051,7 +1047,6 @@
 
     const/16 v6, 0xe0
 
-    .line 70
     aput v8, v5, v6
 
     const/16 v6, 0xe1
@@ -1116,7 +1111,6 @@
 
     const/16 v6, 0xf0
 
-    .line 71
     aput v8, v5, v6
 
     const/16 v6, 0xf1
@@ -1125,6 +1119,7 @@
 
     const/16 v6, 0xf2
 
+    .line 61
     aput v8, v5, v6
 
     const/16 v6, 0xf3
@@ -1175,19 +1170,19 @@
 
     aput v8, v5, v6
 
-    .line 73
-    .local v5, tbl:[I
+    .line 63
+    .local v5, table:[I
     invoke-virtual {p0}, Ljava/lang/String;->getBytes()[B
 
     move-result-object v2
 
-    .line 75
+    .line 65
     .local v2, bytes:[B
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 76
+    .line 66
     .local v1, buffer:Ljava/lang/StringBuilder;
     const/4 v4, 0x0
 
@@ -1197,7 +1192,7 @@
 
     if-lt v4, v6, :cond_0
 
-    .line 106
+    .line 95
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v6
@@ -1208,11 +1203,11 @@
 
     return-object v6
 
-    .line 77
+    .line 67
     :cond_0
     const/4 v0, 0x0
 
-    .line 78
+    .line 68
     .local v0, b:I
     aget-byte v6, v2, v4
 
@@ -1220,7 +1215,7 @@
 
     if-eq v6, v8, :cond_4
 
-    .line 79
+    .line 69
     aget-byte v6, v2, v4
 
     aget v6, v5, v6
@@ -1229,7 +1224,7 @@
 
     shl-int/lit8 v0, v6, 0x12
 
-    .line 87
+    .line 76
     add-int/lit8 v6, v4, 0x1
 
     array-length v7, v2
@@ -1244,7 +1239,7 @@
 
     if-eq v6, v8, :cond_1
 
-    .line 88
+    .line 77
     add-int/lit8 v6, v4, 0x1
 
     aget-byte v6, v2, v6
@@ -1257,7 +1252,7 @@
 
     or-int/2addr v0, v6
 
-    .line 90
+    .line 79
     :cond_1
     add-int/lit8 v6, v4, 0x2
 
@@ -1273,7 +1268,7 @@
 
     if-eq v6, v8, :cond_2
 
-    .line 91
+    .line 80
     add-int/lit8 v6, v4, 0x2
 
     aget-byte v6, v2, v6
@@ -1286,7 +1281,7 @@
 
     or-int/2addr v0, v6
 
-    .line 93
+    .line 82
     :cond_2
     add-int/lit8 v6, v4, 0x3
 
@@ -1302,7 +1297,7 @@
 
     if-eq v6, v8, :cond_3
 
-    .line 94
+    .line 83
     add-int/lit8 v6, v4, 0x3
 
     aget-byte v6, v2, v6
@@ -1313,7 +1308,7 @@
 
     or-int/2addr v0, v6
 
-    .line 97
+    .line 86
     :cond_3
     :goto_1
     const v6, 0xffffff
@@ -1322,19 +1317,19 @@
 
     if-nez v6, :cond_5
 
-    .line 103
+    .line 92
     add-int/lit8 v4, v4, 0x4
 
     goto :goto_0
 
-    .line 83
+    .line 72
     :cond_4
     add-int/lit8 v4, v4, 0x1
 
-    .line 84
+    .line 73
     goto :goto_0
 
-    .line 98
+    .line 87
     :cond_5
     const/high16 v6, 0xff
 
@@ -1342,13 +1337,13 @@
 
     shr-int/lit8 v3, v6, 0x10
 
-    .line 99
+    .line 88
     .local v3, c:I
     int-to-char v6, v3
 
     invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 100
+    .line 89
     shl-int/lit8 v0, v0, 0x8
 
     goto :goto_1
@@ -1368,17 +1363,17 @@
 
     fill-array-data v6, :array_0
 
-    .line 19
+    .line 17
     .local v6, table:[C
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 20
+    .line 18
     .local v1, buffer:Ljava/lang/StringBuilder;
     const/4 v5, 0x0
 
-    .line 21
+    .line 19
     .local v5, pad:I
     const/4 v3, 0x0
 
@@ -1388,21 +1383,21 @@
 
     if-lt v3, v7, :cond_0
 
-    .line 48
+    .line 43
     const/4 v4, 0x0
 
     .local v4, j:I
     :goto_1
     if-lt v4, v5, :cond_5
 
-    .line 52
+    .line 47
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v7
 
     return-object v7
 
-    .line 23
+    .line 20
     .end local v4           #j:I
     :cond_0
     aget-byte v7, p0, v3
@@ -1413,7 +1408,7 @@
 
     and-int v0, v7, v9
 
-    .line 24
+    .line 21
     .local v0, b:I
     add-int/lit8 v7, v3, 0x1
 
@@ -1421,7 +1416,7 @@
 
     if-ge v7, v8, :cond_2
 
-    .line 25
+    .line 22
     add-int/lit8 v7, v3, 0x1
 
     aget-byte v7, p0, v7
@@ -1432,7 +1427,7 @@
 
     or-int/2addr v0, v7
 
-    .line 30
+    .line 26
     :goto_2
     add-int/lit8 v7, v3, 0x2
 
@@ -1440,7 +1435,7 @@
 
     if-ge v7, v8, :cond_3
 
-    .line 31
+    .line 27
     add-int/lit8 v7, v3, 0x2
 
     aget-byte v7, p0, v7
@@ -1449,7 +1444,7 @@
 
     or-int/2addr v0, v7
 
-    .line 37
+    .line 32
     :goto_3
     rem-int/lit8 v7, v3, 0x39
 
@@ -1457,36 +1452,36 @@
 
     if-lez v3, :cond_1
 
-    .line 38
+    .line 33
     const-string v7, "\n"
 
     invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 41
+    .line 36
     :cond_1
     :goto_4
     and-int v7, v0, v9
 
     if-nez v7, :cond_4
 
-    .line 21
+    .line 19
     add-int/lit8 v3, v3, 0x3
 
     goto :goto_0
 
-    .line 28
+    .line 24
     :cond_2
     add-int/lit8 v5, v5, 0x1
 
     goto :goto_2
 
-    .line 34
+    .line 29
     :cond_3
     add-int/lit8 v5, v5, 0x1
 
     goto :goto_3
 
-    .line 42
+    .line 37
     :cond_4
     const/high16 v7, 0xfc
 
@@ -1494,18 +1489,18 @@
 
     shr-int/lit8 v2, v7, 0x12
 
-    .line 43
+    .line 38
     .local v2, c:I
     aget-char v7, v6, v2
 
     invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 44
+    .line 39
     shl-int/lit8 v0, v0, 0x6
 
     goto :goto_4
 
-    .line 49
+    .line 44
     .end local v0           #b:I
     .end local v2           #c:I
     .restart local v4       #j:I
@@ -1514,7 +1509,7 @@
 
     invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 48
+    .line 43
     add-int/lit8 v4, v4, 0x1
 
     goto :goto_1
@@ -1524,9 +1519,9 @@
 
     :array_0
     .array-data 0x2
-        0x43t 0x0t
-        0x42t 0x0t
         0x41t 0x0t
+        0x42t 0x0t
+        0x43t 0x0t
         0x44t 0x0t
         0x45t 0x0t
         0x46t 0x0t
@@ -1591,19 +1586,19 @@
     .end array-data
 .end method
 
-.method protected static md5(Ljava/io/File;)Ljava/lang/String;
+.method public static md5(Ljava/io/File;)Ljava/lang/String;
     .locals 8
     .parameter "f"
 
     .prologue
-    .line 110
+    .line 99
     const/4 v5, 0x0
 
-    .line 111
+    .line 100
     .local v5, md:Ljava/security/MessageDigest;
     const/4 v3, 0x0
 
-    .line 113
+    .line 102
     .local v3, is:Ljava/io/InputStream;
     :try_start_0
     const-string v6, "MD5"
@@ -1612,7 +1607,7 @@
 
     move-result-object v5
 
-    .line 114
+    .line 103
     new-instance v4, Ljava/io/FileInputStream;
 
     invoke-direct {v4, p0}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
@@ -1620,7 +1615,7 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 115
+    .line 104
     .end local v3           #is:Ljava/io/InputStream;
     .local v4, is:Ljava/io/InputStream;
     :try_start_1
@@ -1631,7 +1626,7 @@
     .catchall {:try_start_1 .. :try_end_1} :catchall_1
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_4
 
-    .line 116
+    .line 105
     .end local v4           #is:Ljava/io/InputStream;
     .restart local v3       #is:Ljava/io/InputStream;
     const/16 v6, 0x2000
@@ -1639,7 +1634,7 @@
     :try_start_2
     new-array v0, v6, [B
 
-    .line 117
+    .line 106
     .local v0, buffer:[B
     :cond_0
     invoke-virtual {v3, v0}, Ljava/io/InputStream;->read([B)I
@@ -1653,20 +1648,20 @@
 
     if-ne v6, v7, :cond_0
 
-    .line 125
+    .line 112
     :try_start_3
     invoke-virtual {v3}, Ljava/io/InputStream;->close()V
     :try_end_3
     .catch Ljava/io/IOException; {:try_start_3 .. :try_end_3} :catch_3
 
-    .line 132
+    .line 118
     .end local v0           #buffer:[B
     :goto_0
     invoke-virtual {v5}, Ljava/security/MessageDigest;->digest()[B
 
     move-result-object v1
 
-    .line 133
+    .line 119
     .local v1, digest:[B
     invoke-virtual {v1}, Ljava/lang/Object;->toString()Ljava/lang/String;
 
@@ -1674,12 +1669,12 @@
 
     return-object v6
 
-    .line 120
+    .line 108
     .end local v1           #digest:[B
     :catch_0
     move-exception v2
 
-    .line 121
+    .line 109
     .local v2, e:Ljava/lang/Exception;
     :goto_1
     :try_start_4
@@ -1687,7 +1682,7 @@
     :try_end_4
     .catchall {:try_start_4 .. :try_end_4} :catchall_0
 
-    .line 125
+    .line 112
     :try_start_5
     invoke-virtual {v3}, Ljava/io/InputStream;->close()V
     :try_end_5
@@ -1695,55 +1690,55 @@
 
     goto :goto_0
 
-    .line 127
+    .line 113
     :catch_1
     move-exception v2
 
-    .line 128
+    .line 114
     .local v2, e:Ljava/io/IOException;
     invoke-virtual {v2}, Ljava/io/IOException;->printStackTrace()V
 
     goto :goto_0
 
-    .line 123
+    .line 110
     .end local v2           #e:Ljava/io/IOException;
     :catchall_0
     move-exception v6
 
-    .line 125
+    .line 112
     :goto_2
     :try_start_6
     invoke-virtual {v3}, Ljava/io/InputStream;->close()V
     :try_end_6
     .catch Ljava/io/IOException; {:try_start_6 .. :try_end_6} :catch_2
 
-    .line 130
+    .line 116
     :goto_3
     throw v6
 
-    .line 127
+    .line 113
     :catch_2
     move-exception v2
 
-    .line 128
+    .line 114
     .restart local v2       #e:Ljava/io/IOException;
     invoke-virtual {v2}, Ljava/io/IOException;->printStackTrace()V
 
     goto :goto_3
 
-    .line 127
+    .line 113
     .end local v2           #e:Ljava/io/IOException;
     .restart local v0       #buffer:[B
     :catch_3
     move-exception v2
 
-    .line 128
+    .line 114
     .restart local v2       #e:Ljava/io/IOException;
     invoke-virtual {v2}, Ljava/io/IOException;->printStackTrace()V
 
     goto :goto_0
 
-    .line 123
+    .line 110
     .end local v0           #buffer:[B
     .end local v2           #e:Ljava/io/IOException;
     .end local v3           #is:Ljava/io/InputStream;
@@ -1757,7 +1752,7 @@
     .restart local v3       #is:Ljava/io/InputStream;
     goto :goto_2
 
-    .line 120
+    .line 108
     .end local v3           #is:Ljava/io/InputStream;
     .restart local v4       #is:Ljava/io/InputStream;
     :catch_4

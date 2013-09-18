@@ -201,7 +201,7 @@ public class Main {
         try {
             if ((Options.SignKey == null) || (Options.SignCert == null)) {
                 myApkFile.apkSign(Options.OutputApk, Main.class.getResourceAsStream("/sequencer/key.pk8"),
-                                Main.class.getResourceAsStream("/sequencer/certificate.pem"), "");
+                                Main.class.getResourceAsStream("/sequencer/certificate.pem"), "resequencer");
             } else {
                 myApkFile.apkSign(Options.OutputApk, Options.SignKey, Options.SignCert, Options.SignPass);
             }

@@ -70,38 +70,37 @@ public class AppInfo {
     }
 
     private void loadApkAaptProps() {
-        String[] info = Console.execute(new String[] { mAaptPath, "d", "--values", "badging", "\"" + mApkPath + "\"" });
+        String[] info = Console.execute(new String[] { mAaptPath, "d", "badging", mApkPath });
         Matcher m;
 
         Console.debug("Badging values:\n" + info[0], 2);
 
-        // Parse info for package name. Assuming it's always there.
-        m = Pattern.compile("(?im)^package: name='\\S+?'").matcher(info[0]);
+        // Parse info for package name. Hope aapt doesn't change output often.
+        m = Pattern.compile("package: name='([^']+)'").matcher(info[0]);
         if (m.find()) {
-            AppPackageName = info[0].substring(m.start() + "package: name='".length(), m.end() - "'".length());
+            AppPackageName = m.group(0);
         } else {
             AppPackageName = "unknown";
         }
 
         // Parse for version code
-        m = Pattern.compile("versionCode='\\d+'").matcher(info[0]);
+        m = Pattern.compile("versionCode='(\\d+)'").matcher(info[0]);
         if (m.find()) {
-            AppVersionCode = info[0].substring(m.start() + "versionCode='".length(), m.end() - "'".length());
+            AppVersionCode = m.group(0);
         } else {
             AppVersionCode = "unknown";
         }
 
         // Parse for version name
-        m = Pattern.compile("versionName='\\d+'").matcher(info[0]);
+        m = Pattern.compile("versionName='[^']+'").matcher(info[0]);
         if (m.find()) {
-            AppVersionName = info[0].substring(m.start() + "versionName='".length(), m.end() - "'".length());
+            AppVersionName = m.group(0);
         } else {
             AppVersionName = "unknown";
         }
 
         // Get first launchable activity
         m = Pattern.compile("launchable( |-)activity(:)? name='(\\S+?)'").matcher(info[0]);
-        System.out.println("info: " + info[0]);
 
         if (m.find()) {
             // Will be of the form: com.package.Main but we want com/package/Main

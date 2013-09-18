@@ -56,7 +56,6 @@ class ApkSigner {
     private static final String CERT_RSA_NAME = "META-INF/CERT.RSA";
     private static final String CERT_PATH = "/resequencer/keys/certificate.pem";
     private static final String KEY_PATH = "/resequencer/keys/key.pk8";
-    private static final String KEY_PASS = "resequencer";
 
     private static final int BUFF_SIZE = 4096;
 
@@ -129,7 +128,7 @@ class ApkSigner {
             PrivateKey key;
             if ((signCertStream == null) || (signKeyStream == null)) {
                 cert = readPublicKey(ApkSigner.class.getResourceAsStream(CERT_PATH));
-                key = readPrivateKey(ApkSigner.class.getResourceAsStream(KEY_PATH), KEY_PASS);
+                key = readPrivateKey(ApkSigner.class.getResourceAsStream(KEY_PATH), keyPass);
             } else {
                 cert = readPublicKey(signCertStream);
                 key = readPrivateKey(signKeyStream, keyPass);

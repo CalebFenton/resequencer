@@ -1,7 +1,9 @@
 package dexequencelib;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
@@ -82,17 +84,18 @@ public class Console {
     public static String[] execute(String[] cmd) {
         debug("Executing: " + Arrays.asList(cmd).toString());
 
-        String ret = "";
+        StringBuffer output = new StringBuffer();
         Integer status = null;
 
         InputStream in = null;
         try {
             Process child = Runtime.getRuntime().exec(cmd);
 
-            in = child.getInputStream();
-            int c;
-            while ((c = in.read()) != -1) {
-                ret += (char) c;
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(child.getInputStream()));
+
+            String s;
+            while ((s = stdInput.readLine()) != null) {
+                output.append(s).append("\n");
             }
 
             status = child.waitFor();
@@ -104,7 +107,7 @@ public class Console {
             IOUtils.closeQuietly(in);
         }
 
-        return new String[] { ret, String.valueOf(status) };
+        return new String[] { output.toString(), String.valueOf(status) };
     }
 
     public static boolean deleteBestEffort(File path, String whatIsIt) {
