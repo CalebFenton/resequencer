@@ -247,7 +247,7 @@ public class SmaliFile {
      * @return
      */
     protected boolean doModifications() {
-        StringBuilder origLines = new StringBuilder(FileLines);
+        // StringBuilder origLines = new StringBuilder(FileLines);
         StringBuilder sb = new StringBuilder(FileLines);
         boolean success = true;
 
@@ -260,12 +260,14 @@ public class SmaliFile {
                 // FileLines = FileLines.substring(0, cm.Offset)
                 // + cm.Value + FileLines.substring(cm.Offset, FileLines.length());
 
-                if ((sb.length() == origLines.length()) && sb.equals(origLines)) {
+                if ((sb.length() == FileLines.length())) {
                     Console.warn(FileName + ": Unable to insert @" + cm.Offset + ": " + cm.Value);
                     success = false;
                 }
             } else {
                 Console.debug("Replacing @" + cm.Offset + ":\n" + cm.ReplaceWhat + " with " + cm.Value, 2);
+
+                int hashCode = sb.toString().hashCode();
 
                 String safeReplaceWhat = Pattern.quote(cm.ReplaceWhat);
                 String toReplace = sb.substring(cm.Offset);
@@ -276,10 +278,10 @@ public class SmaliFile {
                 // + FileLines.substring(cm.Offset).replaceFirst(
                 // safeReplaceWhat, cm.Value);
 
-                if ((sb.length() == origLines.length()) && sb.equals(origLines)) {
-                    Console.warn(FileName + ": Replace did nothing @" + cm.Offset + ":\n" + cm.ReplaceWhat + " with "
-                                    + cm.Value);
-                    success = false;
+                if (sb.toString().hashCode() == hashCode) {
+                    Console.warn(FileName + ": Replace possibly did nothing @" + cm.Offset + ":\n" + cm.ReplaceWhat
+                                    + " with " + cm.Value);
+                    // success = false;
                 }
             }
         }
