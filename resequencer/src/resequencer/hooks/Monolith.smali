@@ -12,15 +12,13 @@
 # static fields
 .field private static final AccountNameSpoof:Ljava/lang/String; = "%!AccountNameSpoof%"
 
-#the value of this static final field might be set in the static constructor
-.field private static final AccountNameSpoofType:I = 0x0
+.field private static final AccountNameSpoofType:I
 
 .field public static AppContext:Landroid/content/Context; = null
 
 .field private static final BTMacSpoof:Ljava/lang/String; = "%!BTMacSpoof%"
 
-#the value of this static final field might be set in the static constructor
-.field private static final BTMacSpoofType:I = 0x0
+.field private static final BTMacSpoofType:I
 
 .field protected static BuildingDigest:Z = false
 
@@ -46,8 +44,7 @@
 
 .field private static final DeviceIDSpoof:Ljava/lang/String; = "%!DeviceIDSpoof%"
 
-#the value of this static final field might be set in the static constructor
-.field private static final DeviceIDSpoofType:I = 0x0
+.field private static final DeviceIDSpoofType:I
 
 .field private static LastReadInputStream:Ljava/io/InputStream; = null
 
@@ -59,8 +56,7 @@
 
 .field protected static final MyAppVersionName:Ljava/lang/String; = "%!AppVersionName%"
 
-#the value of this static final field might be set in the static constructor
-.field private static final MyCheckSigsBehavior:I = 0x0
+.field private static final MyCheckSigsBehavior:I
 
 .field private static MyChecksumInputStreams:Ljava/util/HashMap; = null
     .annotation system Ldalvik/annotation/Signature;
@@ -74,13 +70,11 @@
     .end annotation
 .end field
 
-#the value of this static final field might be set in the static constructor
-.field private static final MyGetPIBehavior:I = 0x0
+.field private static final MyGetPIBehavior:I
 
 .field protected static final MyPrefsFile:Ljava/lang/String; = "%!RndAlpha%"
 
-#the value of this static final field might be set in the static constructor
-.field private static final MySigVerifyBehavior:I = 0x0
+.field private static final MySigVerifyBehavior:I
 
 .field private static MyWatchedChecksumsOrDigests:Ljava/util/HashMap; = null
     .annotation system Ldalvik/annotation/Signature;
@@ -293,9 +287,9 @@
 
 .method public static checkSignatures(Landroid/content/pm/PackageManager;II)I
     .locals 5
-    .parameter "pm"
-    .parameter "uid1"
-    .parameter "uid2"
+    .param p0, "pm"    # Landroid/content/pm/PackageManager;
+    .param p1, "uid1"    # I
+    .param p2, "uid2"    # I
 
     .prologue
     const/4 v4, 0x0
@@ -343,7 +337,7 @@
     aget-object v0, v2, v4
 
     .line 257
-    .local v0, pkg1:Ljava/lang/String;
+    .local v0, "pkg1":Ljava/lang/String;
     invoke-virtual {p0, p2}, Landroid/content/pm/PackageManager;->getPackagesForUid(I)[Ljava/lang/String;
 
     move-result-object v2
@@ -351,7 +345,7 @@
     aget-object v1, v2, v4
 
     .line 258
-    .local v1, pkg2:Ljava/lang/String;
+    .local v1, "pkg2":Ljava/lang/String;
     invoke-static {p0, v0, v1}, Lhooks/Monolith;->checkSignatures(Landroid/content/pm/PackageManager;Ljava/lang/String;Ljava/lang/String;)I
 
     move-result v2
@@ -361,9 +355,9 @@
 
 .method public static checkSignatures(Landroid/content/pm/PackageManager;Ljava/lang/String;Ljava/lang/String;)I
     .locals 4
-    .parameter "pm"
-    .parameter "pkg1"
-    .parameter "pkg2"
+    .param p0, "pm"    # Landroid/content/pm/PackageManager;
+    .param p1, "pkg1"    # Ljava/lang/String;
+    .param p2, "pkg2"    # Ljava/lang/String;
 
     .prologue
     .line 227
@@ -405,7 +399,7 @@
     move-result v0
 
     .line 229
-    .local v0, result:I
+    .local v0, "result":I
     new-instance v2, Ljava/lang/StringBuilder;
 
     const-string v3, "  real result = "
@@ -428,14 +422,14 @@
     move v1, v0
 
     .line 250
-    .end local v0           #result:I
-    .local v1, result:I
+    .end local v0    # "result":I
+    .local v1, "result":I
     :goto_0
     return v1
 
     .line 233
-    .end local v1           #result:I
-    .restart local v0       #result:I
+    .end local v1    # "result":I
+    .restart local v0    # "result":I
     :cond_0
     sget v2, Lhooks/Monolith;->MyCheckSigsBehavior:I
 
@@ -475,13 +469,13 @@
     move v1, v0
 
     .line 250
-    .end local v0           #result:I
-    .restart local v1       #result:I
+    .end local v0    # "result":I
+    .restart local v1    # "result":I
     goto :goto_0
 
     .line 238
-    .end local v1           #result:I
-    .restart local v0       #result:I
+    .end local v1    # "result":I
+    .restart local v0    # "result":I
     :cond_2
     sget v2, Lhooks/Monolith;->MyCheckSigsBehavior:I
 
@@ -519,8 +513,8 @@
 
 .method public static contextOpenFileInput(Landroid/content/Context;Ljava/lang/String;)Ljava/io/FileInputStream;
     .locals 1
-    .parameter "c"
-    .parameter "s"
+    .param p0, "c"    # Landroid/content/Context;
+    .param p1, "s"    # Ljava/lang/String;
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/FileNotFoundException;
@@ -534,7 +528,7 @@
     move-result-object v0
 
     .line 901
-    .local v0, fis:Ljava/io/FileInputStream;
+    .local v0, "fis":Ljava/io/FileInputStream;
     invoke-static {v0, p1}, Lhooks/Monolith;->watchInputStream(Ljava/lang/Object;Ljava/lang/String;)V
 
     .line 902
@@ -543,7 +537,7 @@
 
 .method private static fixSysCmd(Ljava/lang/String;)Ljava/lang/String;
     .locals 5
-    .parameter "cmd"
+    .param p0, "cmd"    # Ljava/lang/String;
 
     .prologue
     const/4 v4, 0x1
@@ -587,11 +581,11 @@
     move-result-object v0
 
     .line 1039
-    .local v0, args:[Ljava/lang/String;
+    .local v0, "args":[Ljava/lang/String;
     move-object v1, p0
 
     .line 1041
-    .local v1, newCmd:Ljava/lang/String;
+    .local v1, "newCmd":Ljava/lang/String;
     array-length v2, v0
 
     const/4 v3, 0x2
@@ -685,10 +679,10 @@
     const-string v1, ""
 
     .line 1107
-    .local v1, mac:Ljava/lang/String;
+    .local v1, "mac":Ljava/lang/String;
     const/4 v0, 0x0
 
-    .local v0, i:I
+    .local v0, "i":I
     :goto_0
     const/4 v2, 0x6
 
@@ -749,7 +743,7 @@
 
 .method protected static generateString(I)Ljava/lang/String;
     .locals 1
-    .parameter "length"
+    .param p0, "length"    # I
 
     .prologue
     .line 1164
@@ -764,8 +758,8 @@
 
 .method protected static generateString(Ljava/lang/String;I)Ljava/lang/String;
     .locals 4
-    .parameter "charSet"
-    .parameter "length"
+    .param p0, "charSet"    # Ljava/lang/String;
+    .param p1, "length"    # I
 
     .prologue
     .line 1170
@@ -774,14 +768,14 @@
     invoke-direct {v1}, Ljava/util/Random;-><init>()V
 
     .line 1171
-    .local v1, rng:Ljava/util/Random;
+    .local v1, "rng":Ljava/util/Random;
     new-array v2, p1, [C
 
     .line 1172
-    .local v2, text:[C
+    .local v2, "text":[C
     const/4 v0, 0x0
 
-    .local v0, i:I
+    .local v0, "i":I
     :goto_0
     if-lt v0, p1, :cond_0
 
@@ -816,7 +810,7 @@
 
 .method public static getAccountName(Landroid/accounts/Account;)Ljava/lang/String;
     .locals 9
-    .parameter "act"
+    .param p0, "act"    # Landroid/accounts/Account;
 
     .prologue
     const/16 v8, 0xa
@@ -825,19 +819,19 @@
     const-string v3, "jrhacker"
 
     .line 672
-    .local v3, spoofActName:Ljava/lang/String;
+    .local v3, "spoofActName":Ljava/lang/String;
     iget-object v1, p0, Landroid/accounts/Account;->name:Ljava/lang/String;
 
     .line 675
-    .local v1, realActName:Ljava/lang/String;
+    .local v1, "realActName":Ljava/lang/String;
     const/4 v2, 0x0
 
     .line 676
-    .local v2, settings:Landroid/content/SharedPreferences;
+    .local v2, "settings":Landroid/content/SharedPreferences;
     const-string v4, ""
 
     .line 677
-    .local v4, storedID:Ljava/lang/String;
+    .local v4, "storedID":Ljava/lang/String;
     sget-object v5, Lhooks/Monolith;->AppContext:Landroid/content/Context;
 
     if-eqz v5, :cond_1
@@ -979,7 +973,7 @@
     move-result-object v0
 
     .line 707
-    .local v0, editor:Landroid/content/SharedPreferences$Editor;
+    .local v0, "editor":Landroid/content/SharedPreferences$Editor;
     const-string v5, "act_nm"
 
     invoke-interface {v0, v5, v3}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
@@ -990,7 +984,7 @@
     goto :goto_1
 
     .line 714
-    .end local v0           #editor:Landroid/content/SharedPreferences$Editor;
+    .end local v0    # "editor":Landroid/content/SharedPreferences$Editor;
     :pswitch_3
     const-string v3, "%!AccountNameSpoof%"
 
@@ -1010,8 +1004,8 @@
 
 .method public static getApplicationEnabledSetting(Landroid/content/pm/PackageManager;Ljava/lang/String;)I
     .locals 4
-    .parameter "pm"
-    .parameter "packageName"
+    .param p0, "pm"    # Landroid/content/pm/PackageManager;
+    .param p1, "packageName"    # Ljava/lang/String;
 
     .prologue
     .line 286
@@ -1023,7 +1017,7 @@
     move-result v1
 
     .line 293
-    .local v1, result:I
+    .local v1, "result":I
     :goto_0
     const/4 v2, 0x2
 
@@ -1064,21 +1058,21 @@
     return v1
 
     .line 288
-    .end local v1           #result:I
+    .end local v1    # "result":I
     :catch_0
     move-exception v0
 
     .line 289
-    .local v0, ex:Ljava/lang/IllegalArgumentException;
+    .local v0, "ex":Ljava/lang/IllegalArgumentException;
     const/4 v1, 0x0
 
-    .restart local v1       #result:I
+    .restart local v1    # "result":I
     goto :goto_0
 .end method
 
 .method public static getApplicationInfo(Landroid/content/Context;)Landroid/content/pm/ApplicationInfo;
     .locals 3
-    .parameter "c"
+    .param p0, "c"    # Landroid/content/Context;
     .annotation build Landroid/annotation/TargetApi;
         value = 0x4
     .end annotation
@@ -1090,11 +1084,11 @@
     move-result-object v0
 
     .line 304
-    .local v0, ai:Landroid/content/pm/ApplicationInfo;
+    .local v0, "ai":Landroid/content/pm/ApplicationInfo;
     const/4 v1, 0x2
 
     .line 305
-    .local v1, flag:I
+    .local v1, "flag":I
     iget v2, v0, Landroid/content/pm/ApplicationInfo;->flags:I
 
     and-int/2addr v2, v1
@@ -1120,28 +1114,28 @@
 
 .method public static getBTMac(Landroid/bluetooth/BluetoothAdapter;)Ljava/lang/String;
     .locals 8
-    .parameter "bta"
+    .param p0, "bta"    # Landroid/bluetooth/BluetoothAdapter;
 
     .prologue
     .line 787
     const-string v3, "90:31:B3:62:44:17"
 
     .line 788
-    .local v3, spoofMac:Ljava/lang/String;
+    .local v3, "spoofMac":Ljava/lang/String;
     invoke-virtual {p0}, Landroid/bluetooth/BluetoothAdapter;->getAddress()Ljava/lang/String;
 
     move-result-object v1
 
     .line 791
-    .local v1, realMac:Ljava/lang/String;
+    .local v1, "realMac":Ljava/lang/String;
     const/4 v2, 0x0
 
     .line 792
-    .local v2, settings:Landroid/content/SharedPreferences;
+    .local v2, "settings":Landroid/content/SharedPreferences;
     const-string v4, ""
 
     .line 793
-    .local v4, storedID:Ljava/lang/String;
+    .local v4, "storedID":Ljava/lang/String;
     sget-object v5, Lhooks/Monolith;->AppContext:Landroid/content/Context;
 
     if-eqz v5, :cond_1
@@ -1277,7 +1271,7 @@
     move-result-object v0
 
     .line 819
-    .local v0, editor:Landroid/content/SharedPreferences$Editor;
+    .local v0, "editor":Landroid/content/SharedPreferences$Editor;
     const-string v5, "wifi_mac"
 
     invoke-interface {v0, v5, v3}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
@@ -1288,7 +1282,7 @@
     goto :goto_1
 
     .line 826
-    .end local v0           #editor:Landroid/content/SharedPreferences$Editor;
+    .end local v0    # "editor":Landroid/content/SharedPreferences$Editor;
     :pswitch_3
     const-string v3, "%!BTMacSpoof%"
 
@@ -1314,21 +1308,21 @@
     const-string v3, "319261750826054"
 
     .line 400
-    .local v3, spoofID:Ljava/lang/String;
+    .local v3, "spoofID":Ljava/lang/String;
     invoke-static {}, Lhooks/Monolith;->getRealDeviceID()Ljava/lang/String;
 
     move-result-object v1
 
     .line 403
-    .local v1, realID:Ljava/lang/String;
+    .local v1, "realID":Ljava/lang/String;
     const/4 v2, 0x0
 
     .line 404
-    .local v2, settings:Landroid/content/SharedPreferences;
+    .local v2, "settings":Landroid/content/SharedPreferences;
     const-string v4, ""
 
     .line 405
-    .local v4, storedID:Ljava/lang/String;
+    .local v4, "storedID":Ljava/lang/String;
     sget-object v5, Lhooks/Monolith;->AppContext:Landroid/content/Context;
 
     if-eqz v5, :cond_1
@@ -1472,7 +1466,7 @@
     move-result-object v0
 
     .line 437
-    .local v0, editor:Landroid/content/SharedPreferences$Editor;
+    .local v0, "editor":Landroid/content/SharedPreferences$Editor;
     const-string v5, "android_id"
 
     invoke-interface {v0, v5, v3}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
@@ -1483,7 +1477,7 @@
     goto :goto_1
 
     .line 433
-    .end local v0           #editor:Landroid/content/SharedPreferences$Editor;
+    .end local v0    # "editor":Landroid/content/SharedPreferences$Editor;
     :cond_3
     invoke-static {}, Lhooks/Monolith;->getPermutedDeviceID()Ljava/lang/String;
 
@@ -1518,8 +1512,8 @@
 
 .method public static getInstallerPackageName(Landroid/content/pm/PackageManager;Ljava/lang/String;)Ljava/lang/String;
     .locals 4
-    .parameter "pm"
-    .parameter "packageName"
+    .param p0, "pm"    # Landroid/content/pm/PackageManager;
+    .param p1, "packageName"    # Ljava/lang/String;
 
     .prologue
     .line 270
@@ -1528,7 +1522,7 @@
     move-result-object v1
 
     .line 273
-    .local v1, result:Ljava/lang/String;
+    .local v1, "result":Ljava/lang/String;
     if-nez v1, :cond_0
 
     .line 274
@@ -1541,7 +1535,7 @@
     move-result-object v0
 
     .line 277
-    .local v0, real:Ljava/lang/String;
+    .local v0, "real":Ljava/lang/String;
     new-instance v2, Ljava/lang/StringBuilder;
 
     const-string v3, "getInstallerPackageName("
@@ -1586,8 +1580,8 @@
 
 .method public static getJarEntry(Ljava/util/jar/JarFile;Ljava/lang/String;)Ljava/util/jar/JarEntry;
     .locals 2
-    .parameter "jf"
-    .parameter "entryName"
+    .param p0, "jf"    # Ljava/util/jar/JarFile;
+    .param p1, "entryName"    # Ljava/lang/String;
 
     .prologue
     .line 206
@@ -1627,14 +1621,14 @@
 
 .method public static getNetworkOperator(Landroid/telephony/TelephonyManager;)Ljava/lang/String;
     .locals 3
-    .parameter "tm"
+    .param p0, "tm"    # Landroid/telephony/TelephonyManager;
 
     .prologue
     .line 725
     const-string v0, "%!NetworkOperatorSpoof%"
 
     .line 726
-    .local v0, result:Ljava/lang/String;
+    .local v0, "result":Ljava/lang/String;
     const-string v1, "%!NetworkOperatorSpoof%"
 
     invoke-virtual {v1}, Ljava/lang/String;->length()I
@@ -1700,7 +1694,7 @@
     move-result-object v3
 
     .line 930
-    .local v3, ste:[Ljava/lang/StackTraceElement;
+    .local v3, "ste":[Ljava/lang/StackTraceElement;
     const-class v6, Lhooks/Monolith;
 
     invoke-virtual {v6}, Ljava/lang/Class;->getPackage()Ljava/lang/Package;
@@ -1712,18 +1706,18 @@
     move-result-object v2
 
     .line 932
-    .local v2, pkg:Ljava/lang/String;
+    .local v2, "pkg":Ljava/lang/String;
     const-string v4, ""
 
     .line 933
-    .local v4, trace:Ljava/lang/String;
+    .local v4, "trace":Ljava/lang/String;
     const/4 v5, 0x0
 
     .line 936
-    .local v5, traceCount:I
+    .local v5, "traceCount":I
     const/4 v0, 0x3
 
-    .local v0, i:I
+    .local v0, "i":I
     :goto_0
     array-length v6, v3
 
@@ -1746,7 +1740,7 @@
     move-result-object v1
 
     .line 938
-    .local v1, line:Ljava/lang/String;
+    .local v1, "line":Ljava/lang/String;
     invoke-virtual {v1, v2}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v6
@@ -1803,9 +1797,9 @@
 
 .method public static getPackageInfo(Landroid/content/pm/PackageManager;Ljava/lang/String;I)Landroid/content/pm/PackageInfo;
     .locals 6
-    .parameter "pm"
-    .parameter "packageName"
-    .parameter "flags"
+    .param p0, "pm"    # Landroid/content/pm/PackageManager;
+    .param p1, "packageName"    # Ljava/lang/String;
+    .param p2, "flags"    # I
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/content/pm/PackageManager$NameNotFoundException;
@@ -1846,7 +1840,7 @@
     const/4 v1, 0x0
 
     .line 323
-    .local v1, pi:Landroid/content/pm/PackageInfo;
+    .local v1, "pi":Landroid/content/pm/PackageInfo;
     :try_start_0
     invoke-virtual {p0, p1, p2}, Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;
     :try_end_0
@@ -1901,7 +1895,7 @@
     move-result-object v2
 
     .line 342
-    .local v2, spoofSigs:[Landroid/content/pm/Signature;
+    .local v2, "spoofSigs":[Landroid/content/pm/Signature;
     iget-object v3, v1, Landroid/content/pm/PackageInfo;->signatures:[Landroid/content/pm/Signature;
 
     .line 343
@@ -1913,7 +1907,7 @@
     invoke-static {v2, v5, v3, v5, v4}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
     .line 346
-    .end local v2           #spoofSigs:[Landroid/content/pm/Signature;
+    .end local v2    # "spoofSigs":[Landroid/content/pm/Signature;
     :cond_0
     return-object v1
 
@@ -1922,7 +1916,7 @@
     move-exception v0
 
     .line 326
-    .local v0, e:Landroid/content/pm/PackageManager$NameNotFoundException;
+    .local v0, "e":Landroid/content/pm/PackageManager$NameNotFoundException;
     sget v3, Lhooks/Monolith;->MyGetPIBehavior:I
 
     const/4 v4, 0x1
@@ -2040,17 +2034,17 @@
     aput v6, v2, v5
 
     .line 1078
-    .local v2, p:[I
+    .local v2, "p":[I
     invoke-static {}, Lhooks/Monolith;->getRealDeviceID()Ljava/lang/String;
 
     move-result-object v0
 
     .line 1079
-    .local v0, deviceId:Ljava/lang/String;
+    .local v0, "deviceId":Ljava/lang/String;
     const-string v3, ""
 
     .line 1080
-    .local v3, result:Ljava/lang/String;
+    .local v3, "result":Ljava/lang/String;
     if-eqz v0, :cond_0
 
     .line 1081
@@ -2068,7 +2062,7 @@
     aget v1, v2, v4
 
     .line 1082
-    .local v1, i:I
+    .local v1, "i":I
     new-instance v6, Ljava/lang/StringBuilder;
 
     invoke-static {v3}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
@@ -2113,7 +2107,7 @@
     check-cast v0, Landroid/telephony/TelephonyManager;
 
     .line 1093
-    .local v0, tm:Landroid/telephony/TelephonyManager;
+    .local v0, "tm":Landroid/telephony/TelephonyManager;
     invoke-virtual {v0}, Landroid/telephony/TelephonyManager;->getDeviceId()Ljava/lang/String;
 
     move-result-object v1
@@ -2123,28 +2117,28 @@
 
 .method public static getWifiMac(Landroid/net/wifi/WifiInfo;)Ljava/lang/String;
     .locals 8
-    .parameter "wi"
+    .param p0, "wi"    # Landroid/net/wifi/WifiInfo;
 
     .prologue
     .line 737
     const-string v3, "90:32:A5:75:12:9C"
 
     .line 738
-    .local v3, spoofMac:Ljava/lang/String;
+    .local v3, "spoofMac":Ljava/lang/String;
     invoke-virtual {p0}, Landroid/net/wifi/WifiInfo;->getMacAddress()Ljava/lang/String;
 
     move-result-object v1
 
     .line 741
-    .local v1, realMac:Ljava/lang/String;
+    .local v1, "realMac":Ljava/lang/String;
     const/4 v2, 0x0
 
     .line 742
-    .local v2, settings:Landroid/content/SharedPreferences;
+    .local v2, "settings":Landroid/content/SharedPreferences;
     const-string v4, ""
 
     .line 743
-    .local v4, storedID:Ljava/lang/String;
+    .local v4, "storedID":Ljava/lang/String;
     sget-object v5, Lhooks/Monolith;->AppContext:Landroid/content/Context;
 
     if-eqz v5, :cond_1
@@ -2280,7 +2274,7 @@
     move-result-object v0
 
     .line 769
-    .local v0, editor:Landroid/content/SharedPreferences$Editor;
+    .local v0, "editor":Landroid/content/SharedPreferences$Editor;
     const-string v5, "wifi_mac"
 
     invoke-interface {v0, v5, v3}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
@@ -2291,7 +2285,7 @@
     goto :goto_1
 
     .line 776
-    .end local v0           #editor:Landroid/content/SharedPreferences$Editor;
+    .end local v0    # "editor":Landroid/content/SharedPreferences$Editor;
     :pswitch_3
     const-string v3, "%!WifiMacSpoof%"
 
@@ -2311,8 +2305,8 @@
 
 .method public static getZipEntry(Ljava/util/zip/ZipFile;Ljava/lang/String;)Ljava/util/zip/ZipEntry;
     .locals 3
-    .parameter "zf"
-    .parameter "entryName"
+    .param p0, "zf"    # Ljava/util/zip/ZipFile;
+    .param p1, "entryName"    # Ljava/lang/String;
 
     .prologue
     .line 211
@@ -2344,7 +2338,7 @@
     move-result-object v0
 
     .line 214
-    .local v0, ze:Ljava/util/zip/ZipEntry;
+    .local v0, "ze":Ljava/util/zip/ZipEntry;
     const-string v1, "classes.dex"
 
     invoke-virtual {p1, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -2393,14 +2387,14 @@
 
 .method private static isChecksumFileName(Ljava/lang/String;)I
     .locals 4
-    .parameter "fileName"
+    .param p0, "fileName"    # Ljava/lang/String;
 
     .prologue
     .line 1011
     const/4 v1, 0x0
 
     .line 1013
-    .local v1, result:I
+    .local v1, "result":I
     new-instance v2, Ljava/lang/StringBuilder;
 
     const-string v3, "isChecksumFileName("
@@ -2431,7 +2425,7 @@
     move-result v0
 
     .line 1018
-    .local v0, pos:I
+    .local v0, "pos":I
     if-gez v0, :cond_0
 
     .line 1019
@@ -2516,14 +2510,14 @@
 
 .method protected static isThisApk(Ljava/io/File;)Z
     .locals 3
-    .parameter "f"
+    .param p0, "f"    # Ljava/io/File;
 
     .prologue
     .line 1055
     const/4 v0, 0x0
 
     .line 1057
-    .local v0, result:Z
+    .local v0, "result":Z
     invoke-virtual {p0}, Ljava/io/File;->exists()Z
 
     move-result v1
@@ -2569,7 +2563,7 @@
 
 .method protected static isThisClassesDex(Ljava/io/File;)Z
     .locals 2
-    .parameter "f"
+    .param p0, "f"    # Ljava/io/File;
 
     .prologue
     .line 1069
@@ -2604,7 +2598,7 @@
 
 .method public static lastModified(Ljava/io/File;)J
     .locals 5
-    .parameter "f"
+    .param p0, "f"    # Ljava/io/File;
 
     .prologue
     .line 370
@@ -2613,7 +2607,7 @@
     move-result-wide v0
 
     .line 371
-    .local v0, retVal:J
+    .local v0, "retVal":J
     invoke-static {p0}, Lhooks/Monolith;->isThisApk(Ljava/io/File;)Z
 
     move-result v2
@@ -2795,7 +2789,7 @@
 
 .method public static length(Ljava/io/File;)J
     .locals 5
-    .parameter "f"
+    .param p0, "f"    # Ljava/io/File;
 
     .prologue
     .line 350
@@ -2804,7 +2798,7 @@
     move-result-wide v0
 
     .line 351
-    .local v0, retVal:J
+    .local v0, "retVal":J
     invoke-static {p0}, Lhooks/Monolith;->isThisApk(Ljava/io/File;)Z
 
     move-result v2
@@ -2986,9 +2980,9 @@
 
 .method public static loadDex(Ljava/lang/String;Ljava/lang/String;I)Ldalvik/system/DexFile;
     .locals 2
-    .parameter "sourcePathName"
-    .parameter "outputPathName"
-    .parameter "flags"
+    .param p0, "sourcePathName"    # Ljava/lang/String;
+    .param p1, "outputPathName"    # Ljava/lang/String;
+    .param p2, "flags"    # I
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -3045,7 +3039,7 @@
 
 .method public static log(I)V
     .locals 1
-    .parameter "i"
+    .param p0, "i"    # I
 
     .prologue
     .line 953
@@ -3061,7 +3055,7 @@
 
 .method public static log(J)V
     .locals 1
-    .parameter "i"
+    .param p0, "i"    # J
 
     .prologue
     .line 959
@@ -3077,7 +3071,7 @@
 
 .method public static log(Ljava/lang/Object;)V
     .locals 2
-    .parameter "o"
+    .param p0, "o"    # Ljava/lang/Object;
 
     .prologue
     .line 920
@@ -3104,7 +3098,7 @@
 
 .method public static logmt(Ljava/lang/Object;)V
     .locals 5
-    .parameter "o"
+    .param p0, "o"    # Ljava/lang/Object;
 
     .prologue
     .line 964
@@ -3144,7 +3138,7 @@
     invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
 
     .line 971
-    .local v1, sb:Ljava/lang/StringBuilder;
+    .local v1, "sb":Ljava/lang/StringBuilder;
     const-string v2, "\n"
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -3172,7 +3166,7 @@
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
     .line 980
-    .end local v1           #sb:Ljava/lang/StringBuilder;
+    .end local v1    # "sb":Ljava/lang/StringBuilder;
     :cond_1
     :goto_0
     return-void
@@ -3182,7 +3176,7 @@
     move-exception v0
 
     .line 976
-    .local v0, e:Ljava/lang/Exception;
+    .local v0, "e":Ljava/lang/Exception;
     const-string v2, "sequencer"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -3209,7 +3203,7 @@
 
 .method private static mentionsOurPackage(Ljava/lang/String;)Z
     .locals 3
-    .parameter "someStr"
+    .param p0, "someStr"    # Ljava/lang/String;
 
     .prologue
     .line 1158
@@ -3220,7 +3214,7 @@
     move-result-object v0
 
     .line 1159
-    .local v0, pkg:Ljava/lang/String;
+    .local v0, "pkg":Ljava/lang/String;
     const/4 v1, 0x0
 
     const/16 v2, 0x2e
@@ -3245,8 +3239,8 @@
 
 .method public static osWrite(Ljava/io/OutputStream;Ljava/lang/String;)V
     .locals 1
-    .parameter "os"
-    .parameter "str"
+    .param p0, "os"    # Ljava/io/OutputStream;
+    .param p1, "str"    # Ljava/lang/String;
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -3267,8 +3261,8 @@
 
 .method public static osWrite(Ljava/io/OutputStream;[B)V
     .locals 7
-    .parameter "os"
-    .parameter "barr"
+    .param p0, "os"    # Ljava/io/OutputStream;
+    .param p1, "barr"    # [B
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -3316,7 +3310,7 @@
     const/4 v3, 0x0
 
     .line 487
-    .local v3, target:Z
+    .local v3, "target":Z
     invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v5
@@ -3352,7 +3346,7 @@
     move-result-object v2
 
     .line 510
-    .local v2, newCmd:Ljava/lang/String;
+    .local v2, "newCmd":Ljava/lang/String;
     new-instance v5, Ljava/lang/StringBuilder;
 
     const-string v6, "osWrite() new cmd = "
@@ -3375,8 +3369,8 @@
     move-result-object p1
 
     .line 515
-    .end local v2           #newCmd:Ljava/lang/String;
-    .end local v3           #target:Z
+    .end local v2    # "newCmd":Ljava/lang/String;
+    .end local v3    # "target":Z
     :cond_1
     invoke-virtual {p0, p1}, Ljava/io/OutputStream;->write([B)V
 
@@ -3384,7 +3378,7 @@
     return-void
 
     .line 491
-    .restart local v3       #target:Z
+    .restart local v3    # "target":Z
     :cond_2
     invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
@@ -3408,7 +3402,7 @@
     const/4 v1, 0x0
 
     .line 495
-    .local v1, f:Ljava/lang/reflect/Field;
+    .local v1, "f":Ljava/lang/reflect/Field;
     :try_start_0
     const-class v5, Ljava/io/FilterOutputStream;
 
@@ -3432,7 +3426,7 @@
     check-cast v4, Ljava/io/OutputStream;
 
     .line 499
-    .local v4, theOs:Ljava/io/OutputStream;
+    .local v4, "theOs":Ljava/io/OutputStream;
     sget-object v5, Lhooks/Monolith;->MyWatchedProcess:Ljava/lang/Process;
 
     invoke-virtual {v5}, Ljava/lang/Process;->getOutputStream()Ljava/io/OutputStream;
@@ -3449,12 +3443,12 @@
     goto :goto_0
 
     .line 503
-    .end local v4           #theOs:Ljava/io/OutputStream;
+    .end local v4    # "theOs":Ljava/io/OutputStream;
     :catch_0
     move-exception v0
 
     .line 504
-    .local v0, e:Ljava/lang/Exception;
+    .local v0, "e":Ljava/lang/Exception;
     new-instance v5, Ljava/lang/StringBuilder;
 
     const-string v6, "osWrite() exception: "
@@ -3476,8 +3470,8 @@
 
 .method public static runtimeExec(Ljava/lang/Runtime;Ljava/lang/String;)Ljava/lang/Process;
     .locals 3
-    .parameter "rt"
-    .parameter "cmd"
+    .param p0, "rt"    # Ljava/lang/Runtime;
+    .param p1, "cmd"    # Ljava/lang/String;
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;
@@ -3491,7 +3485,7 @@
     move-result-object v0
 
     .line 472
-    .local v0, newCmd:Ljava/lang/String;
+    .local v0, "newCmd":Ljava/lang/String;
     new-instance v1, Ljava/lang/StringBuilder;
 
     const-string v2, "runtimeExec("
@@ -3528,7 +3522,7 @@
 
 .method private static scrubStackTrace(Ljava/lang/String;)Ljava/lang/String;
     .locals 7
-    .parameter "stackTrace"
+    .param p0, "stackTrace"    # Ljava/lang/String;
 
     .prologue
     .line 1145
@@ -3539,11 +3533,11 @@
     move-result-object v1
 
     .line 1146
-    .local v1, lines:[Ljava/lang/String;
+    .local v1, "lines":[Ljava/lang/String;
     const-string v2, ""
 
     .line 1147
-    .local v2, result:Ljava/lang/String;
+    .local v2, "result":Ljava/lang/String;
     array-length v4, v1
 
     const/4 v3, 0x0
@@ -3559,7 +3553,7 @@
     aget-object v0, v1, v3
 
     .line 1148
-    .local v0, line:Ljava/lang/String;
+    .local v0, "line":Ljava/lang/String;
     invoke-static {v0}, Lhooks/Monolith;->mentionsOurPackage(Ljava/lang/String;)Z
 
     move-result v5
@@ -3598,7 +3592,7 @@
 
 .method private static scrubStackTrace([Ljava/lang/StackTraceElement;)[Ljava/lang/StackTraceElement;
     .locals 6
-    .parameter "ste"
+    .param p0, "ste"    # [Ljava/lang/StackTraceElement;
 
     .prologue
     .line 1133
@@ -3607,7 +3601,7 @@
     invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
     .line 1134
-    .local v2, newStackList:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Ljava/lang/StackTraceElement;>;"
+    .local v2, "newStackList":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Ljava/lang/StackTraceElement;>;"
     array-length v4, p0
 
     const/4 v3, 0x0
@@ -3624,7 +3618,7 @@
     new-array v1, v3, [Ljava/lang/StackTraceElement;
 
     .line 1141
-    .local v1, newStack:[Ljava/lang/StackTraceElement;
+    .local v1, "newStack":[Ljava/lang/StackTraceElement;
     invoke-virtual {v2, v1}, Ljava/util/ArrayList;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
 
     move-result-object v3
@@ -3634,12 +3628,12 @@
     return-object v3
 
     .line 1134
-    .end local v1           #newStack:[Ljava/lang/StackTraceElement;
+    .end local v1    # "newStack":[Ljava/lang/StackTraceElement;
     :cond_0
     aget-object v0, p0, v3
 
     .line 1135
-    .local v0, e:Ljava/lang/StackTraceElement;
+    .local v0, "e":Ljava/lang/StackTraceElement;
     invoke-virtual {v0}, Ljava/lang/StackTraceElement;->getClassName()Ljava/lang/String;
 
     move-result-object v5
@@ -3662,7 +3656,7 @@
 
 .method public static setAppContext(Landroid/content/Context;)V
     .locals 1
-    .parameter "c"
+    .param p0, "c"    # Landroid/content/Context;
 
     .prologue
     .line 913
@@ -3680,7 +3674,7 @@
 
 .method public static setStackTrace(Ljava/lang/Throwable;)V
     .locals 1
-    .parameter "th"
+    .param p0, "th"    # Ljava/lang/Throwable;
 
     .prologue
     .line 546
@@ -3705,8 +3699,8 @@
 
 .method public static signatureVerify(Ljava/security/Signature;[B)Z
     .locals 3
-    .parameter "s"
-    .parameter "signature"
+    .param p0, "s"    # Ljava/security/Signature;
+    .param p1, "signature"    # [B
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/security/SignatureException;
@@ -3718,7 +3712,7 @@
     const/4 v0, 0x1
 
     .line 522
-    .local v0, result:Z
+    .local v0, "result":Z
     sget v1, Lhooks/Monolith;->MySigVerifyBehavior:I
 
     if-eqz v1, :cond_0
@@ -3768,10 +3762,10 @@
 
 .method public static signatureVerify(Ljava/security/Signature;[BII)Z
     .locals 3
-    .parameter "s"
-    .parameter "signature"
-    .parameter "offset"
-    .parameter "length"
+    .param p0, "s"    # Ljava/security/Signature;
+    .param p1, "signature"    # [B
+    .param p2, "offset"    # I
+    .param p3, "length"    # I
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/security/SignatureException;
@@ -3783,7 +3777,7 @@
     const/4 v0, 0x1
 
     .line 536
-    .local v0, result:Z
+    .local v0, "result":Z
     sget v1, Lhooks/Monolith;->MySigVerifyBehavior:I
 
     if-eqz v1, :cond_0
@@ -3817,7 +3811,7 @@
 
 .method public static spoofChecksum(Ljava/util/zip/Checksum;)J
     .locals 5
-    .parameter "cs"
+    .param p0, "cs"    # Ljava/util/zip/Checksum;
 
     .prologue
     .line 637
@@ -3853,7 +3847,7 @@
     move-result-wide v1
 
     .line 640
-    .local v1, result:J
+    .local v1, "result":J
     sget-object v3, Lhooks/Monolith;->MyWatchedChecksumsOrDigests:Ljava/util/HashMap;
 
     invoke-virtual {v3, p0}, Ljava/util/HashMap;->containsKey(Ljava/lang/Object;)Z
@@ -3872,7 +3866,7 @@
     check-cast v0, Ljava/lang/String;
 
     .line 644
-    .local v0, fileName:Ljava/lang/String;
+    .local v0, "fileName":Ljava/lang/String;
     invoke-static {v0}, Lhooks/Monolith;->isChecksumFileName(Ljava/lang/String;)I
 
     move-result v3
@@ -3880,7 +3874,7 @@
     packed-switch v3, :pswitch_data_0
 
     .line 666
-    .end local v0           #fileName:Ljava/lang/String;
+    .end local v0    # "fileName":Ljava/lang/String;
     :cond_0
     :goto_0
     new-instance v3, Ljava/lang/StringBuilder;
@@ -3903,7 +3897,7 @@
     return-wide v1
 
     .line 646
-    .restart local v0       #fileName:Ljava/lang/String;
+    .restart local v0    # "fileName":Ljava/lang/String;
     :pswitch_0
     const-string v3, "  giving APP chksum!"
 
@@ -3984,7 +3978,7 @@
 
 .method public static spoofDigest(Ljava/security/MessageDigest;)[B
     .locals 5
-    .parameter "md"
+    .param p0, "md"    # Ljava/security/MessageDigest;
 
     .prologue
     .line 587
@@ -4064,7 +4058,7 @@
     const/4 v2, 0x0
 
     .line 604
-    .local v2, result:[B
+    .local v2, "result":[B
     sget-object v3, Lhooks/Monolith;->MyWatchedChecksumsOrDigests:Ljava/util/HashMap;
 
     invoke-virtual {v3, p0}, Ljava/util/HashMap;->containsKey(Ljava/lang/Object;)Z
@@ -4083,7 +4077,7 @@
     check-cast v1, Ljava/lang/String;
 
     .line 606
-    .local v1, fileName:Ljava/lang/String;
+    .local v1, "fileName":Ljava/lang/String;
     invoke-static {v1}, Lhooks/Monolith;->isChecksumFileName(Ljava/lang/String;)I
 
     move-result v3
@@ -4091,7 +4085,7 @@
     packed-switch v3, :pswitch_data_0
 
     .line 632
-    .end local v1           #fileName:Ljava/lang/String;
+    .end local v1    # "fileName":Ljava/lang/String;
     :goto_1
     new-instance v3, Ljava/lang/StringBuilder;
 
@@ -4117,20 +4111,20 @@
     return-object v2
 
     .line 595
-    .end local v2           #result:[B
+    .end local v2    # "result":[B
     :catch_0
     move-exception v0
 
     .line 596
-    .local v0, e:Ljava/lang/Exception;
+    .local v0, "e":Ljava/lang/Exception;
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_0
 
     .line 608
-    .end local v0           #e:Ljava/lang/Exception;
-    .restart local v1       #fileName:Ljava/lang/String;
-    .restart local v2       #result:[B
+    .end local v0    # "e":Ljava/lang/Exception;
+    .restart local v1    # "fileName":Ljava/lang/String;
+    .restart local v2    # "result":[B
     :pswitch_0
     const-string v3, "  giving APP digest!"
 
@@ -4194,7 +4188,7 @@
     goto :goto_1
 
     .line 628
-    .end local v1           #fileName:Ljava/lang/String;
+    .end local v1    # "fileName":Ljava/lang/String;
     :cond_3
     const-string v3, "  don\'t really know what we\'re digesting. sending the real thing!"
 
@@ -4232,18 +4226,18 @@
     move-result v0
 
     .line 1117
-    .local v0, certCount:I
+    .local v0, "certCount":I
     new-array v3, v0, [Landroid/content/pm/Signature;
 
     .line 1122
-    .local v3, result:[Landroid/content/pm/Signature;
+    .local v3, "result":[Landroid/content/pm/Signature;
     const-string v2, "%!SignatureChars%"
 
     .line 1124
-    .local v2, replace:Ljava/lang/String;
+    .local v2, "replace":Ljava/lang/String;
     const/4 v1, 0x0
 
-    .local v1, i:I
+    .local v1, "i":I
     :goto_0
     if-lt v1, v0, :cond_0
 
@@ -4281,17 +4275,17 @@
     invoke-direct {v0}, Ljava/io/ByteArrayOutputStream;-><init>()V
 
     .line 560
-    .local v0, baos:Ljava/io/ByteArrayOutputStream;
+    .local v0, "baos":Ljava/io/ByteArrayOutputStream;
     new-instance v2, Ljava/io/PrintStream;
 
     invoke-direct {v2, v0}, Ljava/io/PrintStream;-><init>(Ljava/io/OutputStream;)V
 
     .line 561
-    .local v2, ps:Ljava/io/PrintStream;
+    .local v2, "ps":Ljava/io/PrintStream;
     sget-object v1, Ljava/lang/System;->err:Ljava/io/PrintStream;
 
     .line 563
-    .local v1, origPS:Ljava/io/PrintStream;
+    .local v1, "origPS":Ljava/io/PrintStream;
     invoke-static {v2}, Ljava/lang/System;->setErr(Ljava/io/PrintStream;)V
 
     .line 564
@@ -4310,7 +4304,7 @@
     move-result-object v3
 
     .line 568
-    .local v3, trace:Ljava/lang/String;
+    .local v3, "trace":Ljava/lang/String;
     sget-object v4, Ljava/lang/System;->err:Ljava/io/PrintStream;
 
     invoke-virtual {v4, v3}, Ljava/io/PrintStream;->println(Ljava/lang/String;)V
@@ -4321,7 +4315,7 @@
 
 .method public static threadGetStackTrace(Ljava/lang/Thread;)[Ljava/lang/StackTraceElement;
     .locals 1
-    .parameter "t"
+    .param p0, "t"    # Ljava/lang/Thread;
 
     .prologue
     .line 552
@@ -4343,7 +4337,7 @@
 
 .method public static throwablePrintStackTrace(Ljava/lang/Throwable;)V
     .locals 5
-    .parameter "t"
+    .param p0, "t"    # Ljava/lang/Throwable;
 
     .prologue
     .line 573
@@ -4357,17 +4351,17 @@
     invoke-direct {v0}, Ljava/io/ByteArrayOutputStream;-><init>()V
 
     .line 575
-    .local v0, baos:Ljava/io/ByteArrayOutputStream;
+    .local v0, "baos":Ljava/io/ByteArrayOutputStream;
     new-instance v2, Ljava/io/PrintStream;
 
     invoke-direct {v2, v0}, Ljava/io/PrintStream;-><init>(Ljava/io/OutputStream;)V
 
     .line 576
-    .local v2, ps:Ljava/io/PrintStream;
+    .local v2, "ps":Ljava/io/PrintStream;
     sget-object v1, Ljava/lang/System;->err:Ljava/io/PrintStream;
 
     .line 578
-    .local v1, origPS:Ljava/io/PrintStream;
+    .local v1, "origPS":Ljava/io/PrintStream;
     invoke-static {v2}, Ljava/lang/System;->setErr(Ljava/io/PrintStream;)V
 
     .line 579
@@ -4386,7 +4380,7 @@
     move-result-object v3
 
     .line 583
-    .local v3, trace:Ljava/lang/String;
+    .local v3, "trace":Ljava/lang/String;
     sget-object v4, Ljava/lang/System;->err:Ljava/io/PrintStream;
 
     invoke-virtual {v4, v3}, Ljava/io/PrintStream;->println(Ljava/lang/String;)V
@@ -4397,7 +4391,7 @@
 
 .method public static toast(Ljava/lang/Object;)V
     .locals 5
-    .parameter "o"
+    .param p0, "o"    # Ljava/lang/Object;
 
     .prologue
     const/4 v4, 0x1
@@ -4425,7 +4419,7 @@
     move-result-object v0
 
     .line 991
-    .local v0, str:Ljava/lang/String;
+    .local v0, "str":Ljava/lang/String;
     sget-object v2, Lhooks/Monolith;->AppContext:Landroid/content/Context;
 
     invoke-static {v2, v0, v4}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
@@ -4433,7 +4427,7 @@
     move-result-object v1
 
     .line 994
-    .local v1, t:Landroid/widget/Toast;
+    .local v1, "t":Landroid/widget/Toast;
     const/16 v2, 0x31
 
     invoke-virtual {v1, v2, v3, v3}, Landroid/widget/Toast;->setGravity(III)V
@@ -4490,8 +4484,8 @@
 
 .method public static watchChecksum(Ljava/io/InputStream;Ljava/util/zip/Checksum;)V
     .locals 2
-    .parameter "is"
-    .parameter "chk"
+    .param p0, "is"    # Ljava/io/InputStream;
+    .param p1, "chk"    # Ljava/util/zip/Checksum;
 
     .prologue
     .line 845
@@ -4518,7 +4512,7 @@
     check-cast v0, Ljava/lang/String;
 
     .line 847
-    .local v0, fileName:Ljava/lang/String;
+    .local v0, "fileName":Ljava/lang/String;
     if-nez v0, :cond_1
 
     .line 848
@@ -4539,7 +4533,7 @@
 
 .method public static watchDigest(Ljava/security/MessageDigest;)V
     .locals 3
-    .parameter "md"
+    .param p0, "md"    # Ljava/security/MessageDigest;
 
     .prologue
     .line 856
@@ -4586,7 +4580,7 @@
     check-cast v0, Ljava/lang/String;
 
     .line 866
-    .local v0, fileName:Ljava/lang/String;
+    .local v0, "fileName":Ljava/lang/String;
     if-nez v0, :cond_2
 
     .line 867
@@ -4624,8 +4618,8 @@
 
 .method public static watchInputStream(Ljava/lang/Object;Ljava/io/File;)V
     .locals 1
-    .parameter "is"
-    .parameter "f"
+    .param p0, "is"    # Ljava/lang/Object;
+    .param p1, "f"    # Ljava/io/File;
 
     .prologue
     .line 883
@@ -4641,8 +4635,8 @@
 
 .method public static watchInputStream(Ljava/lang/Object;Ljava/lang/String;)V
     .locals 2
-    .parameter "is"
-    .parameter "fileName"
+    .param p0, "is"    # Ljava/lang/Object;
+    .param p1, "fileName"    # Ljava/lang/String;
 
     .prologue
     .line 889
@@ -4655,12 +4649,12 @@
     if-eqz v0, :cond_0
 
     .line 896
-    .end local p0
+    .end local p0    # "is":Ljava/lang/Object;
     :goto_0
     return-void
 
     .line 893
-    .restart local p0
+    .restart local p0    # "is":Ljava/lang/Object;
     :cond_0
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -4689,7 +4683,7 @@
 
     check-cast p0, Ljava/io/InputStream;
 
-    .end local p0
+    .end local p0    # "is":Ljava/lang/Object;
     invoke-virtual {v0, p0, p1}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
     goto :goto_0
@@ -4697,7 +4691,7 @@
 
 .method public static watchInputStreamReadForDigest(Ljava/lang/Object;)V
     .locals 1
-    .parameter "is"
+    .param p0, "is"    # Ljava/lang/Object;
 
     .prologue
     .line 876
@@ -4708,7 +4702,7 @@
     .line 877
     check-cast p0, Ljava/io/InputStream;
 
-    .end local p0
+    .end local p0    # "is":Ljava/lang/Object;
     sput-object p0, Lhooks/Monolith;->LastReadInputStream:Ljava/io/InputStream;
 
     .line 879
@@ -4718,7 +4712,7 @@
 
 .method public static watchProcess(Ljava/lang/Process;)V
     .locals 0
-    .parameter "p"
+    .param p0, "p"    # Ljava/lang/Process;
 
     .prologue
     .line 906
@@ -4732,8 +4726,8 @@
 # virtual methods
 .method public getSettingsString(Landroid/content/ContentResolver;Ljava/lang/String;)Ljava/lang/String;
     .locals 1
-    .parameter "cr"
-    .parameter "setting"
+    .param p1, "cr"    # Landroid/content/ContentResolver;
+    .param p2, "setting"    # Ljava/lang/String;
 
     .prologue
     .line 458

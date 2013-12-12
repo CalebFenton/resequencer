@@ -4,8 +4,7 @@
 
 
 # static fields
-#the value of this static final field might be set in the static constructor
-.field static final synthetic $assertionsDisabled:Z = false
+.field static final synthetic $assertionsDisabled:Z
 
 .field private static final Encoded:Ljava/lang/String; = "SXQgaXMgYnkgd2lsbCBhbG9uZSBJIHNldCBteSBtaW5kIGluIG1vdGlvbi4hQCMkJV4mKigpXys8\nPjoie307Oic="
 
@@ -65,7 +64,7 @@
     move-result-object v0
 
     .line 21
-    .local v0, decoded:[B
+    .local v0, "decoded":[B
     sget-boolean v1, Lhooks/CryptUtilsTest;->$assertionsDisabled:Z
 
     if-nez v1, :cond_0
@@ -109,7 +108,7 @@
     move-result-object v0
 
     .line 15
-    .local v0, encoded:Ljava/lang/String;
+    .local v0, "encoded":Ljava/lang/String;
     sget-boolean v1, Lhooks/CryptUtilsTest;->$assertionsDisabled:Z
 
     if-nez v1, :cond_0

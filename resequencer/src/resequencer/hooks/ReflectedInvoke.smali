@@ -16,9 +16,9 @@
 
 .method public static invokeHook(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
     .locals 18
-    .parameter "method"
-    .parameter "receiver"
-    .parameter "args"
+    .param p0, "method"    # Ljava/lang/reflect/Method;
+    .param p1, "receiver"    # Ljava/lang/Object;
+    .param p2, "args"    # [Ljava/lang/Object;
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Exception;
@@ -30,13 +30,13 @@
     const-string v3, "unknown-static"
 
     .line 68
-    .local v3, className:Ljava/lang/String;
+    .local v3, "className":Ljava/lang/String;
     invoke-virtual/range {p0 .. p0}, Ljava/lang/reflect/Method;->getName()Ljava/lang/String;
 
     move-result-object v7
 
     .line 69
-    .local v7, methodName:Ljava/lang/String;
+    .local v7, "methodName":Ljava/lang/String;
     if-eqz p1, :cond_5
 
     .line 70
@@ -83,14 +83,14 @@
     move-result-object v6
 
     .line 79
-    .local v6, logStr:Ljava/lang/String;
+    .local v6, "logStr":Ljava/lang/String;
     if-eqz p2, :cond_1
 
     .line 80
     const-string v2, ""
 
     .line 81
-    .local v2, argStr:Ljava/lang/String;
+    .local v2, "argStr":Ljava/lang/String;
     move-object/from16 v0, p2
 
     array-length v14, v0
@@ -141,7 +141,7 @@
     move-result-object v6
 
     .line 92
-    .end local v2           #argStr:Ljava/lang/String;
+    .end local v2    # "argStr":Ljava/lang/String;
     :cond_1
     new-instance v13, Ljava/lang/StringBuilder;
 
@@ -194,13 +194,13 @@
     invoke-direct {v11}, Ljava/lang/Throwable;-><init>()V
 
     .line 100
-    .local v11, t:Ljava/lang/Throwable;
+    .local v11, "t":Ljava/lang/Throwable;
     invoke-virtual {v11}, Ljava/lang/Throwable;->getStackTrace()[Ljava/lang/StackTraceElement;
 
     move-result-object v12
 
     .line 101
-    .local v12, trace:[Ljava/lang/StackTraceElement;
+    .local v12, "trace":[Ljava/lang/StackTraceElement;
     array-length v13, v12
 
     add-int/lit8 v13, v13, -0x1
@@ -208,7 +208,7 @@
     new-array v8, v13, [Ljava/lang/StackTraceElement;
 
     .line 102
-    .local v8, newTrace:[Ljava/lang/StackTraceElement;
+    .local v8, "newTrace":[Ljava/lang/StackTraceElement;
     const/4 v13, 0x1
 
     const/4 v14, 0x0
@@ -275,7 +275,7 @@
     .line 114
     check-cast p1, Landroid/content/pm/PackageManager;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -295,11 +295,11 @@
     return-object v9
 
     .line 73
-    .end local v6           #logStr:Ljava/lang/String;
-    .end local v8           #newTrace:[Ljava/lang/StackTraceElement;
-    .end local v11           #t:Ljava/lang/Throwable;
-    .end local v12           #trace:[Ljava/lang/StackTraceElement;
-    .restart local p1
+    .end local v6    # "logStr":Ljava/lang/String;
+    .end local v8    # "newTrace":[Ljava/lang/StackTraceElement;
+    .end local v11    # "t":Ljava/lang/Throwable;
+    .end local v12    # "trace":[Ljava/lang/StackTraceElement;
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_5
     invoke-virtual/range {p0 .. p0}, Ljava/lang/reflect/Method;->getDeclaringClass()Ljava/lang/Class;
 
@@ -312,13 +312,13 @@
     goto/16 :goto_0
 
     .line 81
-    .restart local v2       #argStr:Ljava/lang/String;
-    .restart local v6       #logStr:Ljava/lang/String;
+    .restart local v2    # "argStr":Ljava/lang/String;
+    .restart local v6    # "logStr":Ljava/lang/String;
     :cond_6
     aget-object v1, p2, v13
 
     .line 82
-    .local v1, arg:Ljava/lang/Object;
+    .local v1, "arg":Ljava/lang/Object;
     new-instance v15, Ljava/lang/StringBuilder;
 
     invoke-static {v2}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
@@ -330,7 +330,7 @@
     if-nez v1, :cond_7
 
     .line 83
-    .end local v1           #arg:Ljava/lang/Object;
+    .end local v1    # "arg":Ljava/lang/Object;
     :goto_3
     invoke-virtual {v15, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
@@ -347,7 +347,7 @@
     goto/16 :goto_1
 
     .line 82
-    .restart local v1       #arg:Ljava/lang/Object;
+    .restart local v1    # "arg":Ljava/lang/Object;
     :cond_7
     new-instance v16, Ljava/lang/StringBuilder;
 
@@ -391,11 +391,11 @@
     goto :goto_3
 
     .line 116
-    .end local v1           #arg:Ljava/lang/Object;
-    .end local v2           #argStr:Ljava/lang/String;
-    .restart local v8       #newTrace:[Ljava/lang/StackTraceElement;
-    .restart local v11       #t:Ljava/lang/Throwable;
-    .restart local v12       #trace:[Ljava/lang/StackTraceElement;
+    .end local v1    # "arg":Ljava/lang/Object;
+    .end local v2    # "argStr":Ljava/lang/String;
+    .restart local v8    # "newTrace":[Ljava/lang/StackTraceElement;
+    .restart local v11    # "t":Ljava/lang/Throwable;
+    .restart local v12    # "trace":[Ljava/lang/StackTraceElement;
     :cond_8
     const-string v13, "getPackageInfo"
 
@@ -417,7 +417,7 @@
     move-result v5
 
     .line 120
-    .local v5, flags:I
+    .local v5, "flags":I
     const-string v13, "android.content.pm.PackageManager"
 
     invoke-virtual {v3, v13}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -430,7 +430,7 @@
     check-cast p1, Landroid/content/pm/PackageManager;
 
     .line 122
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -447,12 +447,12 @@
     goto :goto_2
 
     .line 128
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_9
     const/4 v9, 0x0
 
     .line 130
-    .local v9, result:Ljava/lang/Object;
+    .local v9, "result":Ljava/lang/Object;
     :try_start_0
     invoke-virtual/range {p0 .. p2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
     :try_end_0
@@ -473,7 +473,7 @@
     move-result-object v10
 
     .line 148
-    .local v10, spoofSigs:[Landroid/content/pm/Signature;
+    .local v10, "spoofSigs":[Landroid/content/pm/Signature;
     const/4 v14, 0x0
 
     move-object v13, v9
@@ -545,12 +545,12 @@
     goto/16 :goto_2
 
     .line 132
-    .end local v10           #spoofSigs:[Landroid/content/pm/Signature;
+    .end local v10    # "spoofSigs":[Landroid/content/pm/Signature;
     :catch_0
     move-exception v4
 
     .line 140
-    .local v4, e:Ljava/lang/Exception;
+    .local v4, "e":Ljava/lang/Exception;
     new-instance v13, Ljava/lang/StringBuilder;
 
     const-string v14, "  invoke failed with "
@@ -588,9 +588,9 @@
     throw v4
 
     .line 159
-    .end local v4           #e:Ljava/lang/Exception;
-    .end local v5           #flags:I
-    .end local v9           #result:Ljava/lang/Object;
+    .end local v4    # "e":Ljava/lang/Exception;
+    .end local v5    # "flags":I
+    .end local v9    # "result":Ljava/lang/Object;
     :cond_a
     const-string v13, "getApplicationEnabledSetting"
 
@@ -603,7 +603,7 @@
     .line 161
     check-cast p1, Landroid/content/pm/PackageManager;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -618,7 +618,7 @@
     move-result v9
 
     .line 162
-    .local v9, result:I
+    .local v9, "result":I
     invoke-static {v9}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v9
@@ -626,8 +626,8 @@
     goto/16 :goto_2
 
     .line 164
-    .end local v9           #result:I
-    .restart local p1
+    .end local v9    # "result":I
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_b
     const-string v13, "checkSignatures"
 
@@ -658,7 +658,7 @@
     check-cast p1, Landroid/content/pm/PackageManager;
 
     .line 170
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -685,12 +685,12 @@
     goto/16 :goto_2
 
     .line 173
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_c
     check-cast p1, Landroid/content/pm/PackageManager;
 
     .line 174
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -726,7 +726,7 @@
     goto/16 :goto_2
 
     .line 180
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_d
     const-string v13, "jce.provider.JDKDigestSignature"
 
@@ -816,7 +816,7 @@
     .line 194
     check-cast p1, Ljava/io/File;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->length(Ljava/io/File;)J
 
     move-result-wide v13
@@ -828,7 +828,7 @@
     goto/16 :goto_2
 
     .line 196
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_11
     const-string v13, "lastModified"
 
@@ -841,7 +841,7 @@
     .line 197
     check-cast p1, Ljava/io/File;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->lastModified(Ljava/io/File;)J
 
     move-result-wide v13
@@ -853,7 +853,7 @@
     goto/16 :goto_2
 
     .line 200
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_12
     const-string v13, "android.content.Context"
 
@@ -875,7 +875,7 @@
     .line 202
     check-cast p1, Landroid/content/Context;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->getApplicationInfo(Landroid/content/Context;)Landroid/content/pm/ApplicationInfo;
 
     move-result-object v9
@@ -883,7 +883,7 @@
     goto/16 :goto_2
 
     .line 204
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_13
     const-string v13, "android.os.Debug"
 
@@ -954,7 +954,7 @@
     check-cast p1, Ljava/security/Signature;
 
     .line 214
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -996,7 +996,7 @@
     goto/16 :goto_2
 
     .line 217
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_15
     move-object/from16 v0, p2
 
@@ -1010,7 +1010,7 @@
     check-cast p1, Ljava/security/Signature;
 
     .line 220
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -1031,7 +1031,7 @@
     goto/16 :goto_2
 
     .line 223
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_16
     const-string v13, "java.security.MessageDigest"
 
@@ -1092,7 +1092,7 @@
     .line 234
     check-cast p1, Ljava/security/MessageDigest;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->spoofDigest(Ljava/security/MessageDigest;)[B
 
     move-result-object v9
@@ -1100,7 +1100,7 @@
     goto/16 :goto_2
 
     .line 238
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_1a
     const-string v13, "org.apache.harmony.xnet.provider.jsse.OpenSSLMessageDigestJDK$"
 
@@ -1125,7 +1125,7 @@
     .line 242
     check-cast p1, Ljava/security/MessageDigest;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->spoofDigest(Ljava/security/MessageDigest;)[B
 
     move-result-object v9
@@ -1133,7 +1133,7 @@
     goto/16 :goto_2
 
     .line 244
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_1b
     const-string v13, "android.telephony.TelephonyManager"
 
@@ -1192,7 +1192,7 @@
     .line 254
     check-cast p1, Ljava/lang/Throwable;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->setStackTrace(Ljava/lang/Throwable;)V
 
     .line 255
@@ -1201,7 +1201,7 @@
     goto/16 :goto_2
 
     .line 257
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_1d
     const-string v13, "printStackTrace"
 
@@ -1214,7 +1214,7 @@
     .line 258
     check-cast p1, Ljava/lang/Throwable;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->throwablePrintStackTrace(Ljava/lang/Throwable;)V
 
     .line 259
@@ -1223,7 +1223,7 @@
     goto/16 :goto_2
 
     .line 262
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_1e
     const-string v13, "java.lang."
 
@@ -1277,7 +1277,7 @@
     .line 270
     check-cast p1, Ljava/lang/Thread;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->threadGetStackTrace(Ljava/lang/Thread;)[Ljava/lang/StackTraceElement;
 
     move-result-object v9
@@ -1285,7 +1285,7 @@
     goto/16 :goto_2
 
     .line 272
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_20
     const-string v13, "java.lang.reflect.Method"
 
@@ -1312,7 +1312,7 @@
     .line 275
     check-cast p1, Ljava/lang/reflect/Method;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v14, p2, v13
@@ -1334,7 +1334,7 @@
     goto/16 :goto_2
 
     .line 279
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_21
     const-string v13, "java.lang.Runtime"
 
@@ -1356,7 +1356,7 @@
     .line 281
     check-cast p1, Ljava/lang/Runtime;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -1373,7 +1373,7 @@
     goto/16 :goto_2
 
     .line 284
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_22
     const-string v13, "java.util."
 
@@ -1404,7 +1404,7 @@
     .line 287
     check-cast p1, Ljava/util/zip/ZipFile;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -1420,7 +1420,7 @@
     goto/16 :goto_2
 
     .line 289
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_23
     const-string v13, "java.util.jar.JarFile"
 
@@ -1443,7 +1443,7 @@
     check-cast p1, Ljava/util/zip/ZipFile;
 
     .line 292
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -1460,7 +1460,7 @@
     goto/16 :goto_2
 
     .line 294
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_24
     const-string v13, "getJarEntry"
 
@@ -1473,7 +1473,7 @@
     .line 295
     check-cast p1, Ljava/util/jar/JarFile;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     const/4 v13, 0x0
 
     aget-object v13, p2, v13
@@ -1489,7 +1489,7 @@
     goto/16 :goto_2
 
     .line 297
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_25
     const-string v13, "java.util.zip.Adler32"
 
@@ -1521,7 +1521,7 @@
     .line 300
     check-cast p1, Ljava/util/zip/Checksum;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p1}, Lhooks/Monolith;->spoofChecksum(Ljava/util/zip/Checksum;)J
 
     move-result-wide v13
@@ -1533,7 +1533,7 @@
     goto/16 :goto_2
 
     .line 303
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_27
     const-string v13, "java.lang.reflect.Constructor"
 
@@ -1555,7 +1555,7 @@
     .line 305
     check-cast p1, Ljava/lang/reflect/Constructor;
 
-    .end local p1
+    .end local p1    # "receiver":Ljava/lang/Object;
     invoke-static/range {p1 .. p2}, Lhooks/ReflectedConstructor;->constructorNewInstance(Ljava/lang/reflect/Constructor;[Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v9
@@ -1563,7 +1563,7 @@
     goto/16 :goto_2
 
     .line 307
-    .restart local p1
+    .restart local p1    # "receiver":Ljava/lang/Object;
     :cond_28
     const-string v13, "dalvik.system.DexFile"
 

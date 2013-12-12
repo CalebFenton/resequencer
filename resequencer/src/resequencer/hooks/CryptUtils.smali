@@ -16,7 +16,7 @@
 
 .method public static decode(Ljava/lang/String;)[B
     .locals 13
-    .parameter "data"
+    .param p0, "data"    # Ljava/lang/String;
 
     .prologue
     const/4 v12, 0x4
@@ -1171,22 +1171,22 @@
     aput v8, v5, v6
 
     .line 63
-    .local v5, table:[I
+    .local v5, "table":[I
     invoke-virtual {p0}, Ljava/lang/String;->getBytes()[B
 
     move-result-object v2
 
     .line 65
-    .local v2, bytes:[B
+    .local v2, "bytes":[B
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
     .line 66
-    .local v1, buffer:Ljava/lang/StringBuilder;
+    .local v1, "buffer":Ljava/lang/StringBuilder;
     const/4 v4, 0x0
 
-    .local v4, i:I
+    .local v4, "i":I
     :goto_0
     array-length v6, v2
 
@@ -1208,7 +1208,7 @@
     const/4 v0, 0x0
 
     .line 68
-    .local v0, b:I
+    .local v0, "b":I
     aget-byte v6, v2, v4
 
     aget v6, v5, v6
@@ -1331,14 +1331,14 @@
 
     .line 87
     :cond_5
-    const/high16 v6, 0xff
+    const/high16 v6, 0xff0000
 
     and-int/2addr v6, v0
 
     shr-int/lit8 v3, v6, 0x10
 
     .line 88
-    .local v3, c:I
+    .local v3, "c":I
     int-to-char v6, v3
 
     invoke-virtual {v1, v6}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
@@ -1351,7 +1351,7 @@
 
 .method public static encode([B)Ljava/lang/String;
     .locals 10
-    .parameter "data"
+    .param p0, "data"    # [B
 
     .prologue
     const v9, 0xffffff
@@ -1364,20 +1364,20 @@
     fill-array-data v6, :array_0
 
     .line 17
-    .local v6, table:[C
+    .local v6, "table":[C
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
     .line 18
-    .local v1, buffer:Ljava/lang/StringBuilder;
+    .local v1, "buffer":Ljava/lang/StringBuilder;
     const/4 v5, 0x0
 
     .line 19
-    .local v5, pad:I
+    .local v5, "pad":I
     const/4 v3, 0x0
 
-    .local v3, i:I
+    .local v3, "i":I
     :goto_0
     array-length v7, p0
 
@@ -1386,7 +1386,7 @@
     .line 43
     const/4 v4, 0x0
 
-    .local v4, j:I
+    .local v4, "j":I
     :goto_1
     if-lt v4, v5, :cond_5
 
@@ -1398,7 +1398,7 @@
     return-object v7
 
     .line 20
-    .end local v4           #j:I
+    .end local v4    # "j":I
     :cond_0
     aget-byte v7, p0, v3
 
@@ -1409,7 +1409,7 @@
     and-int v0, v7, v9
 
     .line 21
-    .local v0, b:I
+    .local v0, "b":I
     add-int/lit8 v7, v3, 0x1
 
     array-length v8, p0
@@ -1483,14 +1483,14 @@
 
     .line 37
     :cond_4
-    const/high16 v7, 0xfc
+    const/high16 v7, 0xfc0000
 
     and-int/2addr v7, v0
 
     shr-int/lit8 v2, v7, 0x12
 
     .line 38
-    .local v2, c:I
+    .local v2, "c":I
     aget-char v7, v6, v2
 
     invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
@@ -1501,9 +1501,9 @@
     goto :goto_4
 
     .line 44
-    .end local v0           #b:I
-    .end local v2           #c:I
-    .restart local v4       #j:I
+    .end local v0    # "b":I
+    .end local v2    # "c":I
+    .restart local v4    # "j":I
     :cond_5
     const-string v7, "="
 
@@ -1518,88 +1518,88 @@
     nop
 
     :array_0
-    .array-data 0x2
-        0x41t 0x0t
-        0x42t 0x0t
-        0x43t 0x0t
-        0x44t 0x0t
-        0x45t 0x0t
-        0x46t 0x0t
-        0x47t 0x0t
-        0x48t 0x0t
-        0x49t 0x0t
-        0x4at 0x0t
-        0x4bt 0x0t
-        0x4ct 0x0t
-        0x4dt 0x0t
-        0x4et 0x0t
-        0x4ft 0x0t
-        0x50t 0x0t
-        0x51t 0x0t
-        0x52t 0x0t
-        0x53t 0x0t
-        0x54t 0x0t
-        0x55t 0x0t
-        0x56t 0x0t
-        0x57t 0x0t
-        0x58t 0x0t
-        0x59t 0x0t
-        0x5at 0x0t
-        0x61t 0x0t
-        0x62t 0x0t
-        0x63t 0x0t
-        0x64t 0x0t
-        0x65t 0x0t
-        0x66t 0x0t
-        0x67t 0x0t
-        0x68t 0x0t
-        0x69t 0x0t
-        0x6at 0x0t
-        0x6bt 0x0t
-        0x6ct 0x0t
-        0x6dt 0x0t
-        0x6et 0x0t
-        0x6ft 0x0t
-        0x70t 0x0t
-        0x71t 0x0t
-        0x72t 0x0t
-        0x73t 0x0t
-        0x74t 0x0t
-        0x75t 0x0t
-        0x76t 0x0t
-        0x77t 0x0t
-        0x78t 0x0t
-        0x79t 0x0t
-        0x7at 0x0t
-        0x30t 0x0t
-        0x31t 0x0t
-        0x32t 0x0t
-        0x33t 0x0t
-        0x34t 0x0t
-        0x35t 0x0t
-        0x36t 0x0t
-        0x37t 0x0t
-        0x38t 0x0t
-        0x39t 0x0t
-        0x2bt 0x0t
-        0x2ft 0x0t
+    .array-data 2
+        0x41s
+        0x42s
+        0x43s
+        0x44s
+        0x45s
+        0x46s
+        0x47s
+        0x48s
+        0x49s
+        0x4as
+        0x4bs
+        0x4cs
+        0x4ds
+        0x4es
+        0x4fs
+        0x50s
+        0x51s
+        0x52s
+        0x53s
+        0x54s
+        0x55s
+        0x56s
+        0x57s
+        0x58s
+        0x59s
+        0x5as
+        0x61s
+        0x62s
+        0x63s
+        0x64s
+        0x65s
+        0x66s
+        0x67s
+        0x68s
+        0x69s
+        0x6as
+        0x6bs
+        0x6cs
+        0x6ds
+        0x6es
+        0x6fs
+        0x70s
+        0x71s
+        0x72s
+        0x73s
+        0x74s
+        0x75s
+        0x76s
+        0x77s
+        0x78s
+        0x79s
+        0x7as
+        0x30s
+        0x31s
+        0x32s
+        0x33s
+        0x34s
+        0x35s
+        0x36s
+        0x37s
+        0x38s
+        0x39s
+        0x2bs
+        0x2fs
     .end array-data
 .end method
 
 .method public static md5(Ljava/io/File;)Ljava/lang/String;
     .locals 8
-    .parameter "f"
+    .param p0, "f"    # Ljava/io/File;
 
     .prologue
     .line 99
     const/4 v5, 0x0
 
     .line 100
-    .local v5, md:Ljava/security/MessageDigest;
+    .local v5, "md":Ljava/security/MessageDigest;
     const/4 v3, 0x0
 
     .line 102
-    .local v3, is:Ljava/io/InputStream;
+    .local v3, "is":Ljava/io/InputStream;
     :try_start_0
     const-string v6, "MD5"
 
@@ -1612,35 +1612,35 @@
 
     invoke-direct {v4, p0}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
     :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     .line 104
-    .end local v3           #is:Ljava/io/InputStream;
-    .local v4, is:Ljava/io/InputStream;
+    .end local v3    # "is":Ljava/io/InputStream;
+    .local v4, "is":Ljava/io/InputStream;
     :try_start_1
     new-instance v3, Ljava/security/DigestInputStream;
 
     invoke-direct {v3, v4, v5}, Ljava/security/DigestInputStream;-><init>(Ljava/io/InputStream;Ljava/security/MessageDigest;)V
     :try_end_1
-    .catchall {:try_start_1 .. :try_end_1} :catchall_1
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_4
+    .catchall {:try_start_1 .. :try_end_1} :catchall_1
 
     .line 105
-    .end local v4           #is:Ljava/io/InputStream;
-    .restart local v3       #is:Ljava/io/InputStream;
+    .end local v4    # "is":Ljava/io/InputStream;
+    .restart local v3    # "is":Ljava/io/InputStream;
     const/16 v6, 0x2000
 
     :try_start_2
     new-array v0, v6, [B
 
     .line 106
-    .local v0, buffer:[B
+    .local v0, "buffer":[B
     :cond_0
     invoke-virtual {v3, v0}, Ljava/io/InputStream;->read([B)I
     :try_end_2
-    .catchall {:try_start_2 .. :try_end_2} :catchall_0
     .catch Ljava/lang/Exception; {:try_start_2 .. :try_end_2} :catch_0
+    .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
     move-result v6
 
@@ -1655,14 +1655,14 @@
     .catch Ljava/io/IOException; {:try_start_3 .. :try_end_3} :catch_3
 
     .line 118
-    .end local v0           #buffer:[B
+    .end local v0    # "buffer":[B
     :goto_0
     invoke-virtual {v5}, Ljava/security/MessageDigest;->digest()[B
 
     move-result-object v1
 
     .line 119
-    .local v1, digest:[B
+    .local v1, "digest":[B
     invoke-virtual {v1}, Ljava/lang/Object;->toString()Ljava/lang/String;
 
     move-result-object v6
@@ -1670,12 +1670,12 @@
     return-object v6
 
     .line 108
-    .end local v1           #digest:[B
+    .end local v1    # "digest":[B
     :catch_0
     move-exception v2
 
     .line 109
-    .local v2, e:Ljava/lang/Exception;
+    .local v2, "e":Ljava/lang/Exception;
     :goto_1
     :try_start_4
     invoke-virtual {v2}, Ljava/lang/Exception;->printStackTrace()V
@@ -1695,13 +1695,13 @@
     move-exception v2
 
     .line 114
-    .local v2, e:Ljava/io/IOException;
+    .local v2, "e":Ljava/io/IOException;
     invoke-virtual {v2}, Ljava/io/IOException;->printStackTrace()V
 
     goto :goto_0
 
     .line 110
-    .end local v2           #e:Ljava/io/IOException;
+    .end local v2    # "e":Ljava/io/IOException;
     :catchall_0
     move-exception v6
 
@@ -1721,46 +1721,46 @@
     move-exception v2
 
     .line 114
-    .restart local v2       #e:Ljava/io/IOException;
+    .restart local v2    # "e":Ljava/io/IOException;
     invoke-virtual {v2}, Ljava/io/IOException;->printStackTrace()V
 
     goto :goto_3
 
     .line 113
-    .end local v2           #e:Ljava/io/IOException;
-    .restart local v0       #buffer:[B
+    .end local v2    # "e":Ljava/io/IOException;
+    .restart local v0    # "buffer":[B
     :catch_3
     move-exception v2
 
     .line 114
-    .restart local v2       #e:Ljava/io/IOException;
+    .restart local v2    # "e":Ljava/io/IOException;
     invoke-virtual {v2}, Ljava/io/IOException;->printStackTrace()V
 
     goto :goto_0
 
     .line 110
-    .end local v0           #buffer:[B
-    .end local v2           #e:Ljava/io/IOException;
-    .end local v3           #is:Ljava/io/InputStream;
-    .restart local v4       #is:Ljava/io/InputStream;
+    .end local v0    # "buffer":[B
+    .end local v2    # "e":Ljava/io/IOException;
+    .end local v3    # "is":Ljava/io/InputStream;
+    .restart local v4    # "is":Ljava/io/InputStream;
     :catchall_1
     move-exception v6
 
     move-object v3, v4
 
-    .end local v4           #is:Ljava/io/InputStream;
-    .restart local v3       #is:Ljava/io/InputStream;
+    .end local v4    # "is":Ljava/io/InputStream;
+    .restart local v3    # "is":Ljava/io/InputStream;
     goto :goto_2
 
     .line 108
-    .end local v3           #is:Ljava/io/InputStream;
-    .restart local v4       #is:Ljava/io/InputStream;
+    .end local v3    # "is":Ljava/io/InputStream;
+    .restart local v4    # "is":Ljava/io/InputStream;
     :catch_4
     move-exception v2
 
     move-object v3, v4
 
-    .end local v4           #is:Ljava/io/InputStream;
-    .restart local v3       #is:Ljava/io/InputStream;
+    .end local v4    # "is":Ljava/io/InputStream;
+    .restart local v3    # "is":Ljava/io/InputStream;
     goto :goto_1
 .end method

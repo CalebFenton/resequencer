@@ -16,8 +16,7 @@
 
 .method public static constructorNewInstance(Ljava/lang/reflect/Constructor;[Ljava/lang/Object;)Ljava/lang/Object;
     .locals 6
-    .parameter
-    .parameter "initargs"
+    .param p1, "initargs"    # [Ljava/lang/Object;
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -39,7 +38,7 @@
     .end annotation
 
     .prologue
-    .local p0, c:Ljava/lang/reflect/Constructor;,"Ljava/lang/reflect/Constructor<*>;"
+    .local p0, "c":Ljava/lang/reflect/Constructor;, "Ljava/lang/reflect/Constructor<*>;"
     const/4 v5, 0x0
 
     .line 13
@@ -52,7 +51,7 @@
     move-result-object v1
 
     .line 20
-    .local v1, cnstrClassName:Ljava/lang/String;
+    .local v1, "cnstrClassName":Ljava/lang/String;
     new-instance v3, Ljava/lang/StringBuilder;
 
     const-string v4, "Constructor hook for class: "
@@ -75,7 +74,7 @@
     move-result-object v2
 
     .line 25
-    .local v2, newObj:Ljava/lang/Object;
+    .local v2, "newObj":Ljava/lang/Object;
     const-string v3, "java.io.FileInputStream"
 
     invoke-virtual {v1, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -96,7 +95,7 @@
     move-result-object v0
 
     .line 27
-    .local v0, className:Ljava/lang/String;
+    .local v0, "className":Ljava/lang/String;
     const-string v3, "java.io.File"
 
     invoke-virtual {v0, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -119,13 +118,13 @@
     invoke-static {v3, v4}, Lhooks/Monolith;->watchInputStream(Ljava/lang/Object;Ljava/io/File;)V
 
     .line 40
-    .end local v0           #className:Ljava/lang/String;
+    .end local v0    # "className":Ljava/lang/String;
     :cond_0
     :goto_0
     return-object v2
 
     .line 31
-    .restart local v0       #className:Ljava/lang/String;
+    .restart local v0    # "className":Ljava/lang/String;
     :cond_1
     const-string v3, "java.lang.String"
 
