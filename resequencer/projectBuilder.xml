@@ -4,9 +4,9 @@
 		<echo>Extacting libs to bin ... </echo>
 		<unjar dest="bin">
 			<fileset dir="lib/">
-				<include name="smali-1.4.2.jar" />
-				<include name="baksmali-1.4.2.jar" />
-				<include name="apktool-1.5.1.jar" />
+				<include name="smali.jar" />
+				<include name="baksmali.jar" />
+				<include name="apktool.jar" />
 				<include name="commons-io-2.4.jar" />
 				<include name="microsoft-translator-java-api-0.6.2-jar-with-dependencies.jar" />				
 			</fileset>
