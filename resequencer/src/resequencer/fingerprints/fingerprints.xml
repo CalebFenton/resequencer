@@ -27,16 +27,14 @@
 	</fingerprint>
 
 	<fingerprint name="Method Trace FixLocals" enabled="false" notify="true">
-		<!-- Method Trace needs .locals > 0, this makes that happen.
-		Technically we only need .locals 1, but use .locals 2 because
-		at least one fingerprint needs .locals 2 and we don't want to overwrite. -->
+		<!-- Method Trace needs .locals > 0, this makes that happen. -->
 		<requires>Method Trace</requires>
 
 		<region name="mtflFile">
 			<starts>(?m)^[ \t]*\.method </starts>
 			<ends>\.end method</ends>
 			<op type="match" name="locals0">\.locals 0</op>
-			<op type="replace" name="setLocalsIf0" beforeOP="locals0" replaceWhat="%locals0%">.locals 2</op>
+			<op type="replace" name="setLocalsIf0" beforeOP="locals0" replaceWhat="%locals0%">.locals 1</op>
 		</region>
 	</fingerprint>
 	
