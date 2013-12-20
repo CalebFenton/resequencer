@@ -476,7 +476,7 @@
 		</region>		
 	</fingerprint>
 	
-	<fingerprint name="Hook Entry Activity" install="Monolith" enabled="false">
+	<fingerprint name="zHook Entry Activity" install="Monolith" enabled="false">
 	    <!-- These will fail without ensuring MethodTrace FixLocals runs -->
 		<region name="super">
 			<op type="match" name="matchSuper">(?m)^[ \t]*\.super Landroid/app/Activity;</op>
@@ -507,7 +507,7 @@
 		</region>
 	</fingerprint>
 	
-	<fingerprint name="Hook Entry BroadcastReceiver" install="Monolith" enabled="false">
+	<fingerprint name="zHook Entry BroadcastReceiver" install="Monolith" enabled="false">
 		<region name="super">
 			<op type="match" name="matchSuper">(?m)^[ \t]*\.super Landroid/content/BroadcastReceiver;</op>
 		</region>
@@ -518,7 +518,7 @@
 
 			<op type="find" name="mmsigMethodStarts">%!MethodStarts%</op>
 			<op type="insert" name="smInsert" afterOP="mmsigMethodStarts">
-    move-object/from16 v0, p1  
+    move-object/from16 v0, p1
     invoke-static {v0}, %!Hook:hooks/Monolith.setAppContext%(Landroid/content/Context;)V
 
     </op>

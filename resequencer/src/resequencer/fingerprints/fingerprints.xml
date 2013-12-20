@@ -20,7 +20,7 @@
 			<op type="find:1" name="mtMethodStarts" afterOP="methodName">%!MethodStarts%</op>
 			<op type="insert" name="logMethod" afterOP="mtMethodStarts"> # log method invocation
     const-string v0, "%className%->%methodName%"
-		invoke-static {v0}, %!Hook:hooks/Monolith.logmt%(Ljava/lang/Object;)V
+	invoke-static {v0}, %!Hook:hooks/Monolith.logmt%(Ljava/lang/Object;)V
 
     </op>
 		</region>

@@ -478,7 +478,7 @@ public class Main {
 
         String hooksPath = "/resequencer/hooks/";
         if (Options.DebugHooks) {
-            // TODO: implement debug hooks :D
+            // TODO: implement debug hooks
             hooksPath = "/resequencer/hooks/";
             Console.debug("Using debug hooks.");
         }
