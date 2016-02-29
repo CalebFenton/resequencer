@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fingerprints>
+	<fingerprint name="ExampleFingerprint" enabled="false">
+		<region name="EntireFile">
+			<op type="match" name="matchLineNumbers">\.line \d+</op>
+			<op type="find" name="getLineNumbers" insideOp="matchLineNumbers">\d+</op>
+			<op type="insert" afterOP="matchLineNumbers" name="someInsert"> # this is the line number: %getLineNumbers%</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Method Trace" enabled="false" install="Monolith">
+		<!-- Will log all function calls to /data/data/package/files/mt.log -->
+		<region name="mtFile">
+			<op type="match" name="everyMethod">(?m)^[ \t]*\.method </op>
+			<op type="match" name="validMethod">(?m)^[ \t]*\.method ((?!native|abstract).)*</op>
+			<op type="find:1" name="classDirective">(?m)^[ \t]*\.class .*</op>
+			<op type="find:1" name="className" insideOP="classDirective">L.*?;</op>
+			<op type="find:1" name="methodName" afterOP="everyMethod">.+</op>
+			<op type="find:1" name="mtMethodStarts" afterOP="methodName">%!MethodStarts%</op>
+			<op type="insert" name="logMethod" afterOP="mtMethodStarts"> # log method invocation
+    const-string v0, "%className%->%methodName%"
+	invoke-static {v0}, %!Hook:hooks/Monolith.logmt%(Ljava/lang/Object;)V
+
+    </op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Method Trace FixLocals" enabled="false" notify="true">
+		<!-- Method Trace needs .locals > 0, this makes that happen. -->
+		<requires>Method Trace</requires>
+
+		<region name="mtflFile">
+			<starts>(?m)^[ \t]*\.method </starts>
+			<ends>\.end method</ends>
+			<op type="match" name="locals0">\.locals 0</op>
+			<op type="replace" name="setLocalsIf0" beforeOP="locals0" replaceWhat="%locals0%">.locals 1</op>
+		</region>
+	</fingerprint>
+	
+	<fingerprint name="Uses Package Manager" notify="false" findOnce="true">
+		<!-- Used as dependency. Speeds up fingerprinting. -->
+		<region name="usesPMFile">
+			<op type="match:1" name="findPackageManager">Landroid/content/pm/PackageManager;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Uses Telephony Manager" notify="false" findOnce="true">
+		<!-- Used as dependency. Speeds up fingerprinting. -->
+		<region name="usesTMFile">
+			<op type="match:1" name="findTelephonyManager">Landroid/telephony/TelephonyManager;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Uses Java Signature Verify" notify="false" findOnce="true">
+		<!-- Used as dependency. Speeds up fingerprinting. -->
+		<region name="usesSigVfyFile">
+			<op type="match:1" name="sigVerifyMatch">(?m)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Ljava/security/Signature;->verify\(\[B\)Z</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Uses Java Thread" notify="false" findOnce="true">
+		<!-- Used as dependency. Speeds up fingerprinting. -->
+		<region name="usesThread">
+			<op type="match:1" name="threadMatch">Ljava/lang/Thread;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Uses Java Throwable" notify="false" findOnce="true">
+		<!-- Used as dependency. Speeds up fingerprinting. -->
+		<region name="usesJavaThrowable">
+			<op type="match" name="matchTPS">(?m)^[ \t]*invoke-(direct|virtual) \{[vp]\d+\}, Ljava[$A-z0-9\./]+?(Throwable|Error|Exception|ThreadDeath);->printStackTrace\(\)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Uses CRC32" notify="false" findOnce="true">
+		<!-- Could be anti-tamper protection, but sometimes is just used to ensure data integrity. -->
+		<region name="entireFile">
+			<op type="match" name="matchCRC32">(?im)^[ \t]*new-instance [vp]\d+, Ljava/util/zip/CRC32;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Uses Adler32" notify="false" findOnce="true">
+		<!-- Could be anti-tamper protection, but sometimes is just used to ensure data integrity. -->
+		<region name="entireFile">
+			<op type="match" name="matchCRC32">(?im)^[ \t]*new-instance [vp]\d+, Ljava/util/zip/Adler32;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Uses MessageDigest" notify="false" findOnce="true">
+		<!-- Could be anti-tamper protection, but sometimes is just used to ensure data integrity. -->
+		<region name="entireFile">
+			<op type="match" name="matchMDC">(?im)^[ \t]*new-instance [vp]\d+, Ljava/security/MessageDigest;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Uses Java Checksum" notify="false" findOnce="true">
+		<!-- Could be anti-tamper protection, but sometimes is just used to ensure data integrity. -->
+		<region name="entireFile">
+			<op type="match" name="matchMDC">(?im)^[ \t]*invoke.*Ljava/util/zip/Checksum;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Wait For Debugger" finceOnce="true" enabled="false">
+		<!-- Injects code at beginning of App to wait for debugger and sleep. -->
+		<region name="waitForDebuggerFile">
+			<op type="match" name="matchMainLaunchClass">(?m)^[ \t]*\.class public (static )?(abstract )?L%!LaunchActivity%;</op>
+		</region>
+
+		<region name="mainActivityOnCreate">
+			<starts>(?m)^[ \t]*\.method (public )?(protected )?(final )?onCreate\(Landroid/os/Bundle;\)V</starts>
+			<ends>(?m)^[ \t]*\.end method</ends>
+
+			<op type="match" name="matchInvokeSuper">(?m)^[ \t]*invoke-super \{</op>
+			<op type="find" name="mmsigMethodStarts">%!MethodStarts%</op>
+			<op type="insert" name="smInsert" afterOP="mmsigMethodStarts">
+    # wait for the debugger
+    const-string v0, "Waiting for debugger..."
+    invoke-static {v0}, %!Hook:hooks/Monolith.log%(Ljava/lang/Object;)V
+    invoke-static {}, Landroid/os/Debug;->waitForDebugger()V
+    const-string v0, "Sleeping a bit while we wait for debugger"
+    invoke-static {v0}, %!Hook:hooks/Monolith.log%(Ljava/lang/Object;)V
+    const-wide/16 v0, 0x7530 # 30 seconds
+    invoke-static {v0, v1}, Ljava/lang/Thread;->sleep(J)V
+</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Gets Android Build Prop">
+		<!-- Some properties are used to uniquely identify a device. Which, in turn is
+		used to ban the device or limit functionality. -->
+		<region name="entireFile">
+			<op type="match" name="matchAndroidBuildProp">(?m)^[ \t]*sget-object [vp]\d+, Landroid/os/Build;-></op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Uses DEX Class Loader">
+		<!-- Loading your own dex file? Looks interesting. -->
+		<region name="entireFile">
+			<op type="match" name="matchDexClassLoader">(?m)^[ \t]*invoke-direct \{[vp]\d+, [vp]\d+, [vp]\d+, [vp]\d+, [vp]\d+\}, Ldalvik/system/DexClassLoader;->&gt;init>\(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/ClassLoader;\)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Possible HTTP Phone Home">
+		<!-- All HTTP communications should be examined -->
+		<region name="spossiblePhoneHomeFile">
+			<op type="match" name="matchNewURI">(?m)^[ \t]*new-instance [vp]\d+, Ljava/net/URI;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Get Device ID">
+		<!-- Why does the App need a unique ID? Is it tied to an account? If so, spoof it. -->
+		<requires>Uses Telephony Manager</requires>
+		<region name="sgdidFile">
+			<op type="match" name="matchSGDID">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Landroid/telephony/TelephonyManager;->getDeviceId\(\)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Get Account Name">
+		<!-- Why do you want my account name? NO. -->
+		<region name="sganFile">
+			<op type="match" name="matchGetAccountName">(?im)^[ \t]*iget-object [vp]\d+, [vp]\d, Landroid/accounts/Account;->name:Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Get SIM Serial">
+		<!-- Why could it possibly need our sim serial? Tied to an account? Identifying us somehow? -->
+		<requires>Uses Telephony Manager</requires>
+
+		<region name="ssimsFile">
+			<op type="match" name="matchSGDID">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Landroid/telephony/TelephonyManager;->getSimSerialNumber\(\)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Get Network Operator">
+		<!-- Some Apps only work on specific operators
+		     ie. "This App only works on Sprint." -->
+		<requires>Uses Telephony Manager</requires>
+
+		<region name="fileSGNO">
+			<op type="match" name="matchSGNO">(?m)^[ \t]*invoke-virtual(/range)? \{[vp]\d+( .. [vp]\d+)?\}, Landroid/telephony/TelephonyManager;->getNetworkOperatorName\(\)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Get Subscriber ID">
+		<!-- Same as other unique identifiers. -->
+		<requires>Uses Telephony Manager</requires>
+
+		<region name="sgscribidFile">
+			<op type="match" name="matchSGDID">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Landroid/telephony/TelephonyManager;->getSubscriberId\(\)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Get Wireless MAC">
+		<!-- Same as other unique identifiers. -->
+		<region name="sgwmacFile">
+			<op type="match" name="matchSGDID">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Landroid/net/wifi/WifiInfo;->getMacAddress\(\)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Get Bluetooth MAC">
+		<!-- Same as other unique identifiers. -->
+		<region name="sgbtmacFile">
+			<op type="match" name="matchSGDID">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Landroid/bluetooth/BluetoothAdapter;->getAddress\(\)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - Get App Apk Path">
+		<!-- Almost always for anti-tamper protection. -->
+		<region name="sgaapFile">
+			<op type="match" name="matchSGDID">(?m)^[ \t]*iget-object [vp]\d+, [vp]\d+ Landroid/content/pm/ApplicationInfo;->sourceDir:Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Suspicious - DexFile Usage">
+		<!-- App might be trying to hide something by loading dex file dynamically. -->
+		<region name="sdfuFile">
+			<op type="match" name="sdfuMatchClass">Ldalvik/system/DexFile;</op>
+		</region>
+	</fingerprint>
+</fingerprints>

@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Definitions for hooks.
+-->
+
+<fingerprints>
+	<fingerprint name="Hook Method Invocation" install="Monolith,ReflectedInvoke,CryptUtils">
+		<!-- Hook ALL method invocation as it could be hiding anything. Also useful for logging. -->
+		<region name="riFile">
+			<op type="match" name="matchRI">(?im)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+, [vp]\d+\}, Ljava/lang/reflect/Method;-&gt;invoke\(Ljava/lang/Object;\[Ljava/lang/Object;\)Ljava/lang/Object;</op>
+			<op type="find" name="riVarsStart" insideOP="matchRI"> \{.+?\}, </op>
+			<op type="find" name="riVars" insideOP="riVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookRI" beforeOP="matchRI" replaceWhat="%matchRI%">    #%matchRI%
+    invoke-static {%riVars:0%, %riVars:1%, %riVars:2%}, %!Hook:hooks/ReflectedInvoke.invokeHook%(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook File Size" install="Monolith">
+		<!-- File;->length() calls hooked for spoofing apk/dex sizes. -->
+		<region name="fsFile">
+			<op type="match" name="matchFileLength">(?im)^[ \t]*invoke-virtual \{[vp]\d+\}, Ljava/io/File;->length\(\)J</op>
+			<op type="find" name="flVarsStart" insideOP="matchFileLength"> \{.+?\}, </op>
+			<op type="find" name="flVars" insideOP="flVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookFileLength" beforeOP="matchFileLength" replaceWhat="%matchFileLength%">    #%matchFileLength%
+    invoke-static {%flVars:0%}, %!Hook:hooks/Monolith.length%(Ljava/io/File;)J</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Last Modified" install="Monolith">
+		<!-- Same as File Size, but with last modified info -->
+		<region name="lmFile">
+			<op type="match" name="matchLastModified">(?im)^[ \t]*invoke-virtual \{[vp]\d+\}, Ljava/io/File;->lastModified\(\)J</op>
+			<op type="find" name="lmVarsStart" insideOP="matchLastModified"> \{.+?\}, </op>
+			<op type="find" name="lmVars" insideOP="lmVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookLastModified" beforeOP="matchLastModified" replaceWhat="%matchLastModified%">    #%matchLastModified%
+    invoke-static {%lmVars:0%}, %!Hook:hooks/Monolith.lastModified%(Ljava/io/File;)J</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Installer Package Name" install="Monolith">
+		<!-- Getting installer package name is usually used to determine if app was installed
+		from market or with adb. -->
+		<requires>Uses Package Manager</requires>
+
+		<region name="ipnFile">
+			<op type="match" name="matchIPN">(?im)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Landroid/content/pm/PackageManager;->getInstallerPackageName\(Ljava/lang/String;\)Ljava/lang/String;</op>
+			<op type="find" name="ipnVarsStart" insideOP="matchIPN"> \{.+?\}, </op>
+			<op type="find" name="ipnVars" insideOP="ipnVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookIPN" beforeOP="matchIPN" replaceWhat="%matchIPN%">    #%matchIPN%
+    invoke-static {%ipnVars:0%, %ipnVars:1%}, %!Hook:hooks/Monolith.getInstallerPackageName%(Landroid/content/pm/PackageManager;Ljava/lang/String;)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Enabled Setting" install="Monolith" enabled="false">
+		<!-- Some apps disable themselves if they're tampered or for whatever reason. -->
+		<requires>Uses Package Manager</requires>
+
+		<region name="aesFile">
+			<op type="match" name="matchAES">(?im)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Landroid/content/pm/PackageManager;-&gt;getApplicationEnabledSetting\(Ljava/lang/String;\)I</op>
+			<op type="find" name="aesVarsStart" insideOP="matchAES"> \{.+?\}, </op>
+			<op type="find" name="aesVars" insideOP="aesVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookAES" beforeOP="matchAES" replaceWhat="%matchAES%">    #%matchAES%
+    invoke-static {%aesVars:0%, %aesVars:1%}, %!Hook:hooks/Monolith.getApplicationEnabledSetting%(Landroid/content/pm/PackageManager;Ljava/lang/String;)I</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Package Info" install="Monolith">
+		<!-- Hook package and provide false signatures if asking for this package or key/unlocker package. -->
+		<requires>Uses Package Manager</requires>
+
+		<region name="piFile">
+			<op type="match" name="matchPI">(?im)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\, [vp]\d+\}, Landroid/content/pm/PackageManager;-&gt;getPackageInfo\(Ljava/lang/String;I\)Landroid/content/pm/PackageInfo;</op>
+			<op type="find" name="piVarsStart" insideOP="matchPI"> \{.+?\}, </op>
+			<op type="find" name="piVars" insideOP="piVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookPI" beforeOP="matchPI" replaceWhat="%matchPI%">    #%matchPI%
+    invoke-static {%piVars:0%, %piVars:1%, %piVars:2%}, %!Hook:hooks/Monolith.getPackageInfo%(Landroid/content/pm/PackageManager;Ljava/lang/String;I)Landroid/content/pm/PackageInfo;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Package Manager Signature Check" install="Monolith">
+		<!-- Another method of comparing signatures so must be hooked.
+		Parameters could either be string, string (package name) or int, int (package id) -->
+		<requires>Uses Package Manager</requires>
+
+		<region name="chkSigsFile">
+			<op type="match" name="matchChkSigs">(?im)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\, [vp]\d+\}, Landroid/content/pm/PackageManager;-&gt;checkSignatures\((Ljava/lang/String;Ljava/lang/String;|II)\)I</op>
+
+			<op type="find" name="chkSigsVarsStart" insideOP="matchChkSigs"> \{.+?\}, </op>
+			<op type="find" name="chkSigsVars" insideOP="chkSigsVarsStart">[vp]\d+</op>
+			<op type="find" name="chkSigsParams" insideOP="matchChkSigs">(Ljava/lang/String;Ljava/lang/String;|II)</op>
+			<op type="replace" name="hookChkSigs" beforeOP="matchChkSigs" replaceWhat="%matchChkSigs%">    #%matchChkSigs%
+    invoke-static {%chkSigsVars:0%, %chkSigsVars:1%, %chkSigsVars:2%}, %!Hook:hooks/Monolith.checkSignatures%(Landroid/content/pm/PackageManager;%chkSigsParams%)I</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Application Info" install="Monolith">
+		<!-- We may want to lie about if the App is debuggable or not. -->
+		<region name="haiFile">
+			<op type="match" name="matchHAI">(?im)^[ \t]*invoke-virtual \{[vp]\d+\}, L\S+;-&gt;getApplicationInfo\(\)Landroid/content/pm/ApplicationInfo;</op>
+			<op type="match" name="matchFlags">(?im)^[ \t]*iget [vp]\d+, [vp]\d+, Landroid/content/pm/ApplicationInfo;-&gt;flags:I</op>
+			<op type="find" name="haiVarsStart" insideOP="matchHAI"> \{.+?\}, </op>
+			<op type="find" name="haiVars" insideOP="haiVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookHAI" beforeOP="matchHAI" replaceWhat="%matchHAI%">    #%matchHAI%
+    invoke-static {%haiVars:0%}, %!Hook:hooks/Monolith.getApplicationInfo%(Landroid/content/Context;)Landroid/content/pm/ApplicationInfo;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Debugger Connected" install="Monolith">
+		<!-- We may want to lie about there being a debugger connected. -->
+		<region name="hdconnFile">
+			<op type="match" name="matchHDCONN">(?im)^[ \t]*invoke-static \{\}, Landroid/os/Debug;->isDebuggerConnected\(\)Z</op>
+			<op type="replace" name="hookHDCONN" beforeOP="matchHDCONN" replaceWhat="%matchHDCONN%">    #%matchHDCONN%
+    invoke-static {}, %!Hook:hooks/Monolith.isDebuggerConnected%()Z</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Wait For Debugger" install="Monolith">
+		<!-- I have never seen it, but it's possible an App could use it for anti-debugging protection.
+		Spawn thread at beginning of App that does nothing but waitForDebugger(), and if it ever
+		finds one, exit the App or fail in some naughty way. -->
+		<region name="wfdFile">
+			<op type="match" name="matchWaitForDebugger">invoke-static \{\}, Landroid/os/Debug;->waitForDebugger\(\)V</op>
+			<op type="replace" name="hookWaitForDebugger" beforeOP="matchWaitForDebugger" replaceWhat="%matchWaitForDebugger%">    #%matchWaitForDebugger%
+    invoke-static {}, %!Hook:hooks/Monolith.waitForDebugger%()V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Device ID" install="Monolith" enabled="false">
+		<!-- May need to lie about uniquely identifying information. -->
+		<requires>Uses Telephony Manager</requires>
+
+		<region name="hdidFile">
+			<op type="match" name="matchHDID">(?im)^[ \t]*invoke-virtual \{[vp]\d+\}, Landroid/telephony/TelephonyManager;-&gt;getDeviceId\(\)Ljava/lang/String;</op>
+			<op type="replace" name="hookhdid" beforeOP="matchHDID" replaceWhat="%matchHDID%">    #%matchHDID%
+    invoke-static {}, %!Hook:hooks/Monolith.getDeviceId%()Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+<!--	disabled for now...
+	<fingerprint name="Hook Device Model" install="Biuld" enabled="false">
+		<!- May need to lie about the model.
+		Some Apps/games needlessly restrict functionality based on this. ->
+		<region name="hdevModelFile">
+			<op type="match" name="matchGetModel">(?im)^[ \t]*sget-object [vp]\d+, Landroid/os/Build;->MODEL:Ljava/lang/String;</op>
+			<op type="find" name="findVarName" insideOP="matchGetModel">[vp]\d+</op>
+			<op type="replace" name="hookGetModel" beforeOP="matchGetModel" replaceWhat="%matchGetModel%">    #%matchGetModel%
+    sget-object %findVarName:0%, Landroid/os/Biuld;->MODEL:Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Device Manufacturer" install="Biuld" enabled="false">
+		<!- May need to lie about device manufacturer.
+		Some Apps/games needlessly restrict functionality based on this. ->
+		<region name="hdevManufacturerFile">
+			<op type="match" name="matchGetManufacturer">(?im)^[ \t]*sget-object [vp]\d+, Landroid/os/Build;->MANUFACTURER:Ljava/lang/String;</op>
+			<op type="find" name="findVarName" insideOP="matchGetManufacturer">[vp]\d+</op>
+			<op type="replace" name="hookGetManufacturer" beforeOP="matchGetManufacturer" replaceWhat="%matchGetManufacturer%">    #%matchGetManufacturer%
+    sget-object %findVarName:0%, Landroid/os/Biuld;->MANUFACTURER:Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+ -->
+
+	<fingerprint name="Hook Network Operator" install="Monolith" enabled="false">
+		<!-- Some Apps only work on specific operators
+		     ie. "This App only works on Sprint." -->
+		<requires>Uses Telephony Manager</requires>
+
+		<region name="fileHNO">
+			<op type="match" name="matchHNO">(?m)^[ \t]*invoke-virtual(/range)? \{[vp]\d+( .. [vp]\d+)?\}, Landroid/telephony/TelephonyManager;->getNetworkOperatorName\(\)Ljava/lang/String;</op>
+			<op type="find" name="findVarName" insideOP="matchHNO">[vp]\d+</op>
+			<op type="replace" name="fixGetNetOp" replaceWhat="%matchHNO%">    #%matchHNO%
+			invoke-static/range {%findVarName:0% .. %findVarName:0%}, %!Hook:hooks/Monolith.getNetworkOperator%(Landroid/telephony/TelephonyManager;)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Wifi MAC" install="Monolith" enabled="false">
+		<!-- Some Apps use Wifi MAC address to uniquely identify. -->
+		<region name="hWifiMacFile">
+			<op type="match" name="matchGetWifiMac">(?im)^[ \t]*invoke-virtual \{[vp]\d+\}, Landroid/net/wifi/WifiInfo;->getMacAddress\(\)Ljava/lang/String;</op>
+			<op type="find" name="findVarName" insideOP="matchGetWifiMac">[vp]\d+</op>
+			<op type="replace" name="hookGetWifiMac" beforeOP="matchGetWifiMac" replaceWhat="%matchGetWifiMac%">    #%matchGetWifiMac%
+    invoke-static {%findVarName:0%}, %!Hook:hooks/Monolith.getWifiMac%(Landroid/net/wifi/WifiInfo;)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Bluetooth MAC" install="Monolith" enabled="false">
+		<!-- Some Apps use Bluetooth MAC address to uniquely identify. -->
+		<region name="hBTMacFile">
+			<op type="match" name="matchGetBTMac">(?im)^[ \t]*invoke-virtual \{[vp]\d+\}, Landroid/bluetooth/BluetoothAdapter;->getAddress\(\)Ljava/lang/String;</op>
+			<op type="find" name="findVarName" insideOP="matchGetBTMac">[vp]\d+</op>
+			<op type="replace" name="hookGetBTMac" beforeOP="matchGetBTMac" replaceWhat="%matchGetBTMac%">    #%matchGetBTMac%
+    invoke-static {%findVarName:0%}, %!Hook:hooks/Monolith.getBTMac%(Landroid/bluetooth/BluetoothAdapter;)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Account Name" install="Monolith" enabled="false">
+		<!-- Why do you want my account name? NO. -->
+		<region name="hAccountNameFile">
+			<op type="match" name="matchGetAccountName">(?im)^[ \t]*iget-object [vp]\d+, [vp]\d, Landroid/accounts/Account;->name:Ljava/lang/String;</op>
+			<op type="find" name="findVars" insideOP="matchGetAccountName">[vp]\d+, [vp]\d+,</op>
+			<op type="find" name="vars" insideOP="findVars">[vp]\d+</op>
+			<op type="replace" name="hookGetAccountName" beforeOP="matchGetAccountName" replaceWhat="%matchGetAccountName%">    #%matchGetAccountName%
+    invoke-static {%vars:1%}, %!Hook:hooks/Monolith.getAccountName%(Landroid/accounts/Account;)Ljava/lang/String;
+		move-result-object %vars:0%
+    </op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Get Secure Setting" install="Monolith" enabled="false">
+		<!-- Another method of getting device ID / Android ID. -->
+
+		<region name="hssFile">
+			<op type="match" name="matchHSS">(?im)^[ \t]*invoke-static \{[vp]\d+, [vp]\d+\}, Landroid/provider/Settings$Secure;-&gt;getString\(Landroid/content/ContentResolver;Ljava/lang/String;\)Ljava/lang/String;</op>
+			<op type="find" name="hssVarsStart" insideOP="matchHSS"> \{.+?\}, </op>
+			<op type="find" name="hssVars" insideOP="hssVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookHSS" beforeOP="matchHSS" replaceWhat="%matchHSS%">    #%matchHSS%
+    invoke-static\{%hssVars:0%, %hssVars:1%}, %!Hook:hooks/Monolith.getSettingString%(Landroid/content/ContentResolver;Ljava/lang/String;)Ljava/lang/String;</op>
+		</region>
+	</fingerprint>
+
+
+	<fingerprint name="Hook Runtime Exec" install="Monolith">
+		<!-- Some sneaky Apps run command line tools like md5sum for anti-tampering protection. -->
+
+		<region name="rexecFile">
+			<op type="match" name="matchREXEC">(?im)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Ljava/lang/Runtime;-&gt;exec\(Ljava/lang/String;\)Ljava/lang/Process;</op>
+			<op type="find" name="rexecVarsStart" insideOP="matchREXEC"> \{.+?\}, </op>
+			<op type="find" name="rexecVars" insideOP="rexecVarsStart">[vp]\d+</op>
+			<op type="replace" name="hookREXEC" beforeOP="matchREXEC" replaceWhat="%matchREXEC%">    #%matchREXEC%
+    invoke-static {%rexecVars:0%, %rexecVars:1%}, %!Hook:hooks/Monolith.runtimeExec%(Ljava/lang/Runtime;Ljava/lang/String;)Ljava/lang/Process;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Process OutputStream" install="Monolith" notify="false">
+		<!-- Another way of writing to the command line. -->
+		<requires>Hook Runtime Exec</requires>
+
+		<region name="hposFile">
+			<op type="match" name="hposMatch">(?im)^[ \t]*invoke-virtual \{[vp]\d+\}, Ljava/lang/Process;-&gt;getOutputStream\(\)Ljava/io/OutputStream;</op>
+			<op type="find" name="hposVarsStart" insideOP="hposMatch"> \{.+?\}, </op>
+			<op type="find" name="hposVars" insideOP="hposVarsStart">[vp]\d+</op>
+			<op type="insert" name="hposHook" beforeOP="hposMatch">
+    invoke-static {%hposVars:0%}, %!Hook:hooks/Monolith.watchProcess%(Ljava/lang/Process;)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook OutputStream Write" install="Monolith">
+		<!-- Watch output streams to make sure we're not writing to the command line or something. -->
+		<requires>Hook Process OutputStream</requires>
+
+		<region name="hosFile">
+			<op type="match" name="hosMatch">(?im)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Ljava/io/(Data|Filter)?OutputStream;-&gt;write(\(\[B|bytes\(Ljava/lang/String;)\)V</op>
+			<op type="find" name="hosParams" insideOP="hosMatch">(\[B|Ljava/lang/String;)</op> <!-- either [B or Ljava/lang/String -->
+			<op type="find" name="hosVarsStart" insideOP="hosMatch"> \{.+?\}, </op>
+			<op type="find" name="hosVars" insideOP="hosVarsStart">[vp]\d+</op>
+			<op type="replace" name="hosHook" beforeOP="hosMatch" replaceWhat="%hosMatch%">    #%hosMatch%
+    invoke-static {%hosVars:0%, %hosVars:1%}, %!Hook:hooks/Monolith.osWrite%(Ljava/io/OutputStream;%hosParams%)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Signature Verify 1" install="Monolith">
+		<!-- Will need to lie about signature verification probably. -->
+		<requires>Uses Java Signature Verify</requires>
+
+		<region name="sigVerifyFile">
+			<op type="match" name="sigVerifyMatch">(?m)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Ljava/security/Signature;-&gt;verify\(\[B\)Z</op>
+			<op type="find" name="sigVerifyVarsStart" insideOP="sigVerifyMatch"> \{.+?\}, </op>
+			<op type="find" name="sigVerifyVars" insideOP="sigVerifyVarsStart">[vp]\d+</op>
+			<op type="replace" name="sigVerifyFix" beforeOP="sigVerifyMatch" replaceWhat="%sigVerifyMatch%">    #%sigVerifyMatch%
+    invoke-static {%sigVerifyVars:0%, %sigVerifyVars:1%}, %!Hook:hooks/Monolith.signatureVerify%(Ljava/security/Signature;[B)Z</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Signature Verify 2" install="Monolith">
+		<!-- Same as above, but different number of parameters, not just different types. Hard to combine. -->
+		<requires>Uses Java Signature Verify</requires>
+
+		<region name="sigVerifyFile">
+			<op type="match" name="sigVerifyMatch">(?m)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+, [vp]\d+, [vp]\d+\}, Ljava/security/Signature;-&gt;verify\(\[BII\)Z</op>
+			<op type="find" name="sigVerifyVarsStart" insideOP="sigVerifyMatch"> \{.+?\}, </op>
+			<op type="find" name="sigVerifyVars" insideOP="sigVerifyVarsStart">[vp]\d+</op>
+			<op type="replace" name="sigVerifyFix" beforeOP="sigVerifyMatch" replaceWhat="%sigVerifyMatch%">    #%sigVerifyMatch%
+    invoke-static {%sigVerifyVars:0%, %sigVerifyVars:1%, %sigVerifyVars:2%, %sigVerifyVars:3%}, %!Hook:hooks/Monolith.signatureVerify%(Ljava/security/Signature;[BII)Z</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Thread dumpStack" install="Monolith" notify="false">
+		<!-- Will need to scrub ourselves from any stack trace. -->
+		<requires>Uses Java Thread</requires>
+
+		<region name="tdsFile">
+			<op type="match" name="tdsMatchDS">(?m)^[ \t]*invoke-static \{\}, Ljava/lang/Thread;-&gt;dumpStack\(\)V</op>
+			<op type="replace" name="tdsFix" insideOP="tdsMatchDS" replaceWhat="%tdsMatchDS%">    #%tdsMatchDS%
+    invoke-static {}, %!Hook:hooks/Monolith.threadDumpStack%()V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Thread getStackTrace" install="Monolith" notify="false">
+		<!-- Will need to scrub ourselves from any stack trace. -->
+		<requires>Uses Java Thread</requires>
+
+		<region name="tgstFile">
+			<op type="match" name="tgstMatchGST">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Ljava/lang/Thread;-&gt;getStackTrace\(\)\[Ljava/lang/StackTraceElement;</op>
+			<op type="find" name="tgstVarsStart" insideOP="tgstMatchGST"> \{.+?\}, </op>
+			<op type="find" name="tgstVars" insideOP="tgstVarsStart">[vp]\d+</op>
+			<op type="replace" name="tgstFix" insideOP="tgstMatchGST" replaceWhat="%tgstMatchGST%">    #%tgstMatchGST%
+    invoke-static {%tgstVars%}, %!Hook:hooks/Monolith.threadGetStackTrace%(Ljava/lang/Thread;)[Ljava/lang/StackTraceElement;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Throwable Stack Trace" notify="false" install="Monolith">
+		<!-- Will need to scrub ourselves from any stack trace. -->
+		<requires>Uses Java Throwable</requires>
+
+		<region name="tstsFile">
+			<!-- Hook any throwable subclass with crude name regex -->
+			<op type="match" name="matchTST">(?m)^[ \t]*invoke-(direct|virtual) \{[vp]\d+\}, Ljava[A-z0-9\.\$/]+?(Throwable|Error|Exception|ThreadDeath);->(&lt;init&gt;|fillInStackTrace)\(\S*?\)V</op>
+			<op type="find" name="tstsClass" insideOP="matchTST">L\S+?;</op>
+			<op type="find" name="tstsVarsStart" insideOP="matchTST"> \{.+?\}, </op>
+			<op type="find" name="tstsVars" insideOP="tstsVarsStart">[vp]\d+</op>
+			<op type="insert" name="setST" afterOP="matchTST">
+    invoke-static {%tstsVars:0%}, %!Hook:hooks/Monolith.setStackTrace%(Ljava/lang/Throwable;)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Throwable printStackTrace" notify="false" install="Monolith">
+		<!-- Will need to scrub ourselves from any stack trace. -->
+		<requires>Uses Java Throwable</requires>
+
+		<region name="tspsFile">
+			<!-- Hook any throwable subclass with crude name regex -->
+			<op type="match" name="matchTPS">(?m)^[ \t]*invoke-(direct|virtual) \{[vp]\d+\}, Ljava[A-z0-9\.\$/]+?(Throwable|Error|Exception|ThreadDeath);->printStackTrace\(\)V</op>
+			<op type="find" name="tspsClass" insideOP="matchTPS">L\S+?;</op>
+			<op type="find" name="tspsVarsStart" insideOP="matchTPS"> \{.+?\}, </op>
+			<op type="find" name="tspsVars" insideOP="tspsVarsStart">[vp]\d+</op>
+			<op type="replace" name="setPS" beforeOP="matchTPS" replaceWhat="%matchTPS%">    #%matchTPS%
+    invoke-static {%tspsVars:0%}, %!Hook:hooks/Monolith.throwablePrintStackTrace%(Ljava/lang/Throwable;)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Get Zip Entry" install="Monolith">
+		<!-- Usually trying to get classes.dex. We will provide an entry with spoofed values. -->
+
+		<region name="hgzeFile">
+			<op type="match" name="matchGZE">(?m)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Ljava/util/(zip/Zip|jar/Jar)File;-&gt;getEntry\(Ljava/lang/String;\)Ljava/util/zip/ZipEntry;</op>
+			<op type="find" name="gzeVarsStart" insideOP="matchGZE"> \{.+?\}, </op>
+			<op type="find" name="gzeVars" insideOP="gzeVarsStart">[vp]\d+</op>
+			<op type="replace" name="fixGZE" beforeOP="matchGZE" replaceWhat="%matchGZE%">    #%matchGZE%
+    invoke-static {%gzeVars:0%, %gzeVars:1%}, %!Hook:hooks/Monolith.getZipEntry%(Ljava/util/zip/ZipFile;Ljava/lang/String;)Ljava/util/zip/ZipEntry;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Get Jar Entry" install="Monolith">
+		<!-- Same as Zip Entry. -->
+
+		<region name="hgjeFile">
+			<op type="match" name="matchGJE">(?m)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Ljava/util/jar/JarFile;-&gt;getJarEntry\(Ljava/lang/String;\)Ljava/util/jar/JarEntry;</op>
+			<op type="find" name="gjeVarsStart" insideOP="matchGJE"> \{.+?\}, </op>
+			<op type="find" name="gjeVars" insideOP="gjeVarsStart">[vp]\d+</op>
+			<op type="replace" name="fixGJE" beforeOP="matchGJE" replaceWhat="%matchGJE%">    #%matchGJE%
+    invoke-static {%gjeVars:0%, %gjeVars:1%}, %!Hook:hooks/Monolith.getJarEntry%(Ljava/util/jar/JarFile;Ljava/lang/String;)Ljava/util/jar/JarEntry;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Get Checksum Value" install="Monolith">
+		<!-- May be getting checksum value of file we modified, and will need to be spoofed. -->
+		<region name="csvFile">
+			<op type="match" name="matchCSV">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Ljava/util/zip/(Adler|CRC)32;->getValue\(\)J</op>
+			<op type="find" name="csvVarsStart" insideOP="matchCSV"> \{.+?\}, </op>
+			<op type="find" name="csvVars" insideOP="csvVarsStart">[vp]\d+</op>
+			<op type="replace" name="fixCSV" beforeOP="matchCSV" replaceWhat="%matchCSV%">    #%matchCSV%
+    invoke-static {%csvVars:0%}, %!Hook:hooks/Monolith.spoofChecksum%(Ljava/util/zip/Checksum;)J</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Get MessageDigest Value" install="Monolith,CryptUtils">
+		<!-- Same as checksum value, except for MessageDigest objects. -->
+		<region name="mdvFile">
+			<op type="match" name="matchMDV">(?m)^[ \t]*invoke-virtual \{[vp]\d+\}, Ljava/security/MessageDigest;->digest\(\)\[B</op>
+			<op type="find" name="mdvVarsStart" insideOP="matchMDV"> \{.+?\}, </op>
+			<op type="find" name="mdvVars" insideOP="mdvVarsStart">[vp]\d+</op>
+			<op type="replace" name="fixMDV" beforeOP="matchMDV" replaceWhat="%matchMDV%">    #%matchMDV%
+    invoke-static {%mdvVars:0%}, %!Hook:hooks/Monolith.spoofDigest%(Ljava/security/MessageDigest;)[B</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook CheckedInputStream Init" install="Monolith">
+		<!-- Watch any time a checkedinputstream is created, so we can know the associated input stream.
+		The input stream is watched so it can be linked to the file name. This is how we ensure we lie
+		about certain files. -->
+
+		<region name="mdvFile">
+			<op type="match" name="matchCSI">(?m)^[ \t]*invoke-direct \{[vp]\d+, [vp]\d+, [vp]\d+\}, Ljava/util/zip/CheckedInputStream;->&lt;init>\(Ljava/io/InputStream;Ljava/util/zip/Checksum;\)V</op>
+			<op type="find" name="csiVarsStart" insideOP="matchCSI"> \{.+?\}, </op>
+			<op type="find" name="csiVars" insideOP="csiVarsStart">[vp]\d+</op>
+			<op type="insert" name="fixCSI" afterOP="matchCSI">
+    invoke-static {%csiVars:1%, %csiVars:2%}, %!Hook:hooks/Monolith.watchChecksum%(Ljava/io/InputStream;Ljava/util/zip/Checksum;)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook MessageDigest Update" install="Monolith">
+		<!-- The first time this hook is called, it makes a connection between the message digest and the stream it is reading.
+		This is the same as checksums being linked to input streams being linked to files. -->
+		<requires>Hook Get MessageDigest Value|Hook Get Checksum Value|Hook Method Invocation</requires>
+
+		<region name="mdiFile">
+			<op type="match" name="matchMDI">(?m)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+, [vp]\d+, [vp]\d+\}, Ljava/security/MessageDigest;->update\(\[BII\)V</op>
+			<op type="find" name="mdiVarsStart" insideOP="matchMDI"> \{.+?\}, </op>
+			<op type="find" name="mdiVars" insideOP="mdiVarsStart">[vp]\d+</op>
+			<op type="insert" name="fixMDI" afterOP="matchMDI">
+    invoke-static {%mdiVars:0%}, %!Hook:hooks/Monolith.watchDigest%(Ljava/security/MessageDigest;)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook InputStream Read for MessagDigest" install="Monolith">
+		<!-- Keeping track of what input stream goes to what file for checksum spoofing. -->
+		<requires>Hook Get MessageDigest Value|Hook Get Checksum Value|Hook Method Invocation</requires>
+
+		<region name="fisrmdFile">
+			<op type="match" name="matchFISRMD">(?m)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Ljava/io/(File)?InputStream;->read\(\[B(II)?\)I</op>
+			<op type="find" name="fisrmdVarsStart" insideOP="matchFISRMD"> \{.+?\}, </op>
+			<op type="find" name="fisrmdVars" insideOP="fisrmdVarsStart">[vp]\d+</op>
+			<op type="insert" name="fixFISRMD" beforeOP="matchFISRMD">
+    invoke-static {%fisrmdVars:0%}, %!Hook:hooks/Monolith.watchInputStreamReadForDigest%(Ljava/lang/Object;)V
+</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Create FileInputStream for Checksum" install="Monolith">
+		<!-- Keeping track of what input stream goes to what file for checksum spoofing. -->
+		<requires>Hook Get MessageDigest Value|Hook Get Checksum Value|Hook Method Invocation</requires>
+
+		<region name="fiscFile">
+			<op type="match" name="matchFISC">(?m)^[ \t]*invoke-direct \{[vp]\d+, [vp]\d+\}, Ljava/io/FileInputStream;->&lt;init>\(Ljava/(lang/String|io/File);\)V</op>
+			<op type="find" name="fiscParamType" insideOP="matchFISC">Ljava/(lang/String|io/File);</op>
+			<op type="find" name="fiscVarsStart" insideOP="matchFISC"> \{.+?\}, </op>
+			<op type="find" name="fiscVars" insideOP="fiscVarsStart">[vp]\d+</op>
+			<op type="insert" name="fixFISC" afterOP="matchFISC">
+    invoke-static {%fiscVars:0%, %fiscVars:1%}, %!Hook:hooks/Monolith.watchInputStream%(Ljava/lang/Object;%fiscParamType:0%)V</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Context OpenFileInput for Checksum" install="Monolith" >
+		<!-- Another way to open files. -->
+		<requires>Hook Get MessageDigest Value|Hook Get Checksum Value|Hook Method Invocation</requires>
+
+		<region name="gafiscFile">
+			<!-- could actually be any activity name -->
+			<op type="match" name="matchGAFISC">(?ms)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, L(\S+?);->openFileInput\(Ljava/lang/String;\)Ljava/io/FileInputStream;</op>
+			<op type="find" name="gafiscVarsStart" insideOP="matchGAFISC"> \{.+?\}, </op>
+			<op type="find" name="gafiscVars" insideOP="gafiscVarsStart">[vp]\d+</op>
+			<op type="replace" name="fixGAFISC" beforeOP="matchGAFISC" replaceWhat="%matchGAFISC%">    #%matchGAFISC%
+    invoke-static {%gafiscVars:0%, %gafiscVars:1%}, %!Hook:hooks/Monolith.contextOpenFileInput%(Landroid/content/Context;Ljava/lang/String;)Ljava/io/FileInputStream;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Reflected Constructor New Instance" install="Monolith,ReflectedConstructor">
+		<!-- Could use reflection to get around constructor/new-instance based hooks. -->
+		<region name="hcniFile">
+			<op type="match" name="matchHCNI">(?m)^[ \t]*invoke-virtual \{[vp]\d+, [vp]\d+\}, Ljava/lang/reflect/Constructor;->newInstance\(\[Ljava/lang/Object;\)Ljava/lang/Object;</op>
+			<op type="find" name="hcniVarsStart" insideOP="matchHCNI"> \{.+?\}, </op>
+			<op type="find" name="hcniVars" insideOP="hcniVarsStart">[vp]\d+</op>
+			<op type="replace" name="fixHCNI" beforeOP="matchHCNI" replaceWhat="%matchHCNI%">    #%matchHCNI%
+    invoke-static {%hcniVars:0%, %hcniVars:1%}, %!Hook:hooks/ReflectedConstructor.constructorNewInstance%(Ljava/lang/reflect/Constructor;[Ljava/lang/Object;)Ljava/lang/Object;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="Hook Load DexFile" install="Monolith">
+		<region name="hldfFile">
+			<op type="match" name="hldfMatchLoadCall">(?m)^[ \t]*invoke-static \{[vp]\d+, [vp]\d+, [vp]\d+\}, Ldalvik/system/DexFile;->loadDex\(Ljava/lang/String;Ljava/lang/String;I\)Ldalvik/system/DexFile;</op>
+			<op type="find" name="hldfVarsStart" insideOP="hldfMatchLoadCall"> \{.+?\}, </op>
+			<op type="find" name="hldfVars" insideOP="hldfVarsStart">[vp]\d+</op>
+			<op type="replace" name="hldfHookLoadCall" beforeOP="hldfMatchLoadCall" replaceWhat="%hldfMatchLoadCall%">    #%hldfMatchLoadCall%
+    invoke-static {%hldfVars:0%, %hldfVars:1%, %hldfVars:2%}, %!Hook:hooks/Monolith.loadDex%(Ljava/lang/String;Ljava/lang/String;I)Ldalvik/system/DexFile;</op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="zHook Entry Activity" install="Monolith" enabled="false">
+	    <!-- These will fail without ensuring MethodTrace FixLocals runs -->
+		<region name="super">
+			<op type="match" name="matchSuper">(?m)^[ \t]*\.super Landroid/app/Activity;</op>
+		</region>
+
+		<region name="onCreate">
+			<starts>(?m)^[ \t]*\.method (public )?(protected )?(final )?onCreate\(Landroid/os/Bundle;\)V</starts>
+			<ends>(?m)^[ \t]*\.end method</ends>
+
+			<op type="match" name="matchInvokeSuper">(?m)^[ \t]*invoke-super \{</op>
+			<op type="find" name="mmsigMethodStarts">%!MethodStarts%</op>
+			<op type="insert" name="smInsert" afterOP="mmsigMethodStarts">
+    move-object/from16 v0, p0
+    instance-of v0, v0, Landroid/content/Context;
+    if-eqz v0, :alt_var_type
+    invoke-static {p0}, %!Hook:hooks/Monolith.setAppContext%(Landroid/content/Context;)V
+    goto/16 :end_sig
+    :alt_var_type
+    move-object/from16 v0, p0
+    instance-of v0, v0, Landroid/app/Activity;
+    if-eqz v0, :end_sig
+    invoke-virtual/range {p0 .. p0}, L%!LaunchActivity%;->getBaseContext()Landroid/content/Context;
+    move-result-object v0
+    invoke-static {v0}, %!Hook:hooks/Monolith.setAppContext%(Landroid/content/Context;)V
+    :end_sig
+
+    </op>
+		</region>
+	</fingerprint>
+
+	<fingerprint name="zHook Entry BroadcastReceiver" install="Monolith" enabled="false">
+		<region name="super">
+			<op type="match" name="matchSuper">(?m)^[ \t]*\.super Landroid/content/BroadcastReceiver;</op>
+		</region>
+
+		<region name="onReceive">
+			<starts>(?m)^[ \t]*\.method (public )?(protected )?(final )?onReceive\(Landroid/content/Context;Landroid/content/Intent;\)V</starts>
+			<ends>(?m)^[ \t]*\.end method</ends>
+
+			<op type="find" name="mmsigMethodStarts">%!MethodStarts%</op>
+			<op type="insert" name="smInsert" afterOP="mmsigMethodStarts">
+    move-object/from16 v0, p1
+    invoke-static {v0}, %!Hook:hooks/Monolith.setAppContext%(Landroid/content/Context;)V
+
+    </op>
+		</region>
+	</fingerprint>
+
+</fingerprints>
