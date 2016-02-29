@@ -1,10 +1,10 @@
 #!/bin/bash
-HOOKS_PATH=src/resequencer/hooks
-GENES_DEX=../genes/bin/classes.dex
+HOOKS_PATH=src/main/resources/hooks
+GENES_DEX=genes/genes/build/outputs/apk/genes-debug.apk
 
 rm -r $HOOKS_PATH/*
 
-java -jar lib/baksmali.jar --use-locals --sequential-labels $GENES_DEX --output $HOOKS_PATH/tmp
+baksmali --use-locals --sequential-labels $GENES_DEX --output $HOOKS_PATH/tmp
 
 mv $HOOKS_PATH/tmp/hooks/* $HOOKS_PATH
 

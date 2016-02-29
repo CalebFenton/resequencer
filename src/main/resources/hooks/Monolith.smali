@@ -110,34 +110,31 @@
     .line 72
     sput-object v2, Lhooks/Monolith;->AppContext:Landroid/content/Context;
 
-    .line 87
+    .line 86
     const-string v0, "%!CheckSigsBehavior%"
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 86
     sput v0, Lhooks/Monolith;->MyCheckSigsBehavior:I
 
-    .line 93
+    .line 92
     const-string v0, "%!GetPIBehavior%"
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 92
     sput v0, Lhooks/Monolith;->MyGetPIBehavior:I
 
-    .line 99
+    .line 98
     const-string v0, "%!SigVerifyBehavior%"
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 98
     sput v0, Lhooks/Monolith;->MySigVerifyBehavior:I
 
     .line 105
@@ -156,7 +153,7 @@
 
     sput-object v0, Lhooks/Monolith;->CHKSUM_CRC32_App:Ljava/lang/Long;
 
-    .line 110
+    .line 109
     const-string v0, "%!ChksumAdler32App%"
 
     invoke-static {v0}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
@@ -167,7 +164,6 @@
 
     move-result-object v0
 
-    .line 109
     sput-object v0, Lhooks/Monolith;->CHKSUM_ADLER32_App:Ljava/lang/Long;
 
     .line 111
@@ -183,7 +179,7 @@
 
     sput-object v0, Lhooks/Monolith;->CHKSUM_CRC32_DEX:Ljava/lang/Long;
 
-    .line 113
+    .line 112
     const-string v0, "%!ChksumAdler32DEX%"
 
     invoke-static {v0}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
@@ -194,7 +190,6 @@
 
     move-result-object v0
 
-    .line 112
     sput-object v0, Lhooks/Monolith;->CHKSUM_ADLER32_DEX:Ljava/lang/Long;
 
     .line 120
@@ -231,47 +226,42 @@
     .line 138
     sput-object v2, Lhooks/Monolith;->LastReadInputStream:Ljava/io/InputStream;
 
-    .line 149
+    .line 148
     const-string v0, "%!DeviceIDSpoofType%"
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 148
     sput v0, Lhooks/Monolith;->DeviceIDSpoofType:I
 
-    .line 158
+    .line 157
     const-string v0, "%!AccountNameSpoofType%"
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 157
     sput v0, Lhooks/Monolith;->AccountNameSpoofType:I
 
-    .line 170
+    .line 169
     const-string v0, "%!WifiMacSpoofType%"
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 169
     sput v0, Lhooks/Monolith;->WifiMacSpoofType:I
 
-    .line 179
+    .line 178
     const-string v0, "%!BTMacSpoofType%"
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 178
     sput v0, Lhooks/Monolith;->BTMacSpoofType:I
 
-    .line 180
     return-void
 .end method
 
@@ -297,9 +287,13 @@
     .line 254
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "checkSignatures("
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -315,14 +309,12 @@
 
     move-result-object v2
 
-    .line 255
     const-string v3, "), calling string version"
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    .line 254
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -363,9 +355,13 @@
     .line 227
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "checkSignatures("
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -402,9 +398,13 @@
     .local v0, "result":I
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "  real result = "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -452,9 +452,13 @@
     :goto_1
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "  returning: "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
@@ -488,13 +492,11 @@
 
     if-eq v0, v2, :cond_1
 
-    .line 241
     if-eqz v0, :cond_1
 
     .line 242
     const/4 v0, 0x0
 
-    .line 244
     goto :goto_1
 
     .line 245
@@ -545,9 +547,13 @@
     .line 1036
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "fixSysCmd("
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {p0}, Ljava/lang/String;->trim()Ljava/lang/String;
 
@@ -622,11 +628,11 @@
     .line 1046
     new-instance v2, Ljava/lang/StringBuilder;
 
-    invoke-static {v1}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-object v3
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    move-result-object v2
 
     const-string v3, "%!MD5Sum%\t"
 
@@ -686,32 +692,16 @@
     :goto_0
     const/4 v2, 0x6
 
-    if-lt v0, v2, :cond_0
-
-    .line 1110
-    const/4 v2, 0x0
-
-    invoke-virtual {v1}, Ljava/lang/String;->length()I
-
-    move-result v3
-
-    add-int/lit8 v3, v3, -0x1
-
-    invoke-virtual {v1, v2, v3}, Ljava/lang/String;->substring(II)Ljava/lang/String;
-
-    move-result-object v2
-
-    return-object v2
+    if-ge v0, v2, :cond_0
 
     .line 1108
-    :cond_0
     new-instance v2, Ljava/lang/StringBuilder;
 
-    invoke-static {v1}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-object v3
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    move-result-object v2
 
     const-string v3, "0123456789ABCDEF"
 
@@ -739,6 +729,22 @@
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
+
+    .line 1110
+    :cond_0
+    const/4 v2, 0x0
+
+    invoke-virtual {v1}, Ljava/lang/String;->length()I
+
+    move-result v3
+
+    add-int/lit8 v3, v3, -0x1
+
+    invoke-virtual {v1, v2, v3}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v2
+
+    return-object v2
 .end method
 
 .method protected static generateString(I)Ljava/lang/String;
@@ -777,17 +783,9 @@
 
     .local v0, "i":I
     :goto_0
-    if-lt v0, p1, :cond_0
-
-    .line 1176
-    new-instance v3, Ljava/lang/String;
-
-    invoke-direct {v3, v2}, Ljava/lang/String;-><init>([C)V
-
-    return-object v3
+    if-ge v0, p1, :cond_0
 
     .line 1173
-    :cond_0
     invoke-virtual {p0}, Ljava/lang/String;->length()I
 
     move-result v3
@@ -806,6 +804,14 @@
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
+
+    .line 1176
+    :cond_0
+    new-instance v3, Ljava/lang/String;
+
+    invoke-direct {v3, v2}, Ljava/lang/String;-><init>([C)V
+
+    return-object v3
 .end method
 
 .method public static getAccountName(Landroid/accounts/Account;)Ljava/lang/String;
@@ -841,10 +847,8 @@
 
     const-string v6, "%!RndAlpha%"
 
-    .line 679
     const/4 v7, 0x0
 
-    .line 678
     invoke-virtual {v5, v6, v7}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
 
     move-result-object v2
@@ -869,9 +873,13 @@
     :goto_1
     new-instance v5, Ljava/lang/StringBuilder;
 
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v6, "getAccountName("
 
-    invoke-direct {v5, v6}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
 
     sget v6, Lhooks/Monolith;->AccountNameSpoofType:I
 
@@ -885,7 +893,6 @@
 
     move-result-object v5
 
-    .line 719
     invoke-virtual {v5, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
@@ -900,7 +907,6 @@
 
     move-result-object v5
 
-    .line 718
     invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v5
@@ -925,11 +931,10 @@
     .line 689
     goto :goto_1
 
-    .line 692
+    .line 691
     :pswitch_1
     const-string v5, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890."
 
-    .line 691
     invoke-static {v5, v8}, Lhooks/Monolith;->generateString(Ljava/lang/String;I)Ljava/lang/String;
 
     move-result-object v3
@@ -955,14 +960,12 @@
     .line 699
     move-object v3, v4
 
-    .line 700
     goto :goto_1
 
-    .line 703
+    .line 702
     :cond_2
     const-string v5, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890."
 
-    .line 702
     invoke-static {v5, v8}, Lhooks/Monolith;->generateString(Ljava/lang/String;I)Ljava/lang/String;
 
     move-result-object v3
@@ -1030,9 +1033,13 @@
     :cond_0
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "getApplicationEnabledSetting("
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1145,10 +1152,8 @@
 
     const-string v6, "%!RndAlpha%"
 
-    .line 795
     const/4 v7, 0x0
 
-    .line 794
     invoke-virtual {v5, v6, v7}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
 
     move-result-object v2
@@ -1173,9 +1178,13 @@
     :goto_1
     new-instance v5, Ljava/lang/StringBuilder;
 
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v6, "getBTMac("
 
-    invoke-direct {v5, v6}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
 
     sget v6, Lhooks/Monolith;->BTMacSpoofType:I
 
@@ -1193,7 +1202,6 @@
 
     move-result-object v5
 
-    .line 831
     const-string v6, "  real: "
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -1204,7 +1212,6 @@
 
     move-result-object v5
 
-    .line 830
     invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v5
@@ -1256,7 +1263,6 @@
     .line 813
     move-object v3, v4
 
-    .line 814
     goto :goto_1
 
     .line 816
@@ -1332,10 +1338,8 @@
 
     const-string v6, "%!RndAlpha%"
 
-    .line 407
     const/4 v7, 0x0
 
-    .line 406
     invoke-virtual {v5, v6, v7}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
 
     move-result-object v2
@@ -1360,9 +1364,13 @@
     :goto_1
     new-instance v5, Ljava/lang/StringBuilder;
 
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v6, "getDeviceId("
 
-    invoke-direct {v5, v6}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
 
     sget v6, Lhooks/Monolith;->DeviceIDSpoofType:I
 
@@ -1380,7 +1388,6 @@
 
     move-result-object v5
 
-    .line 452
     const-string v6, "  real: "
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -1391,7 +1398,6 @@
 
     move-result-object v5
 
-    .line 451
     invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v5
@@ -1443,7 +1449,6 @@
     .line 426
     move-object v3, v4
 
-    .line 427
     goto :goto_1
 
     .line 429
@@ -1538,9 +1543,13 @@
     .local v0, "real":Ljava/lang/String;
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "getInstallerPackageName("
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1556,7 +1565,6 @@
 
     move-result-object v2
 
-    .line 278
     const-string v3, " but really it\'s: "
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -1567,7 +1575,6 @@
 
     move-result-object v2
 
-    .line 277
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -1587,9 +1594,13 @@
     .line 206
     new-instance v0, Ljava/lang/StringBuilder;
 
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v1, "getJarEntry("
 
-    invoke-direct {v0, v1}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
 
     invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1646,9 +1657,13 @@
     :cond_0
     new-instance v1, Ljava/lang/StringBuilder;
 
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v2, "getNetworkOperator() - using:"
 
-    invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
 
     invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1660,7 +1675,6 @@
 
     move-result-object v1
 
-    .line 731
     invoke-virtual {p0}, Landroid/telephony/TelephonyManager;->getNetworkOperator()Ljava/lang/String;
 
     move-result-object v2
@@ -1669,7 +1683,6 @@
 
     move-result-object v1
 
-    .line 730
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v1
@@ -1721,18 +1734,13 @@
     :goto_0
     array-length v6, v3
 
-    if-ge v0, v6, :cond_0
+    if-ge v0, v6, :cond_1
 
     const/4 v6, 0x2
 
-    if-lt v5, v6, :cond_1
-
-    .line 945
-    :cond_0
-    return-object v4
+    if-ge v5, v6, :cond_1
 
     .line 937
-    :cond_1
     aget-object v6, v3, v0
 
     invoke-virtual {v6}, Ljava/lang/StackTraceElement;->toString()Ljava/lang/String;
@@ -1745,7 +1753,7 @@
 
     move-result v6
 
-    if-eqz v6, :cond_2
+    if-eqz v6, :cond_0
 
     .line 936
     :goto_1
@@ -1754,17 +1762,17 @@
     goto :goto_0
 
     .line 941
-    :cond_2
+    :cond_0
     add-int/lit8 v5, v5, 0x1
 
     .line 942
     new-instance v6, Ljava/lang/StringBuilder;
 
-    invoke-static {v4}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result-object v7
+    invoke-virtual {v6, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-direct {v6, v7}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    move-result-object v6
 
     const-string v7, "   >"
 
@@ -1793,6 +1801,11 @@
     move-result-object v4
 
     goto :goto_1
+
+    .line 945
+    .end local v1    # "line":Ljava/lang/String;
+    :cond_1
+    return-object v4
 .end method
 
 .method public static getPackageInfo(Landroid/content/pm/PackageManager;Ljava/lang/String;I)Landroid/content/pm/PackageInfo;
@@ -1812,9 +1825,13 @@
     .line 318
     new-instance v3, Ljava/lang/StringBuilder;
 
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v4, "getPackageInfo("
 
-    invoke-direct {v3, v4}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
 
     invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1859,9 +1876,13 @@
     .line 339
     new-instance v3, Ljava/lang/StringBuilder;
 
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v4, "  spoofing "
 
-    invoke-direct {v3, v4}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
 
     iget-object v4, v1, Landroid/content/pm/PackageInfo;->signatures:[Landroid/content/pm/Signature;
 
@@ -1877,12 +1898,10 @@
 
     move-result-object v3
 
-    .line 340
     invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
-    .line 339
     invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v3
@@ -1898,12 +1917,10 @@
     .local v2, "spoofSigs":[Landroid/content/pm/Signature;
     iget-object v3, v1, Landroid/content/pm/PackageInfo;->signatures:[Landroid/content/pm/Signature;
 
-    .line 343
     iget-object v4, v1, Landroid/content/pm/PackageInfo;->signatures:[Landroid/content/pm/Signature;
 
     array-length v4, v4
 
-    .line 342
     invoke-static {v2, v5, v3, v5, v4}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
     .line 346
@@ -1951,142 +1968,101 @@
 .end method
 
 .method private static getPermutedDeviceID()Ljava/lang/String;
-    .locals 10
+    .locals 9
 
     .prologue
-    const/4 v6, 0x4
-
-    const/4 v9, 0x3
-
-    const/4 v8, 0x2
-
-    const/4 v4, 0x0
-
-    const/16 v7, 0x8
-
     .line 1076
-    const/16 v5, 0xf
+    const/16 v7, 0xf
 
-    new-array v2, v5, [I
+    new-array v5, v7, [I
 
-    aput v7, v2, v4
-
-    const/4 v5, 0x1
-
-    aput v6, v2, v5
-
-    const/16 v5, 0xa
-
-    aput v5, v2, v8
-
-    const/16 v5, 0xe
-
-    aput v5, v2, v6
-
-    const/4 v5, 0x5
-
-    const/16 v6, 0xc
-
-    aput v6, v2, v5
-
-    const/4 v5, 0x6
-
-    aput v9, v2, v5
-
-    const/4 v5, 0x7
-
-    aput v9, v2, v5
-
-    const/16 v5, 0xd
-
-    aput v5, v2, v7
-
-    const/16 v5, 0x9
-
-    aput v8, v2, v5
-
-    const/16 v5, 0xa
-
-    const/4 v6, 0x5
-
-    aput v6, v2, v5
-
-    const/16 v5, 0xb
-
-    const/16 v6, 0x9
-
-    aput v6, v2, v5
-
-    const/16 v5, 0xc
-
-    const/4 v6, 0x6
-
-    aput v6, v2, v5
-
-    const/16 v5, 0xd
-
-    aput v7, v2, v5
-
-    const/16 v5, 0xe
-
-    const/16 v6, 0xb
-
-    aput v6, v2, v5
+    fill-array-data v5, :array_0
 
     .line 1078
-    .local v2, "p":[I
+    .local v5, "p":[I
     invoke-static {}, Lhooks/Monolith;->getRealDeviceID()Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object v1
 
     .line 1079
-    .local v0, "deviceId":Ljava/lang/String;
-    const-string v3, ""
+    .local v1, "deviceId":Ljava/lang/String;
+    const-string v6, ""
 
     .line 1080
-    .local v3, "result":Ljava/lang/String;
-    if-eqz v0, :cond_0
+    .local v6, "result":Ljava/lang/String;
+    if-eqz v1, :cond_0
 
     .line 1081
-    array-length v5, v2
+    move-object v0, v5
 
+    .local v0, "arr$":[I
+    array-length v4, v0
+
+    .local v4, "len$":I
+    const/4 v3, 0x0
+
+    .local v3, "i$":I
     :goto_0
-    if-lt v4, v5, :cond_1
+    if-ge v3, v4, :cond_0
 
-    .line 1086
-    :cond_0
-    return-object v3
-
-    .line 1081
-    :cond_1
-    aget v1, v2, v4
+    aget v2, v0, v3
 
     .line 1082
-    .local v1, "i":I
-    new-instance v6, Ljava/lang/StringBuilder;
+    .local v2, "i":I
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    invoke-static {v3}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v7, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v7
 
-    invoke-direct {v6, v7}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v2}, Ljava/lang/String;->charAt(I)C
 
-    invoke-virtual {v0, v1}, Ljava/lang/String;->charAt(I)C
+    move-result v8
 
-    move-result v7
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v6
 
-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
     .line 1081
-    add-int/lit8 v4, v4, 0x1
+    add-int/lit8 v3, v3, 0x1
 
     goto :goto_0
+
+    .line 1086
+    .end local v0    # "arr$":[I
+    .end local v2    # "i":I
+    .end local v3    # "i$":I
+    .end local v4    # "len$":I
+    :cond_0
+    return-object v6
+
+    .line 1076
+    nop
+
+    :array_0
+    .array-data 4
+        0x8
+        0x4
+        0xa
+        0x0
+        0xe
+        0xc
+        0x3
+        0x3
+        0xd
+        0x2
+        0x5
+        0x9
+        0x6
+        0x8
+        0xb
+    .end array-data
 .end method
 
 .method private static getRealDeviceID()Ljava/lang/String;
@@ -2096,14 +2072,12 @@
     .line 1090
     sget-object v1, Lhooks/Monolith;->AppContext:Landroid/content/Context;
 
-    .line 1091
     const-string v2, "phone"
 
     invoke-virtual {v1, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 1090
     check-cast v0, Landroid/telephony/TelephonyManager;
 
     .line 1093
@@ -2148,10 +2122,8 @@
 
     const-string v6, "%!RndAlpha%"
 
-    .line 745
     const/4 v7, 0x0
 
-    .line 744
     invoke-virtual {v5, v6, v7}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
 
     move-result-object v2
@@ -2176,9 +2148,13 @@
     :goto_1
     new-instance v5, Ljava/lang/StringBuilder;
 
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v6, "getWifiMac("
 
-    invoke-direct {v5, v6}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
 
     sget v6, Lhooks/Monolith;->WifiMacSpoofType:I
 
@@ -2196,7 +2172,6 @@
 
     move-result-object v5
 
-    .line 781
     const-string v6, "  real: "
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -2207,7 +2182,6 @@
 
     move-result-object v5
 
-    .line 780
     invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v5
@@ -2259,7 +2233,6 @@
     .line 763
     move-object v3, v4
 
-    .line 764
     goto :goto_1
 
     .line 766
@@ -2304,7 +2277,7 @@
 .end method
 
 .method public static getZipEntry(Ljava/util/zip/ZipFile;Ljava/lang/String;)Ljava/util/zip/ZipEntry;
-    .locals 3
+    .locals 4
     .param p0, "zf"    # Ljava/util/zip/ZipFile;
     .param p1, "entryName"    # Ljava/lang/String;
 
@@ -2312,9 +2285,13 @@
     .line 211
     new-instance v1, Ljava/lang/StringBuilder;
 
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v2, "getZipEntry("
 
-    invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
 
     invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2357,28 +2334,27 @@
 
     invoke-static {v1}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
 
-    move-result-wide v1
+    move-result-wide v2
 
-    invoke-virtual {v0, v1, v2}, Ljava/util/zip/ZipEntry;->setCrc(J)V
+    invoke-virtual {v0, v2, v3}, Ljava/util/zip/ZipEntry;->setCrc(J)V
 
     .line 217
     const-string v1, "%!ZipClassesDexSize%"
 
     invoke-static {v1}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
 
-    move-result-wide v1
+    move-result-wide v2
 
-    invoke-virtual {v0, v1, v2}, Ljava/util/zip/ZipEntry;->setSize(J)V
+    invoke-virtual {v0, v2, v3}, Ljava/util/zip/ZipEntry;->setSize(J)V
 
-    .line 219
+    .line 218
     const-string v1, "%!ZipClassesDexCompressedSize%"
 
     invoke-static {v1}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
 
-    move-result-wide v1
+    move-result-wide v2
 
-    .line 218
-    invoke-virtual {v0, v1, v2}, Ljava/util/zip/ZipEntry;->setCompressedSize(J)V
+    invoke-virtual {v0, v2, v3}, Ljava/util/zip/ZipEntry;->setCompressedSize(J)V
 
     .line 222
     :cond_0
@@ -2397,9 +2373,13 @@
     .local v1, "result":I
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "isChecksumFileName("
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {v2, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2446,9 +2426,13 @@
     .line 1023
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "  guessing package = "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {v2, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2597,7 +2581,7 @@
 .end method
 
 .method public static lastModified(Ljava/io/File;)J
-    .locals 5
+    .locals 6
     .param p0, "f"    # Ljava/io/File;
 
     .prologue
@@ -2624,9 +2608,13 @@
     .line 373
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "lastModified() spoofing of "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {p0}, Ljava/io/File;->getName()Ljava/lang/String;
 
@@ -2646,7 +2634,6 @@
 
     move-result-object v2
 
-    .line 374
     const-string v3, " real:"
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -2655,13 +2642,12 @@
 
     invoke-virtual {p0}, Ljava/io/File;->lastModified()J
 
-    move-result-wide v3
+    move-result-wide v4
 
-    invoke-virtual {v2, v3, v4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    .line 373
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -2690,9 +2676,13 @@
     .line 378
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "lastModified() spoofing of "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {p0}, Ljava/io/File;->getName()Ljava/lang/String;
 
@@ -2712,7 +2702,6 @@
 
     move-result-object v2
 
-    .line 379
     const-string v3, " real:"
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -2721,13 +2710,12 @@
 
     invoke-virtual {p0}, Ljava/io/File;->lastModified()J
 
-    move-result-wide v3
+    move-result-wide v4
 
-    invoke-virtual {v2, v3, v4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    .line 378
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -2740,9 +2728,13 @@
     :cond_1
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "lastModified() NOT spoofing of "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {p0}, Ljava/io/File;->getName()Ljava/lang/String;
 
@@ -2758,7 +2750,6 @@
 
     move-result-object v2
 
-    .line 383
     invoke-virtual {v2, v0, v1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
@@ -2771,13 +2762,12 @@
 
     invoke-virtual {p0}, Ljava/io/File;->lastModified()J
 
-    move-result-wide v3
+    move-result-wide v4
 
-    invoke-virtual {v2, v3, v4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    .line 382
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -2788,7 +2778,7 @@
 .end method
 
 .method public static length(Ljava/io/File;)J
-    .locals 5
+    .locals 6
     .param p0, "f"    # Ljava/io/File;
 
     .prologue
@@ -2815,9 +2805,13 @@
     .line 353
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "length() spoofing file length of "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {p0}, Ljava/io/File;->getName()Ljava/lang/String;
 
@@ -2833,7 +2827,6 @@
 
     move-result-object v2
 
-    .line 354
     invoke-virtual {v2, v0, v1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
@@ -2846,13 +2839,12 @@
 
     invoke-virtual {p0}, Ljava/io/File;->length()J
 
-    move-result-wide v3
+    move-result-wide v4
 
-    invoke-virtual {v2, v3, v4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    .line 353
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -2881,9 +2873,13 @@
     .line 358
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "length() spoofing file length of "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {p0}, Ljava/io/File;->getName()Ljava/lang/String;
 
@@ -2899,7 +2895,6 @@
 
     move-result-object v2
 
-    .line 359
     invoke-virtual {v2, v0, v1}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
@@ -2912,13 +2907,12 @@
 
     invoke-virtual {p0}, Ljava/io/File;->length()J
 
-    move-result-wide v3
+    move-result-wide v4
 
-    invoke-virtual {v2, v3, v4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    .line 358
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -2931,9 +2925,13 @@
     :cond_1
     new-instance v2, Ljava/lang/StringBuilder;
 
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v3, "length() NOT spoofing file length of "
 
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
 
     invoke-virtual {p0}, Ljava/io/File;->getName()Ljava/lang/String;
 
@@ -2943,7 +2941,6 @@
 
     move-result-object v2
 
-    .line 363
     const-string v3, " with:"
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -2962,13 +2959,12 @@
 
     invoke-virtual {p0}, Ljava/io/File;->length()J
 
-    move-result-wide v3
+    move-result-wide v4
 
-    invoke-virtual {v2, v3, v4}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    .line 362
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v2
@@ -2993,9 +2989,13 @@
     .line 199
     new-instance v0, Ljava/lang/StringBuilder;
 
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v1, "loadDex() src:"
 
-    invoke-direct {v0, v1}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
 
     invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -3011,7 +3011,6 @@
 
     move-result-object v0
 
-    .line 200
     const-string v1, " flags:"
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -3022,7 +3021,6 @@
 
     move-result-object v0
 
-    .line 199
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
@@ -3054,7 +3052,7 @@
 .end method
 
 .method public static log(J)V
-    .locals 1
+    .locals 2
     .param p0, "i"    # J
 
     .prologue
@@ -3117,10 +3115,8 @@
 
     const-string v3, "mt.log"
 
-    .line 968
     const v4, 0x8000
 
-    .line 967
     invoke-virtual {v2, v3, v4}, Landroid/content/Context;->openFileOutput(Ljava/lang/String;I)Ljava/io/FileOutputStream;
 
     move-result-object v2
@@ -3181,9 +3177,13 @@
 
     new-instance v3, Ljava/lang/StringBuilder;
 
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v4, "logmt() exception: "
 
-    invoke-direct {v3, v4}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
 
     invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
@@ -3273,9 +3273,13 @@
     .line 482
     new-instance v5, Ljava/lang/StringBuilder;
 
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v6, "osWrite("
 
-    invoke-direct {v5, v6}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
 
     new-instance v6, Ljava/lang/String;
 
@@ -3319,7 +3323,6 @@
 
     if-ne v5, v6, :cond_2
 
-    .line 488
     sget-object v5, Lhooks/Monolith;->MyWatchedProcess:Ljava/lang/Process;
 
     invoke-virtual {v5}, Ljava/lang/Process;->getOutputStream()Ljava/io/OutputStream;
@@ -3349,9 +3352,13 @@
     .local v2, "newCmd":Ljava/lang/String;
     new-instance v5, Ljava/lang/StringBuilder;
 
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v6, "osWrite() new cmd = "
 
-    invoke-direct {v5, v6}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
 
     invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -3388,7 +3395,6 @@
 
     if-eq v5, v6, :cond_3
 
-    .line 492
     invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v5
@@ -3406,7 +3412,6 @@
     :try_start_0
     const-class v5, Ljava/io/FilterOutputStream;
 
-    .line 496
     const-string v6, "out"
 
     invoke-virtual {v5, v6}, Ljava/lang/Class;->getDeclaredField(Ljava/lang/String;)Ljava/lang/reflect/Field;
@@ -3451,9 +3456,13 @@
     .local v0, "e":Ljava/lang/Exception;
     new-instance v5, Ljava/lang/StringBuilder;
 
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v6, "osWrite() exception: "
 
-    invoke-direct {v5, v6}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
 
     invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
@@ -3488,9 +3497,13 @@
     .local v0, "newCmd":Ljava/lang/String;
     new-instance v1, Ljava/lang/StringBuilder;
 
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v2, "runtimeExec("
 
-    invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
 
     invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -3521,137 +3534,145 @@
 .end method
 
 .method private static scrubStackTrace(Ljava/lang/String;)Ljava/lang/String;
-    .locals 7
+    .locals 8
     .param p0, "stackTrace"    # Ljava/lang/String;
 
     .prologue
     .line 1145
-    const-string v3, "\n"
+    const-string v6, "\n"
 
-    invoke-virtual {p0, v3}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
+    invoke-virtual {p0, v6}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v4
 
     .line 1146
-    .local v1, "lines":[Ljava/lang/String;
-    const-string v2, ""
+    .local v4, "lines":[Ljava/lang/String;
+    const-string v5, ""
 
     .line 1147
-    .local v2, "result":Ljava/lang/String;
-    array-length v4, v1
+    .local v5, "result":Ljava/lang/String;
+    move-object v0, v4
 
-    const/4 v3, 0x0
+    .local v0, "arr$":[Ljava/lang/String;
+    array-length v2, v0
 
+    .local v2, "len$":I
+    const/4 v1, 0x0
+
+    .local v1, "i$":I
     :goto_0
-    if-lt v3, v4, :cond_0
+    if-ge v1, v2, :cond_1
 
-    .line 1153
-    return-object v2
-
-    .line 1147
-    :cond_0
-    aget-object v0, v1, v3
+    aget-object v3, v0, v1
 
     .line 1148
-    .local v0, "line":Ljava/lang/String;
-    invoke-static {v0}, Lhooks/Monolith;->mentionsOurPackage(Ljava/lang/String;)Z
+    .local v3, "line":Ljava/lang/String;
+    invoke-static {v3}, Lhooks/Monolith;->mentionsOurPackage(Ljava/lang/String;)Z
 
-    move-result v5
+    move-result v6
 
-    if-nez v5, :cond_1
+    if-nez v6, :cond_0
 
     .line 1149
-    new-instance v5, Ljava/lang/StringBuilder;
+    new-instance v6, Ljava/lang/StringBuilder;
 
-    invoke-static {v2}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v6, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v6
 
-    invoke-direct {v5, v6}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v6, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v6
+
+    const/16 v7, 0xa
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v5
-
-    const/16 v6, 0xa
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
 
     .line 1147
-    :cond_1
-    add-int/lit8 v3, v3, 0x1
+    :cond_0
+    add-int/lit8 v1, v1, 0x1
 
     goto :goto_0
+
+    .line 1153
+    .end local v3    # "line":Ljava/lang/String;
+    :cond_1
+    return-object v5
 .end method
 
 .method private static scrubStackTrace([Ljava/lang/StackTraceElement;)[Ljava/lang/StackTraceElement;
-    .locals 6
+    .locals 7
     .param p0, "ste"    # [Ljava/lang/StackTraceElement;
 
     .prologue
     .line 1133
-    new-instance v2, Ljava/util/ArrayList;
+    new-instance v5, Ljava/util/ArrayList;
 
-    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
+    invoke-direct {v5}, Ljava/util/ArrayList;-><init>()V
 
     .line 1134
-    .local v2, "newStackList":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Ljava/lang/StackTraceElement;>;"
-    array-length v4, p0
+    .local v5, "newStackList":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Ljava/lang/StackTraceElement;>;"
+    move-object v0, p0
 
-    const/4 v3, 0x0
+    .local v0, "arr$":[Ljava/lang/StackTraceElement;
+    array-length v3, v0
 
+    .local v3, "len$":I
+    const/4 v2, 0x0
+
+    .local v2, "i$":I
     :goto_0
-    if-lt v3, v4, :cond_0
+    if-ge v2, v3, :cond_1
 
-    .line 1140
-    invoke-virtual {v2}, Ljava/util/ArrayList;->size()I
-
-    move-result v3
-
-    .line 1139
-    new-array v1, v3, [Ljava/lang/StackTraceElement;
-
-    .line 1141
-    .local v1, "newStack":[Ljava/lang/StackTraceElement;
-    invoke-virtual {v2, v1}, Ljava/util/ArrayList;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
-
-    move-result-object v3
-
-    check-cast v3, [Ljava/lang/StackTraceElement;
-
-    return-object v3
-
-    .line 1134
-    .end local v1    # "newStack":[Ljava/lang/StackTraceElement;
-    :cond_0
-    aget-object v0, p0, v3
+    aget-object v1, v0, v2
 
     .line 1135
-    .local v0, "e":Ljava/lang/StackTraceElement;
-    invoke-virtual {v0}, Ljava/lang/StackTraceElement;->getClassName()Ljava/lang/String;
+    .local v1, "e":Ljava/lang/StackTraceElement;
+    invoke-virtual {v1}, Ljava/lang/StackTraceElement;->getClassName()Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v6
 
-    invoke-static {v5}, Lhooks/Monolith;->mentionsOurPackage(Ljava/lang/String;)Z
+    invoke-static {v6}, Lhooks/Monolith;->mentionsOurPackage(Ljava/lang/String;)Z
 
-    move-result v5
+    move-result v6
 
-    if-nez v5, :cond_1
+    if-nez v6, :cond_0
 
     .line 1136
-    invoke-virtual {v2, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    invoke-virtual {v5, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     .line 1134
-    :cond_1
-    add-int/lit8 v3, v3, 0x1
+    :cond_0
+    add-int/lit8 v2, v2, 0x1
 
     goto :goto_0
+
+    .line 1139
+    .end local v1    # "e":Ljava/lang/StackTraceElement;
+    :cond_1
+    invoke-virtual {v5}, Ljava/util/ArrayList;->size()I
+
+    move-result v6
+
+    new-array v4, v6, [Ljava/lang/StackTraceElement;
+
+    .line 1141
+    .local v4, "newStack":[Ljava/lang/StackTraceElement;
+    invoke-virtual {v5, v4}, Ljava/util/ArrayList;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
+
+    move-result-object v6
+
+    check-cast v6, [Ljava/lang/StackTraceElement;
+
+    return-object v6
 .end method
 
 .method public static setAppContext(Landroid/content/Context;)V
@@ -3726,9 +3747,13 @@
     :cond_0
     new-instance v1, Ljava/lang/StringBuilder;
 
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v2, "signatureVerify(2) returning "
 
-    invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
 
     invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
@@ -3740,7 +3765,6 @@
 
     move-result-object v1
 
-    .line 527
     invoke-virtual {p0, p1}, Ljava/security/Signature;->verify([B)Z
 
     move-result v2
@@ -3749,7 +3773,6 @@
 
     move-result-object v1
 
-    .line 526
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v1
@@ -3791,9 +3814,13 @@
     :cond_0
     new-instance v1, Ljava/lang/StringBuilder;
 
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v2, "signatureVerify(4) returning "
 
-    invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
 
     invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
@@ -3815,51 +3842,55 @@
 
     .prologue
     .line 637
-    new-instance v3, Ljava/lang/StringBuilder;
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
     const-string v4, "spoofChecksum("
 
-    invoke-direct {v3, v4}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
 
     invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
     move-result-object v4
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v1
 
     const-string v4, ")"
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v1
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v1
 
-    invoke-static {v3}, Lhooks/Monolith;->log(Ljava/lang/Object;)V
+    invoke-static {v1}, Lhooks/Monolith;->log(Ljava/lang/Object;)V
 
     .line 638
     invoke-interface {p0}, Ljava/util/zip/Checksum;->getValue()J
 
-    move-result-wide v1
+    move-result-wide v2
 
     .line 640
-    .local v1, "result":J
-    sget-object v3, Lhooks/Monolith;->MyWatchedChecksumsOrDigests:Ljava/util/HashMap;
+    .local v2, "result":J
+    sget-object v1, Lhooks/Monolith;->MyWatchedChecksumsOrDigests:Ljava/util/HashMap;
 
-    invoke-virtual {v3, p0}, Ljava/util/HashMap;->containsKey(Ljava/lang/Object;)Z
+    invoke-virtual {v1, p0}, Ljava/util/HashMap;->containsKey(Ljava/lang/Object;)Z
 
-    move-result v3
+    move-result v1
 
-    if-eqz v3, :cond_0
+    if-eqz v1, :cond_0
 
     .line 643
-    sget-object v3, Lhooks/Monolith;->MyWatchedChecksumsOrDigests:Ljava/util/HashMap;
+    sget-object v1, Lhooks/Monolith;->MyWatchedChecksumsOrDigests:Ljava/util/HashMap;
 
-    invoke-virtual {v3, p0}, Ljava/util/HashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v1, p0}, Ljava/util/HashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
@@ -3869,102 +3900,104 @@
     .local v0, "fileName":Ljava/lang/String;
     invoke-static {v0}, Lhooks/Monolith;->isChecksumFileName(Ljava/lang/String;)I
 
-    move-result v3
+    move-result v1
 
-    packed-switch v3, :pswitch_data_0
+    packed-switch v1, :pswitch_data_0
 
     .line 666
     .end local v0    # "fileName":Ljava/lang/String;
     :cond_0
     :goto_0
-    new-instance v3, Ljava/lang/StringBuilder;
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
     const-string v4, "  result = "
 
-    invoke-direct {v3, v4}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v3, v1, v2}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    move-result-object v1
 
-    move-result-object v3
+    invoke-virtual {v1, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v1
 
-    move-result-object v3
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-static {v3}, Lhooks/Monolith;->log(Ljava/lang/Object;)V
+    move-result-object v1
+
+    invoke-static {v1}, Lhooks/Monolith;->log(Ljava/lang/Object;)V
 
     .line 667
-    return-wide v1
+    return-wide v2
 
     .line 646
     .restart local v0    # "fileName":Ljava/lang/String;
     :pswitch_0
-    const-string v3, "  giving APP chksum!"
+    const-string v1, "  giving APP chksum!"
 
-    invoke-static {v3}, Lhooks/Monolith;->log(Ljava/lang/Object;)V
+    invoke-static {v1}, Lhooks/Monolith;->log(Ljava/lang/Object;)V
 
     .line 647
     invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
-    move-result-object v3
+    move-result-object v1
 
     const-class v4, Ljava/util/zip/Adler32;
 
-    if-ne v3, v4, :cond_1
+    if-ne v1, v4, :cond_1
 
     .line 648
-    sget-object v3, Lhooks/Monolith;->CHKSUM_ADLER32_App:Ljava/lang/Long;
+    sget-object v1, Lhooks/Monolith;->CHKSUM_ADLER32_App:Ljava/lang/Long;
 
-    invoke-virtual {v3}, Ljava/lang/Long;->longValue()J
+    invoke-virtual {v1}, Ljava/lang/Long;->longValue()J
 
-    move-result-wide v1
+    move-result-wide v2
 
-    .line 649
     goto :goto_0
 
     .line 651
     :cond_1
-    sget-object v3, Lhooks/Monolith;->CHKSUM_CRC32_App:Ljava/lang/Long;
+    sget-object v1, Lhooks/Monolith;->CHKSUM_CRC32_App:Ljava/lang/Long;
 
-    invoke-virtual {v3}, Ljava/lang/Long;->longValue()J
+    invoke-virtual {v1}, Ljava/lang/Long;->longValue()J
 
-    move-result-wide v1
+    move-result-wide v2
 
     .line 653
     goto :goto_0
 
     .line 655
     :pswitch_1
-    const-string v3, "  giving classes.dex chksum!"
+    const-string v1, "  giving classes.dex chksum!"
 
-    invoke-static {v3}, Lhooks/Monolith;->log(Ljava/lang/Object;)V
+    invoke-static {v1}, Lhooks/Monolith;->log(Ljava/lang/Object;)V
 
     .line 656
     invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
-    move-result-object v3
+    move-result-object v1
 
     const-class v4, Ljava/util/zip/Adler32;
 
-    if-ne v3, v4, :cond_2
+    if-ne v1, v4, :cond_2
 
     .line 657
-    sget-object v3, Lhooks/Monolith;->CHKSUM_ADLER32_DEX:Ljava/lang/Long;
+    sget-object v1, Lhooks/Monolith;->CHKSUM_ADLER32_DEX:Ljava/lang/Long;
 
-    invoke-virtual {v3}, Ljava/lang/Long;->longValue()J
+    invoke-virtual {v1}, Ljava/lang/Long;->longValue()J
 
-    move-result-wide v1
+    move-result-wide v2
 
-    .line 658
     goto :goto_0
 
     .line 660
     :cond_2
-    sget-object v3, Lhooks/Monolith;->CHKSUM_CRC32_DEX:Ljava/lang/Long;
+    sget-object v1, Lhooks/Monolith;->CHKSUM_CRC32_DEX:Ljava/lang/Long;
 
-    invoke-virtual {v3}, Ljava/lang/Long;->longValue()J
+    invoke-virtual {v1}, Ljava/lang/Long;->longValue()J
 
-    move-result-wide v1
+    move-result-wide v2
 
     goto :goto_0
 
@@ -4030,9 +4063,13 @@
     :goto_0
     new-instance v3, Ljava/lang/StringBuilder;
 
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v4, "spoofDigest("
 
-    invoke-direct {v3, v4}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
 
     invoke-virtual {p0}, Ljava/security/MessageDigest;->getAlgorithm()Ljava/lang/String;
 
@@ -4089,9 +4126,13 @@
     :goto_1
     new-instance v3, Ljava/lang/StringBuilder;
 
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v4, "  result = "
 
-    invoke-direct {v3, v4}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
 
     invoke-static {v2}, Lhooks/CryptUtils;->encode([B)Ljava/lang/String;
 
@@ -4146,7 +4187,6 @@
     .line 610
     sget-object v2, Lhooks/Monolith;->CHKSUM_MD5_App:[B
 
-    .line 611
     goto :goto_1
 
     .line 613
@@ -4178,7 +4218,6 @@
     .line 619
     sget-object v2, Lhooks/Monolith;->CHKSUM_MD5_DEX:[B
 
-    .line 620
     goto :goto_1
 
     .line 622
@@ -4239,13 +4278,9 @@
 
     .local v1, "i":I
     :goto_0
-    if-lt v1, v0, :cond_0
-
-    .line 1128
-    return-object v3
+    if-ge v1, v0, :cond_0
 
     .line 1125
-    :cond_0
     new-instance v4, Landroid/content/pm/Signature;
 
     const-string v5, "%!SignatureChars%"
@@ -4258,6 +4293,10 @@
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_0
+
+    .line 1128
+    :cond_0
+    return-object v3
 .end method
 
 .method public static threadDumpStack()V
@@ -4445,7 +4484,6 @@
 
     check-cast v2, Landroid/widget/TextView;
 
-    .line 998
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setGravity(I)V
 
     .line 999
@@ -4594,9 +4632,13 @@
     :cond_2
     new-instance v1, Ljava/lang/StringBuilder;
 
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v2, "  watching message digest for "
 
-    invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
 
     invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -4658,9 +4700,13 @@
     :cond_0
     new-instance v0, Ljava/lang/StringBuilder;
 
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
     const-string v1, "watchInputStream("
 
-    invoke-direct {v0, v1}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
 
     invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
