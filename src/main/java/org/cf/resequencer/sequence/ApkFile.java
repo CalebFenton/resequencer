@@ -132,7 +132,7 @@ public class ApkFile extends java.io.File {
      * @return true if Apk has been compiled, false otherwise
      */
     public boolean apkIsCompiled() {
-        return ((ClassesDex != null) && (ClassesDex.length() > 0));
+        return (ClassesDex != null) && (ClassesDex.length() > 0);
     }
 
     /**
@@ -140,7 +140,7 @@ public class ApkFile extends java.io.File {
      * @return true if Apk has been decompiled, false otherwise
      */
     public boolean apkIsDecompiled() {
-        return (new File(DumpDir).exists());
+        return new File(DumpDir).exists();
     }
 
     /**
@@ -149,7 +149,7 @@ public class ApkFile extends java.io.File {
      * @return true if constructed with actual Apk file or Apk file set, false otherwise
      */
     public boolean apkHaveApkFile() {
-        return ((ApkPath != null) && new File(ApkPath).exists());
+        return (ApkPath != null) && new File(ApkPath).exists();
     }
 
     /**
@@ -698,7 +698,7 @@ public class ApkFile extends java.io.File {
 
     private static String getXMLTagValue(Node node) {
         Node n = ((Element) node).getChildNodes().item(0);
-        return (n != null ? n.getNodeValue() : "");
+        return n != null ? n.getNodeValue() : "";
     }
 
     /**

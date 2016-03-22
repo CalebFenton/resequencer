@@ -38,7 +38,7 @@ public class SmaliFile {
                 return false;
             }
 
-            return (o.hashCode() == hashCode());
+            return o.hashCode() == hashCode();
         }
 
         @Override
@@ -257,7 +257,7 @@ public class SmaliFile {
                 // FileLines = FileLines.substring(0, cm.Offset)
                 // + cm.Value + FileLines.substring(cm.Offset, FileLines.length());
 
-                if ((sb.length() == FileLines.length())) {
+                if (sb.length() == FileLines.length()) {
                     Console.warn(FileName + ": Unable to insert @" + cm.Offset + ": " + cm.Value);
                     success = false;
                 }

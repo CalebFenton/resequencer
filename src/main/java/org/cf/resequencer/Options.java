@@ -357,7 +357,7 @@ public class Options {
     public static void showUsage() {
         String jarName;
         try {
-            File f = new File((org.cf.resequencer.Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
+            File f = new File(org.cf.resequencer.Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             jarName = f.getName();
         } catch (URISyntaxException ex) {
             jarName = "sequencer.jar";
