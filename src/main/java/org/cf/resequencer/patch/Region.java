@@ -276,7 +276,7 @@ class Region implements Cloneable {
 
             Operation op = findOpByVar(var);
 
-            String varVal = "";
+            String varVal;
             Console.debug("  getting offsets for var: " + var.toString() + ".", 3);
 
             // loop through all the places this op was found
@@ -408,7 +408,7 @@ class Region implements Cloneable {
     }
 
     private boolean allDependentOpsFound(Operation op) {
-        Operation depOP = null;
+        Operation depOP;
         for (Variable var : op.DependentVarsList) {
             depOP = findOpByVar(var);
             if (depOP.FoundOffsets.isEmpty()) {
@@ -420,7 +420,7 @@ class Region implements Cloneable {
     }
 
     private boolean findRegion(SmaliFile sf, int start) {
-        Matcher m = null;
+        Matcher m;
 
         if (start >= sf.FileLines.length()) {
             return false;

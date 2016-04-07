@@ -70,7 +70,7 @@ class Fingerprint implements Cloneable {
 
     public boolean match(SmaliFile smaliFile) {
         ArrayList<Region> addRegions = new ArrayList<Region>();
-        Region region = null;
+        Region region;
 
         Console.debug("Searching for " + FingerprintName + " in " + smaliFile, 2);
         for (Integer key : Regions.keySet()) {

@@ -103,7 +103,7 @@ public class SmaliMatcher {
     }
 
     private void displayResults() {
-        boolean showedFile = false;
+        boolean showedFile;
         for (SmaliFile sf : SmaliFileMatches) {
             showedFile = false;
             for (String fpName : sf.Fingerprints.keySet()) {
@@ -181,7 +181,7 @@ public class SmaliMatcher {
 
     private void unfindAllWithUnfoundRequired() {
 
-        Fingerprint fp = null;
+        Fingerprint fp;
         HashSet<String> removeFPNames = new HashSet<String>();
         boolean runAgain;
 
@@ -223,7 +223,7 @@ public class SmaliMatcher {
         /*
          * For every fingerprint, purge incompatible list of all fingerprints that were not found.
          */
-        Fingerprint fp = null;
+        Fingerprint fp;
         for (SmaliFile sf : SmaliFileMatches) {
             for (String fpName : sf.Fingerprints.keySet()) {
                 fp = sf.Fingerprints.get(fpName);
@@ -242,7 +242,7 @@ public class SmaliMatcher {
 
     private void resolveFingerprintDependencies() {
         // Resolve all independent fingerprints
-        Fingerprint fp = null;
+        Fingerprint fp;
         while ((fp = getIndependentFingerprint()) != null) {
             resolveFoundFingerprint(fp.toString());
         }

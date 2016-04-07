@@ -28,7 +28,6 @@ public class CryptoUtils {
         byte[] bytes = new byte[0xFFFF];
         FileInputStream fis = new FileInputStream(path);
         CRC32 chkCRC32 = new CRC32();
-        fis = new FileInputStream(path);
         CheckedInputStream cis = new CheckedInputStream(fis, chkCRC32);
         while (cis.read(bytes) >= 0) {
             ;
