@@ -331,8 +331,7 @@ public class FingerprintReader {
     }
 
     private void readFPIncompatible(Node nFingerprint) {
-        ArrayList<String> result = new ArrayList<String>();
-        result = readNodeValues((Element) nFingerprint, "incompatible", "");
+        ArrayList<String> result = readNodeValues((Element) nFingerprint, "incompatible", "");
 
         if (result == null) {
             return;
@@ -372,8 +371,7 @@ public class FingerprintReader {
     }
 
     private void readFPDeletePaths(Node nFingerprint) {
-        ArrayList<String> result = new ArrayList<String>();
-        result = readNodeValues((Element) nFingerprint, "deletePath", "");
+        ArrayList<String> result = readNodeValues((Element) nFingerprint, "deletePath", "");
 
         if (result == null) {
             return;
@@ -451,11 +449,11 @@ public class FingerprintReader {
 
     private void readOperationAttributes(Node nOperation) {
         NamedNodeMap attribs = nOperation.getAttributes();
-        Node nAttrib = null;
+        Node nAttrib;
 
         HashMap<String, String> attribMap = new HashMap<String, String>();
 
-        String attribValue = null;
+        String attribValue;
         for (String attribName : OperationAttributeList) {
             nAttrib = attribs.getNamedItem(attribName);
             attribValue = nAttrib == null ? "" : nAttrib.getNodeValue();

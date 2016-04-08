@@ -76,8 +76,8 @@ public class SmaliHinter {
 
         if (!m.find()) {
             // no .source directive. let's add one.
-            String thisClass = "";
-            String superClass = "";
+            String thisClass;
+            String superClass;
             String interfaceClass = "";
 
             p = Pattern.compile("(?m)^[\\t ]*\\.implements L(\\S+?);\\s*");
@@ -122,7 +122,7 @@ public class SmaliHinter {
             m = p.matcher(sf.FileLines);
 
             int line = 1;
-            StringBuilder insert = null;
+            StringBuilder insert;
             while (m.find()) {
                 insert = new StringBuilder("    .line ");
                 insert.append(line);
@@ -414,7 +414,7 @@ public class SmaliHinter {
                 String strVal = foundStrings.get(i + j);
                 Integer pos = foundPos.get(i + j);
 
-                String insert = "";
+                String insert;
 
                 // System.out.println(foundStringsOrig.get(i+j) + " = " + translations[j]);
 

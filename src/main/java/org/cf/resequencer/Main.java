@@ -169,7 +169,7 @@ public class Main {
         } else if (!Options.ApkPath.equals(Options.OutputApk)) {
             myApkFile.delete();
         }
-        myLiberator = null;
+        myLiberator;
 
         cleanup();
 

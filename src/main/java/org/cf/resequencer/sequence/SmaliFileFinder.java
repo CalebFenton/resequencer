@@ -39,7 +39,7 @@ public class SmaliFileFinder {
 
         if (recurse) {
             String[] files = dir.list();
-            String child = "";
+            String child;
             for (String file : files) {
                 child = dir + File.separator + file;
                 File childFile = new File(child);

@@ -17,7 +17,7 @@ public class ZipAlign {
     // be altered by this process.
     public void align(String inApkPath, String outApkPath, int alignment) throws IOException {
 
-        int bias = 0;
+        int bias;
 
         ZipFile inApk = new ZipFile(inApkPath);
         ZipOutputStream outApkStream = new ZipOutputStream(new FileOutputStream(outApkPath));
@@ -27,7 +27,7 @@ public class ZipAlign {
         // first, copy contents from existing war
         Enumeration<? extends ZipEntry> entries = inApk.entries();
         while (entries.hasMoreElements()) {
-            int padding = 0;
+            int padding;
 
             ZipEntry ze = entries.nextElement();
             ZipEntry nextEntry = new ZipEntry(ze.getName());

@@ -167,7 +167,7 @@ public class SmaliHook {
         Package = Package.substring(0, pos1);
 
         if (!AllPackages.containsKey(Package)) {
-            String packageMunge = "";
+            String packageMunge;
             if (ForceNoObfuscation) {
                 packageMunge = Package;
             } else {
@@ -208,7 +208,7 @@ public class SmaliHook {
 
             Console.debug("found method: " + methodCall, 2);
 
-            String methodMunge = "";
+            String methodMunge;
             if (ForceNoObfuscation) {
                 methodMunge = methodCall;
             } else {
@@ -248,7 +248,7 @@ public class SmaliHook {
 
             Console.debug("found field: " + fieldCall, 2);
 
-            String fieldMunge = "";
+            String fieldMunge;
             if (ForceNoObfuscation) {
                 fieldMunge = fieldCall;
             } else {
