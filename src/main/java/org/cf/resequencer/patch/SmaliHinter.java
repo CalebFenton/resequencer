@@ -97,14 +97,19 @@ public class SmaliHinter {
             m.find();
             superClass = m.group(1).replace("/", ".");
 
-            String insert = ".source \"" + thisClass + "_sup-" + superClass;
+            StringBuilder insert = new StringBuilder();
+            insert.append(".source \"")
+                    .append(thisClass)
+                    .append("_sup-")
+                    .append(superClass);
+            
             if (!interfaceClass.isEmpty()) {
-                insert += "_impl-" + interfaceClass;
+                insert.append("_impl-").append(interfaceClass);
             }
-            insert += "\"\n\n";
+            insert.append("\"\n\n");
 
             HintsAdded++;
-            sf.addInsert(m.end(), insert);
+            sf.addInsert(m.end(), insert.toString());
         }
 
         p = Pattern.compile("(?m)^[\\t ]*.line \\d+");
@@ -250,9 +255,9 @@ public class SmaliHinter {
 
             while (m.find()) {
                 // 1 = possibly negative, 2 = number without 0x
-                String strVal = m.group(2).toLowerCase();
+                StringBuilder strVal = new StringBuilder(m.group(2).toLowerCase());
                 if (m.group(1) != null) {
-                    strVal = m.group(1) + strVal;
+                    strVal.append(m.group(1)).append(strVal);
                 }
 
                 // do not add base 10 hint for resource ids
@@ -260,7 +265,7 @@ public class SmaliHinter {
                     continue;
                 }
 
-                long longVal = Long.parseLong(strVal, 16);
+                long longVal = Long.parseLong(strVal.toString(), 16);
 
                 // sorry, you should just learn hex
                 if ((longVal > -16) && (longVal < 16)) {
@@ -414,23 +419,22 @@ public class SmaliHinter {
                 String strVal = foundStrings.get(i + j);
                 Integer pos = foundPos.get(i + j);
 
-                String insert;
+                StringBuilder insert = new StringBuilder();
 
                 // System.out.println(foundStringsOrig.get(i+j) + " = " + translations[j]);
 
                 // If original string was unicode escaped, show the actual symbols in comments
-                insert = "    #";
+                insert.append("    #");
                 if (foundStringsOrig.get(i + j).matches(".*?(\\\\u[a-fA-f0-9]{4}?).*?")) {
-                    insert += " orig=\"" + strVal + "\"";
+                    insert.append(" orig=\"").append(strVal).append("\"");
                 }
                 try {
-                    insert += " lang=" + detectedLang.getName(Language.ENGLISH);
+                    insert.append(" lang=").append(detectedLang.getName(Language.ENGLISH));
                 } catch (Exception ex) {
                     Console.warn("  Odd, I can't figure out what language this is: " + detectedLang);
                 }
 
-                insert += "\n";
-                insert += "    # trans=\"" + translations[j] + "\"";
+                insert.append("\n").append("    # trans=\"").append(translations[j]).append("\"");
 
                 HintsAdded++;
                 sf.addInsert(pos, insert + "\n");
