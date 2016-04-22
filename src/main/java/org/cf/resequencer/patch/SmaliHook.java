@@ -198,9 +198,9 @@ public class SmaliHook {
             }
 
             String[] found = matchedLine.split("\\s");
-            String methodCall = found[found.length - 1];
-            methodCall = methodCall.substring(0, methodCall.indexOf("("));
-            methodCall = classPackage + "->" + methodCall;
+            StringBuilder methodCall = new StringBuilder(found[found.length - 1]);
+            methodCall.append(methodCall.substring(0, methodCall.indexOf("(")))
+                    .append(classPackage + "->" + methodCall);
 
             if (MyMethods.containsKey(methodCall)) {
                 continue;
@@ -208,16 +208,17 @@ public class SmaliHook {
 
             Console.debug("found method: " + methodCall, 2);
 
-            String methodMunge;
+            StringBuilder methodMunge = new StringBuilder();
             if (ForceNoObfuscation) {
                 methodMunge = methodCall;
             } else {
-                methodMunge = SmaliHook.getRandomMethod();
-                methodMunge = classPackage + "->" + methodMunge;
+                methodMunge.append(classPackage + "->").append(SmaliHook.getRandomMethod());
             }
 
-            MyMethods.put(methodCall, methodMunge);
-            AllMethods.put(methodCall, methodMunge);
+            String methodCallStr = methodCall.toString();
+            String methodMungeStr = methodMunge.toString();
+            MyMethods.put(methodCallStr, methodMungeStr);
+            AllMethods.put(methodCallStr, methodMungeStr);
         }
     }
 
@@ -232,15 +233,14 @@ public class SmaliHook {
             String[] found = m.group().split("\\s");
 
             // .field static final synthetic $assertionsDisabled:Z = false
-            String fieldCall;
+            StringBuilder fieldCall = new StringBuilder();
             if (found[found.length - 2].equals("=")) {
-                fieldCall = found[found.length - 3];
+                fieldCall.append(found[found.length - 3]);
             } else {
-                fieldCall = found[found.length - 1];
+                fieldCall.append(found[found.length - 1]);
             }
 
-            fieldCall = fieldCall.substring(0, fieldCall.indexOf(":"));
-            fieldCall = classPackage + "->" + fieldCall;
+            fieldCall.append(fieldCall.substring(0, fieldCall.indexOf(":"))).append(classPackage).append("->").append(fieldCall);
 
             if (MyFields.containsKey(fieldCall)) {
                 continue;
@@ -248,15 +248,17 @@ public class SmaliHook {
 
             Console.debug("found field: " + fieldCall, 2);
 
-            String fieldMunge;
+            StringBuilder fieldMunge = new StringBuilder();
             if (ForceNoObfuscation) {
                 fieldMunge = fieldCall;
             } else {
-                fieldMunge = classPackage + "->" + SmaliHook.getRandomField();
+                fieldMunge.append(classPackage).append("->").append(SmaliHook.getRandomField());
             }
 
-            MyFields.put(fieldCall, fieldMunge);
-            AllFields.put(fieldCall, fieldMunge);
+            String fieldCallStr = fieldCall.toString();
+            String fieldMungeStr = fieldMunge.toString();
+            MyFields.put(fieldCallStr, fieldMungeStr);
+            AllFields.put(fieldCallStr, fieldMungeStr);
         }
     }
 

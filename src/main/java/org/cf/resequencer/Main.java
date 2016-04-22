@@ -169,7 +169,6 @@ public class Main {
         } else if (!Options.ApkPath.equals(Options.OutputApk)) {
             myApkFile.delete();
         }
-        myLiberator;
 
         cleanup();
 
@@ -225,13 +224,13 @@ public class Main {
 
     private static void displayFingerprints() {
         Console.msgln("Available fingerprints:");
-        String msg;
+        StringBuilder msg = new StringBuilder();
         for (String fpName : myReader.FingerprintNames) {
-            msg = "  " + fpName;
+            msg.append("  ").append(fpName);
             if (!myReader.isEnabled(fpName)) {
-                msg += " *disabled*";
+                msg.append(" *disabled*");
             }
-            Console.msgln(msg);
+            Console.msgln(msg.toString());
         }
 
         Console.msgln("Total: " + myReader.FingerprintNames.size());

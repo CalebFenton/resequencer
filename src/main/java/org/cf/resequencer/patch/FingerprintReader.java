@@ -266,16 +266,21 @@ public class FingerprintReader {
             Console.msg(".");
             SmaliHook sh = MySmaliHooks.get(hookName);
 
-            String outPath = SmaliDir + File.separator + "smali" + File.separator;
+            StringBuilder outPath = new StringBuilder();
+            outPath.append(SmaliDir)
+                    .append(File.separator)
+                    .append("smali")
+                    .append(File.separator);
+            
             if (ObfuscateHooks) {
-                outPath += SmaliHook.AllPackages.get(sh.Package) + File.separator + sh.ClassMunge;
+                outPath.append(SmaliHook.AllPackages.get(sh.Package)).append(File.separator).append(sh.ClassMunge);
             } else {
-                outPath += sh.Package + File.separator + sh.ClassName;
+                outPath.append(sh.Package).append(File.separator).append(sh.ClassName);
             }
-            outPath += ".smali";
+            outPath.append(".smali");
 
             Console.debug("  saving " + hookName + " to " + outPath, 1);
-            sh.saveAs(outPath);
+            sh.saveAs(outPath.toString());
         }
     }
 
