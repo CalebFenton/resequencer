@@ -80,7 +80,7 @@ public class ApkFile extends java.io.File {
     /**
      * Collection of elements from public.xml and strings.xml.
      */
-    public ArrayList<ResourceItem> AppResources = new ArrayList<ResourceItem>();
+    public List<ResourceItem> AppResources = new ArrayList<ResourceItem>();
 
     private String mAaptPath, mZipalignPath;
     private boolean DexLock = true;

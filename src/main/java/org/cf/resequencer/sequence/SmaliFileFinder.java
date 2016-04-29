@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.cf.resequencer.Console;
 
@@ -30,7 +31,7 @@ public class SmaliFileFinder {
 
     // returns the FULL path to smali files
     public static File[] getSmaliFiles(File dir, boolean recurse) {
-        ArrayList<File> smaliFiles = new ArrayList<File>();
+        List<File> smaliFiles = new ArrayList<File>();
 
         if (!dir.exists() || !dir.canRead()) {
             Console.warn("Smali dir " + dir + " does not exist or is not accessible.");

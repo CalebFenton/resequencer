@@ -1,6 +1,7 @@
 package org.cf.resequencer.patch;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,11 +41,11 @@ class Operation implements Cloneable {
     /**
      * List of start and end offsets this operation has been found.
      */
-    public ArrayList<Integer[]> FoundOffsets;
+    public List<Integer[]> FoundOffsets;
     /**
 	 *
 	 */
-    public ArrayList<Integer[]> SearchOffsets;
+    public List<Integer[]> SearchOffsets;
     /**
 	 *
 	 */
@@ -56,7 +57,7 @@ class Operation implements Cloneable {
     /**
 	 *
 	 */
-    public ArrayList<Variable> DependentVarsList;
+    public List<Variable> DependentVarsList;
 
     Operation() {
         FoundOffsets = new ArrayList<Integer[]>();
@@ -241,7 +242,7 @@ class Operation implements Cloneable {
         }
 
         if (!Value.isEmpty()) {
-            ArrayList<String> varStrs = parseStringForVariables(Value);
+            List<String> varStrs = parseStringForVariables(Value);
             if (!varStrs.isEmpty()) {
                 for (String varStr : varStrs) {
                     addDependentVar(parseVariableString(varStr));
@@ -250,7 +251,7 @@ class Operation implements Cloneable {
         }
 
         if (!ReplaceWhat.isEmpty()) {
-            ArrayList<String> varStrs = parseStringForVariables(ReplaceWhat);
+            List<String> varStrs = parseStringForVariables(ReplaceWhat);
             if (!varStrs.isEmpty()) {
                 for (String varStr : varStrs) {
                     addDependentVar(parseVariableString(varStr));
@@ -277,8 +278,8 @@ class Operation implements Cloneable {
         }
     }
 
-    private static ArrayList<String> parseStringForVariables(String str) {
-        ArrayList<String> result = new ArrayList<String>();
+    private static List<String> parseStringForVariables(String str) {
+        List<String> result = new ArrayList<String>();
 
         Console.debug("Parsing for variables: " + str, 3);
 

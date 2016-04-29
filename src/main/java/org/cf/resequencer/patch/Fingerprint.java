@@ -1,6 +1,8 @@
 package org.cf.resequencer.patch;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +19,7 @@ class Fingerprint implements Cloneable {
     public Set<String> IncompatibleFingerprints = new HashSet<String>();
     public Set<String> RequiredFingerprints = new HashSet<String>();
     public Set<String> DeletePaths = new HashSet<String>();
-    public HashMap<Integer, Region> Regions = new HashMap<Integer, Region>();
+    public Map<Integer, Region> Regions = new HashMap<Integer, Region>();
     public boolean Enabled = true;
     public boolean Notify = true; // notify user when found
     public boolean FindOnce = false;
@@ -69,7 +71,7 @@ class Fingerprint implements Cloneable {
     }
 
     public boolean match(SmaliFile smaliFile) {
-        ArrayList<Region> addRegions = new ArrayList<Region>();
+        List<Region> addRegions = new ArrayList<Region>();
         Region region;
 
         Console.debug("Searching for " + FingerprintName + " in " + smaliFile, 2);

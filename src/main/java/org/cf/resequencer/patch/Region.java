@@ -1,6 +1,7 @@
 package org.cf.resequencer.patch;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +19,7 @@ class Region implements Cloneable {
     private String MatchedLines;
     private Integer StartOffset;
     public Integer EndOffset;
-    public ArrayList<Operation> OperationList;
+    public List<Operation> OperationList;
 
     Region() {
         this("", "", "");
@@ -179,8 +180,8 @@ class Region implements Cloneable {
     }
 
     // get found offsets for operation in terms of a variable
-    private ArrayList<Integer[]> getFoundOffsetsForVariable(Variable var) {
-        ArrayList<Integer[]> result = new ArrayList<Integer[]>();
+    private List<Integer[]> getFoundOffsetsForVariable(Variable var) {
+        List<Integer[]> result = new ArrayList<Integer[]>();
 
         // -1 means give us all offsets
         if (var.Index != -1) {
@@ -205,7 +206,7 @@ class Region implements Cloneable {
             evaluateLocalVarDependencies(op);
         }
 
-        ArrayList<Integer[]> offsets = new ArrayList<Integer[]>();
+        List<Integer[]> offsets = new ArrayList<Integer[]>();
 
         if (!op.getInsideRegex().isEmpty()) {
             op.SearchOffsets = findRegions(op.getInsideRegex(), MatchedLines, op.getLimit());
@@ -213,7 +214,7 @@ class Region implements Cloneable {
             Variable var = op.getInsideOP();
             op.SearchOffsets = getFoundOffsetsForVariable(var);
         } else {
-            ArrayList<Integer[]> rawOffsets = new ArrayList<Integer[]>();
+            List<Integer[]> rawOffsets = new ArrayList<Integer[]>();
 
             if (!op.getAfterRegex().isEmpty()) {
                 rawOffsets = findRegions(op.getAfterRegex(), MatchedLines, op.getLimit());
@@ -252,7 +253,7 @@ class Region implements Cloneable {
         op.HasBeenEvaluated = true;
     }
 
-    private String replaceVarsWithNearestValues(String valStr, Integer valOffset, ArrayList<Variable> depVar) {
+    private String replaceVarsWithNearestValues(String valStr, Integer valOffset, List<Variable> depVar) {
 
         // No dependent variables to replace
         if (depVar == null) {
@@ -327,7 +328,7 @@ class Region implements Cloneable {
             String subRegion = MatchedLines.substring(offsets[0], offsets[1]);
             Console.debug("  inside region " + offsets[0] + ", " + offsets[1], 2);
             // Console.debug(subRegion, 3);
-            ArrayList<Integer[]> foundOffsets = findRegions(op.getValue(), subRegion, op.getLimit());
+            List<Integer[]> foundOffsets = findRegions(op.getValue(), subRegion, op.getLimit());
 
             // Offset each found offset by region start offset
             for (Integer[] fos : foundOffsets) {
@@ -396,7 +397,7 @@ class Region implements Cloneable {
         Console.debug("Performing MATCH operation " + op + ".", 2);
 
         // look inside RegionLines
-        ArrayList<Integer[]> offsets = findRegions(op.getValue(), MatchedLines, op.getLimit());
+        List<Integer[]> offsets = findRegions(op.getValue(), MatchedLines, op.getLimit());
 
         if (offsets.isEmpty()) {
             return false;

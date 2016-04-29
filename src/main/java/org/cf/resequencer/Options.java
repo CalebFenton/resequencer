@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.cf.resequencer.patch.SmaliHinter;
@@ -41,8 +42,8 @@ public class Options {
     public static String NetworkOperatorSpoof = "";
     public static String DeviceModelSpoof = "";
     public static String DeviceManufacturerSpoof = "";
-    public static ArrayList<String> ExcludedFPs = new ArrayList<String>();
-    public static ArrayList<String> IncludedFPs = new ArrayList<String>();
+    public static List<String> ExcludedFPs = new ArrayList<String>();
+    public static List<String> IncludedFPs = new ArrayList<String>();
     public static String SmaliDir = "";
     public static String ApkPath = "";
     public static String DexPath = "";
