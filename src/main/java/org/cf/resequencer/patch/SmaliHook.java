@@ -100,20 +100,20 @@ public class SmaliHook {
         // Methods and fields have been munged, but the class
         // names stored with them also need to be updated.
         // They're used for ScriptVars.
-        for (String methodCall : AllMethods.keySet()) {
-            String methodMunge = AllMethods.get(methodCall);
+        for (Map.Entry<String, String> stringStringEntry : AllMethods.entrySet()) {
+            String methodMunge = stringStringEntry.getValue();
             methodMunge = methodMunge.replace(Package + "/" + ClassName, AllPackages.get(Package) + "/" + ClassMunge);
 
-            AllMethods.put(methodCall, methodMunge);
-            MyMethods.put(methodCall, methodMunge);
+            AllMethods.put(stringStringEntry.getKey(), methodMunge);
+            MyMethods.put(stringStringEntry.getKey(), methodMunge);
         }
 
-        for (String fieldCall : AllFields.keySet()) {
-            String fieldMunge = AllFields.get(fieldCall);
+        for (Map.Entry<String, String> stringStringEntry : AllFields.entrySet()) {
+            String fieldMunge = stringStringEntry.getValue();
             fieldMunge = fieldMunge.replace(Package + "/" + ClassName, AllPackages.get(Package) + "/" + ClassMunge);
 
-            AllFields.put(fieldCall, fieldMunge);
-            MyFields.put(fieldCall, fieldMunge);
+            AllFields.put(stringStringEntry.getKey(), fieldMunge);
+            MyFields.put(stringStringEntry.getKey(), fieldMunge);
         }
 
         MySmaliFile.FullFilePath = ClassName + ".smali";
@@ -272,25 +272,25 @@ public class SmaliHook {
     }
 
     private void updatePackages() {
-        for (String className : AllClasses.keySet()) {
-            String classMunge = AllClasses.get(className);
-            Console.debug("Renaming class: " + className + " to " + classMunge, 2);
+        for (Map.Entry<String, String> stringStringEntry : AllClasses.entrySet()) {
+            String classMunge = stringStringEntry.getValue();
+            Console.debug("Renaming class: " + stringStringEntry.getKey() + " to " + classMunge, 2);
 
             Pattern p = Pattern.compile("(?m)^[ \\t]*\\.class (public |private |protected )?" + "(static )?(final )?L"
-                            + Pattern.quote(className) + ";");
+                            + Pattern.quote(stringStringEntry.getKey()) + ";");
             Matcher m = p.matcher(getFileLines());
 
-            if (m.find() && !className.equals(classMunge)) {
-                MySmaliFile.addReplace(m.start(), className, classMunge);
+            if (m.find() && !stringStringEntry.getKey().equals(classMunge)) {
+                MySmaliFile.addReplace(m.start(), stringStringEntry.getKey(), classMunge);
             }
 
             // there could be other places class name would need to be replaced
             // but not in my hooks
-            p = Pattern.compile("(?m)^[ \\t]*const-class [vp]\\d+, L" + Pattern.quote(className) + ";");
+            p = Pattern.compile("(?m)^[ \\t]*const-class [vp]\\d+, L" + Pattern.quote(stringStringEntry.getKey()) + ";");
             m = p.matcher(getFileLines());
 
-            if (m.find() && !className.equals(classMunge)) {
-                MySmaliFile.addReplace(m.start(), className, classMunge);
+            if (m.find() && !stringStringEntry.getKey().equals(classMunge)) {
+                MySmaliFile.addReplace(m.start(), stringStringEntry.getKey(), classMunge);
             }
 
             // Must perform modifications because file lines gets edited later
@@ -299,9 +299,9 @@ public class SmaliHook {
     }
 
     private void updateMethods() {
-        for (String methodCall : AllMethods.keySet()) {
-            String methodMunge = AllMethods.get(methodCall);
-            String methodName = methodCall.substring(methodCall.indexOf("->") + 2);
+        for (Map.Entry<String, String> stringStringEntry : AllMethods.entrySet()) {
+            String methodMunge = stringStringEntry.getValue();
+            String methodName = stringStringEntry.getKey().substring(stringStringEntry.getKey().indexOf("->") + 2);
 
             if (!getFileLines().contains(methodName)) {
                 continue;
@@ -313,7 +313,7 @@ public class SmaliHook {
             Matcher m;
 
             // only redefine methods if they're in this class
-            if (methodCall.contains(Package + "/" + ClassName)) {
+            if (stringStringEntry.getKey().contains(Package + "/" + ClassName)) {
                 p = Pattern.compile("(?m)^[ \\t]*\\.method (public |private |protected )?"
                                 + "(static )?(final )?(synthetic )?" + Pattern.quote(methodName) + "\\(.$*");
                 m = p.matcher(getFileLines());
@@ -326,27 +326,27 @@ public class SmaliHook {
                 }
             }
 
-            p = Pattern.compile("(?m)^[ \\t]*invoke.*?" + Pattern.quote(methodCall) + "\\(.*$");
+            p = Pattern.compile("(?m)^[ \\t]*invoke.*?" + Pattern.quote(stringStringEntry.getKey()) + "\\(.*$");
             m = p.matcher(getFileLines());
 
             // if munge and name are the same, might need to use start int
-            while (m.find() && !methodCall.equals(methodMunge)) {
+            while (m.find() && !stringStringEntry.getKey().equals(methodMunge)) {
                 // String rep = m.group().replace(methodCall + "(", methodMunge + "(");
                 Console.debug("Fixing method invoke: " + m.group().trim() + "\n" + "  with: " + methodMunge + "(", 3);
-                MySmaliFile.addReplace(m.start(), methodCall + "(", methodMunge + "(");
+                MySmaliFile.addReplace(m.start(), stringStringEntry.getKey() + "(", methodMunge + "(");
             }
         }
     }
 
     private void updateFields() {
-        for (String fieldCall : AllFields.keySet()) {
-            String fieldMunge = AllFields.get(fieldCall);
-            String fieldName = fieldCall.substring(fieldCall.indexOf("->") + 2);
+        for (Map.Entry<String, String> stringStringEntry : AllFields.entrySet()) {
+            String fieldMunge = stringStringEntry.getValue();
+            String fieldName = stringStringEntry.getKey().substring(stringStringEntry.getKey().indexOf("->") + 2);
 
             Pattern p;
             Matcher m;
 
-            if (fieldCall.contains(Package + "/" + ClassName)) {
+            if (stringStringEntry.getKey().contains(Package + "/" + ClassName)) {
                 String fieldMungeName = fieldMunge.substring(fieldMunge.indexOf("->") + 2);
                 p = Pattern.compile("(?m)^[ \\t]*\\.field (public |private |protected )?"
                                 + "(static )?(final )?(synthetic )?" + Pattern.quote(fieldName) + ":.*");
@@ -359,13 +359,13 @@ public class SmaliHook {
                 }
             }
 
-            p = Pattern.compile("(?m)^[ \\t]*\\S(put|get).*?" + Pattern.quote(fieldCall) + ":.*");
+            p = Pattern.compile("(?m)^[ \\t]*\\S(put|get).*?" + Pattern.quote(stringStringEntry.getKey()) + ":.*");
             m = p.matcher(getFileLines());
 
             // if munge and name are the same, might need to use start int
-            while (m.find() && !fieldCall.equals(fieldMunge)) {
+            while (m.find() && !stringStringEntry.getKey().equals(fieldMunge)) {
                 Console.debug("  replacing field invoke: " + m.group().trim() + "\n" + "  with: " + fieldMunge, 3);
-                MySmaliFile.addReplace(m.start(), fieldCall + ":", fieldMunge + ":");
+                MySmaliFile.addReplace(m.start(), stringStringEntry.getKey() + ":", fieldMunge + ":");
             }
         }
     }

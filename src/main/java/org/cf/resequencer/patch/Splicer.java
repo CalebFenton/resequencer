@@ -77,11 +77,11 @@ public class Splicer {
                 if (success) {
                     System.out.println(" success.");
                     System.out.println("    Applied:");
-                    for (String fpName : appliedFPs.keySet()) {
-                        String out = "      - " + fpName;
+                    for (Map.Entry<String, Integer> stringIntegerEntry : appliedFPs.entrySet()) {
+                        String out = "      - " + stringIntegerEntry.getKey();
                         // also show number of times it was applied
-                        if (appliedFPs.get(fpName) > 1) {
-                            out += " (" + appliedFPs.get(fpName) + ")";
+                        if (stringIntegerEntry.getValue() > 1) {
+                            out += " (" + stringIntegerEntry.getValue() + ")";
                         }
                         System.out.println(out);
                     }
