@@ -653,8 +653,8 @@ public class FingerprintReader {
     }
 
     private void fixOpScriptVars() {
-        for (String fpName : Fingerprints.keySet()) {
-            Fingerprint fp = Fingerprints.get(fpName);
+        for (Map.Entry<String, Fingerprint> stringFingerprintEntry : Fingerprints.entrySet()) {
+            Fingerprint fp = stringFingerprintEntry.getValue();
             for (Integer rKey : fp.Regions.keySet()) {
                 Region r = fp.Regions.get(rKey);
                 for (Operation op : r.OperationList) {
@@ -665,11 +665,11 @@ public class FingerprintReader {
     }
 
     private String replaceScriptVars(String strVal) {
-        for (String key : ScriptVars.keySet()) {
-            String repVal = ScriptVars.get(key);
+        for (Map.Entry<String, String> stringStringEntry : ScriptVars.entrySet()) {
+            String repVal = stringStringEntry.getValue();
             // replaceAll devours backslashes with an unending hunger
             repVal = repVal.replaceAll("\\\\", "\\\\\\\\");
-            String replace = "%!" + Pattern.quote(key) + "%";
+            String replace = "%!" + Pattern.quote(stringStringEntry.getKey()) + "%";
             strVal = strVal.replaceAll(replace, repVal);
         }
 

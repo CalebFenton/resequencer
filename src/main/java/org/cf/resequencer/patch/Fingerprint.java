@@ -42,8 +42,8 @@ class Fingerprint implements Cloneable {
         fpClone.RequiredFingerprints.addAll(RequiredFingerprints);
         fpClone.DeletePaths.addAll(DeletePaths);
 
-        for (Integer key : Regions.keySet()) {
-            fpClone.addRegion(Regions.get(key).clone());
+        for (Map.Entry<Integer, Region> integerRegionEntry : Regions.entrySet()) {
+            fpClone.addRegion(integerRegionEntry.getValue().clone());
         }
 
         return fpClone;
@@ -75,8 +75,8 @@ class Fingerprint implements Cloneable {
         Region region;
 
         Console.debug("Searching for " + FingerprintName + " in " + smaliFile, 2);
-        for (Integer key : Regions.keySet()) {
-            region = Regions.get(key);
+        for (Map.Entry<Integer, Region> integerRegionEntry : Regions.entrySet()) {
+            region = integerRegionEntry.getValue();
             Console.debug("  region: " + region, 3);
 
             // region may match multiple times
