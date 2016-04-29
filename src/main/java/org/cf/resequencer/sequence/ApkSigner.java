@@ -24,9 +24,9 @@ import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.jar.Attributes;
@@ -287,7 +287,7 @@ class ApkSigner {
         // Sort the input entries by name, add them to the output manifest
         // in that order. Output map expected to be deterministic.
 
-        TreeMap<String, JarEntry> byName = new TreeMap<String, JarEntry>();
+        Map<String, JarEntry> byName = new TreeMap<String, JarEntry>();
 
         for (Enumeration<JarEntry> e = jar.entries(); e.hasMoreElements();) {
             JarEntry entry = e.nextElement();
@@ -369,7 +369,7 @@ class ApkSigner {
 
     private static void copyFiles(Manifest manifest, JarFile in, JarOutputStream out) throws IOException {
         Map<String, Attributes> entries = manifest.getEntries();
-        ArrayList<String> names = new ArrayList<String>(entries.keySet());
+        List<String> names = new ArrayList<String>(entries.keySet());
         Collections.sort(names);
         for (String name : names) {
             JarEntry inEntry = in.getJarEntry(name);

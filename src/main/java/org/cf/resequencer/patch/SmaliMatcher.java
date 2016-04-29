@@ -40,7 +40,7 @@ public class SmaliMatcher {
      * 
      * @return SmaliFiles with matched regions stored inside.
      */
-    public ArrayList<SmaliFile> performMatching() {
+    public List<SmaliFile> performMatching() {
         System.out.print("  Matching " + SmaliFileList.length + " files against " + myFPReader.Fingerprints.size()
                         + " fingerprints ");
 
@@ -182,7 +182,7 @@ public class SmaliMatcher {
     private void unfindAllWithUnfoundRequired() {
 
         Fingerprint fp;
-        HashSet<String> removeFPNames = new HashSet<String>();
+        Set<String> removeFPNames = new HashSet<String>();
         boolean runAgain;
 
         do {
@@ -251,7 +251,7 @@ public class SmaliMatcher {
          * Anything that remains at this point has something in the incompatible list (the fingerprint was found) and/or
          * something in the requires list (the fingerprint was not found). So they are not to be acted upon.
          */
-        ArrayList<Fingerprint> removeFPs = new ArrayList<Fingerprint>();
+        List<Fingerprint> removeFPs = new ArrayList<Fingerprint>();
         for (SmaliFile sf : SmaliFileMatches) {
             for (String fpName : sf.Fingerprints.keySet()) {
                 fp = sf.Fingerprints.get(fpName);
@@ -307,7 +307,7 @@ public class SmaliMatcher {
     private void resolveFoundFingerprint(String depFPName) {
         Console.debug("Resolving fingerprint dependencies for " + depFPName + ".", 2);
 
-        ArrayList<Fingerprint> removeFPs = new ArrayList<Fingerprint>();
+        List<Fingerprint> removeFPs = new ArrayList<Fingerprint>();
 
         // find all matches that require this fingerprint: depFPName
         // and remove them from the required list
@@ -372,7 +372,7 @@ public class SmaliMatcher {
 
     private boolean ensureAllDependenciesResolved() {
         Fingerprint fp;
-        ArrayList<SmaliFile> removeSF = new ArrayList<SmaliFile>();
+        List<SmaliFile> removeSF = new ArrayList<SmaliFile>();
 
         for (SmaliFile sf : SmaliFileMatches) {
             if (sf.Fingerprints.isEmpty()) {
@@ -396,7 +396,7 @@ public class SmaliMatcher {
 
     private void removeDisabledFingerprints() {
         Fingerprint fp;
-        ArrayList<Fingerprint> removeFPs = new ArrayList<Fingerprint>();
+        List<Fingerprint> removeFPs = new ArrayList<Fingerprint>();
 
         for (String fpName : myFPReader.Fingerprints.keySet()) {
             fp = myFPReader.Fingerprints.get(fpName);

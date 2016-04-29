@@ -15,6 +15,8 @@ package org.cf.resequencer;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
@@ -145,7 +147,7 @@ public class Main {
         // Determine protection mechanisms
         Console.msgln("\nDetermining protection mechanisms ...");
         SmaliMatcher mySmaliMatcher = new SmaliMatcher(smaliFiles, myReader);
-        ArrayList<SmaliFile> fileMatches = mySmaliMatcher.performMatching();
+        List<SmaliFile> fileMatches = mySmaliMatcher.performMatching();
 
         if (Options.DetectOnly) {
             System.exit(0);
@@ -360,8 +362,8 @@ public class Main {
         }
     }
 
-    public static HashMap<String, String> getScriptVarsForSmali() {
-        HashMap<String, String> result = new HashMap<String, String>();
+    public static Map<String, String> getScriptVarsForSmali() {
+        Map<String, String> result = new HashMap<String, String>();
 
         result.put("SequencerVersion", VERSION);
         result.put("MethodStarts", MethodStarts);

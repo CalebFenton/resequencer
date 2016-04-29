@@ -2,6 +2,7 @@ package org.cf.resequencer.patch;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,7 +51,7 @@ public class SmaliHinter {
      * @param sf
      * @param appRes
      */
-    public static void generateHints(SmaliFile sf, ArrayList<ResourceItem> appRes) {
+    public static void generateHints(SmaliFile sf, List<ResourceItem> appRes) {
         File f = new File(sf.FullFilePath);
         Console.debug("Hinting " + sf.FileName + " (" + f.length() + " bytes)");
 
@@ -144,7 +145,7 @@ public class SmaliHinter {
 
     }
 
-    private static void hintResourceStrings(SmaliFile sf, ArrayList<ResourceItem> appRes) {
+    private static void hintResourceStrings(SmaliFile sf, List<ResourceItem> appRes) {
 
         Pattern p = Pattern.compile("(?im)^[ ]*const(/high16)? [vp]\\d+, 0x(7f[0-9a-f]{1,6})");
         Matcher m = p.matcher(sf.FileLines);
@@ -182,7 +183,7 @@ public class SmaliHinter {
         }
     }
 
-    private static ResourceItem findResItemByID(ArrayList<ResourceItem> appRes, long resID) {
+    private static ResourceItem findResItemByID(List<ResourceItem> appRes, long resID) {
         for (ResourceItem resItem : appRes) {
             if (resItem.ID == resID) {
                 return resItem;
@@ -298,9 +299,9 @@ public class SmaliHinter {
 
         Pattern p = Pattern.compile("(?im)^[ \\t]*const-string [vp]\\d+, \\\"(.*?)\\\"$");
 
-        ArrayList<String> foundStrings = new ArrayList<String>();
-        ArrayList<String> foundStringsOrig = new ArrayList<String>();
-        ArrayList<Integer> foundPos = new ArrayList<Integer>();
+        List<String> foundStrings = new ArrayList<String>();
+        List<String> foundStringsOrig = new ArrayList<String>();
+        List<Integer> foundPos = new ArrayList<Integer>();
 
         int posOffset = 0;
         for (String line : LineArray) {

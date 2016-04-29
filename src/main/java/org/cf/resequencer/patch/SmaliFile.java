@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -82,11 +83,11 @@ public class SmaliFile {
     /**
      * Clones of fingerprints matched against this file. Keys are fingerprint names.
      */
-    public HashMap<String, Fingerprint> Fingerprints;
+    public Map<String, Fingerprint> Fingerprints;
     /**
      * Offsets for regions. Keys are region names.
      */
-    public HashMap<String, Integer[]> RegionOffsetList;
+    public Map<String, Integer[]> RegionOffsetList;
     /**
      * List of code modifications to perform
      */

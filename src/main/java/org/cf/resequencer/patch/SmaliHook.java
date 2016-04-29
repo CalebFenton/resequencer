@@ -2,7 +2,9 @@ package org.cf.resequencer.patch;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +40,7 @@ public class SmaliHook {
      * Method of anti-decompile protection for baksmali (defunct) is to use invalid file names in Windows. Retained here
      * just in case...
      */
-    private static ArrayList<String> InvalidWindowsFilenames = new ArrayList<String>();
+    private static List<String> InvalidWindowsFilenames = new ArrayList<String>();
 
     private SmaliFile MySmaliFile = new SmaliFile();
 
@@ -49,29 +51,29 @@ public class SmaliHook {
     /**
 	 *
 	 */
-    public HashMap<String, String> MyMethods = new HashMap<String, String>();
+    public Map<String, String> MyMethods = new HashMap<String, String>();
 
     /**
 	 *
 	 */
-    public HashMap<String, String> MyFields = new HashMap<String, String>();
+    public Map<String, String> MyFields = new HashMap<String, String>();
 
     /**
 	 *
 	 */
-    public static HashMap<String, String> AllClasses = new HashMap<String, String>();
+    public static Map<String, String> AllClasses = new HashMap<String, String>();
     /**
 	 *
 	 */
-    public static HashMap<String, String> AllPackages = new HashMap<String, String>();
+    public static Map<String, String> AllPackages = new HashMap<String, String>();
     /**
 	 *
 	 */
-    public static HashMap<String, String> AllMethods = new HashMap<String, String>();
+    public static Map<String, String> AllMethods = new HashMap<String, String>();
     /**
 	 *
 	 */
-    public static HashMap<String, String> AllFields = new HashMap<String, String>();
+    public static Map<String, String> AllFields = new HashMap<String, String>();
 
     SmaliHook(String fileLines) {
         this(fileLines, false);

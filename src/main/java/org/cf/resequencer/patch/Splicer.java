@@ -1,9 +1,9 @@
 package org.cf.resequencer.patch;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.cf.resequencer.Console;
@@ -14,7 +14,7 @@ import org.cf.resequencer.Console;
  * @author Caleb Fenton
  */
 public class Splicer {
-    private ArrayList<SmaliFile> SmaliFileMatches;
+    private List<SmaliFile> SmaliFileMatches;
     private String SmaliDir;
     private int AppMinSDK = 1;
 
@@ -25,7 +25,7 @@ public class Splicer {
      * @param smaliDir
      * @param appMinSdk
      */
-    public Splicer(ArrayList<SmaliFile> fileMatches, String smaliDir, int appMinSdk) {
+    public Splicer(List<SmaliFile> fileMatches, String smaliDir, int appMinSdk) {
         SmaliFileMatches = fileMatches;
         SmaliDir = smaliDir;
         AppMinSDK = appMinSdk;

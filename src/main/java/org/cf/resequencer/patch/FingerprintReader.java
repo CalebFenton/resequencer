@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,26 +36,26 @@ public class FingerprintReader {
     private static final String[] OperationAttributeList = new String[] {
                     "name", "type", "afterRegex", "beforeRegex", "insideRegex", "afterOP", "beforeOP", "insideOP",
                     "replaceWhat", "deletePath" };
-    private final HashMap<String, String> ScriptVars;
+    private final Map<String, String> ScriptVars;
     private Fingerprint FP = null;
     private Region REG = null;
     private Operation OP = null;
-    private ArrayList<String> ExcludedFPs;
-    private ArrayList<String> IncludedFPs;
+    private List<String> ExcludedFPs;
+    private List<String> IncludedFPs;
     private String HookResourcePath;
     private String SmaliDir;
-    private HashMap<String, SmaliHook> MySmaliHooks = new HashMap<String, SmaliHook>();
+    private Map<String, SmaliHook> MySmaliHooks = new HashMap<String, SmaliHook>();
     private boolean ObfuscateHooks;
 
     /**
      * Sorted list of available fingerprint names.
      */
-    public ArrayList<String> FingerprintNames = new ArrayList<String>();
+    public List<String> FingerprintNames = new ArrayList<String>();
 
     /**
      * All parsed fingerprints, except those that are excluded.
      */
-    protected HashMap<String, Fingerprint> Fingerprints = new HashMap<String, Fingerprint>();
+    protected Map<String, Fingerprint> Fingerprints = new HashMap<String, Fingerprint>();
 
     /**
      * Set of all the hooks that are required by the matched fingerprints. These will be parsed and copied over to the
@@ -78,8 +79,8 @@ public class FingerprintReader {
      * @param scriptVars
      *            built-in variables
      */
-    public FingerprintReader(String[] xmlFileList, ArrayList<String> excludeFPs, ArrayList<String> includeFPs,
-                    String dumpDir, String hookResPath, boolean obfuscateHooks, HashMap<String, String> scriptVars) {
+    public FingerprintReader(String[] xmlFileList, List<String> excludeFPs, List<String> includeFPs,
+                    String dumpDir, String hookResPath, boolean obfuscateHooks, Map<String, String> scriptVars) {
         ExcludedFPs = excludeFPs;
         IncludedFPs = includeFPs;
         SmaliDir = dumpDir;
@@ -237,7 +238,7 @@ public class FingerprintReader {
      * @param smaliFiles
      * @return
      */
-    public Set<String> getHooksToInstall(ArrayList<SmaliFile> smaliFiles) {
+    public Set<String> getHooksToInstall(List<SmaliFile> smaliFiles) {
         Set<String> installList = new HashSet<String>();
 
         for (SmaliFile sf : smaliFiles) {
@@ -336,7 +337,7 @@ public class FingerprintReader {
     }
 
     private void readFPIncompatible(Node nFingerprint) {
-        ArrayList<String> result = readNodeValues((Element) nFingerprint, "incompatible", "");
+        List<String> result = readNodeValues((Element) nFingerprint, "incompatible", "");
 
         if (result == null) {
             return;
@@ -350,7 +351,7 @@ public class FingerprintReader {
     }
 
     private void readFPRequired(Node nFingerprint) {
-        ArrayList<String> result = readNodeValues((Element) nFingerprint, "requires", "");
+        List<String> result = readNodeValues((Element) nFingerprint, "requires", "");
 
         if (result == null) {
             return;
@@ -376,7 +377,7 @@ public class FingerprintReader {
     }
 
     private void readFPDeletePaths(Node nFingerprint) {
-        ArrayList<String> result = readNodeValues((Element) nFingerprint, "deletePath", "");
+        List<String> result = readNodeValues((Element) nFingerprint, "deletePath", "");
 
         if (result == null) {
             return;
@@ -456,7 +457,7 @@ public class FingerprintReader {
         NamedNodeMap attribs = nOperation.getAttributes();
         Node nAttrib;
 
-        HashMap<String, String> attribMap = new HashMap<String, String>();
+        Map<String, String> attribMap = new HashMap<String, String>();
 
         String attribValue;
         for (String attribName : OperationAttributeList) {
@@ -592,8 +593,8 @@ public class FingerprintReader {
         op.HasBeenTraced = false;
     }
 
-    private ArrayList<String> readNodeValues(Element elmnt, String nodeName, String defaultValue) {
-        ArrayList<String> result = new ArrayList<String>();
+    private List<String> readNodeValues(Element elmnt, String nodeName, String defaultValue) {
+        List<String> result = new ArrayList<String>();
         NodeList nl = elmnt.getElementsByTagName(nodeName);
 
         for (int i = 0; i < nl.getLength(); i++) {
