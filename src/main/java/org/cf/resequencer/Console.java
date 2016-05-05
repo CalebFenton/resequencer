@@ -15,7 +15,7 @@ import org.apache.commons.io.IOUtils;
  */
 public class Console {
     private static final boolean StackTrace = false;
-    public static int VerboseLevel = 0;
+    public static int VerboseLevel;
     public static String LogFile = "console.log";
 
     public static void msgln() {

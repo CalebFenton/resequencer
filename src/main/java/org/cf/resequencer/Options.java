@@ -17,27 +17,27 @@ import org.cf.resequencer.patch.SmaliHinter;
 public class Options {
 
     private static final int MaxVerboseLevel = 3;
-    public static int VerboseLevel = 0;
-    public static boolean SkipAssembly = false;
-    public static boolean SkipCleanup = false;
-    public static boolean DecodeResources = false;
-    public static boolean SignOnly = false;
-    public static boolean DetectOnly = false;
-    public static boolean InfoOnly = false;
-    public static boolean AssembleOnly = false;
-    public static boolean AllowOverwrites = false;
-    public static boolean ListFPsOnly = false;
-    public static boolean SkipHints = false;
-    public static int CheckSigsBehavior = 0;
-    public static int GetPIBehavior = 0;
-    public static int SigVerifyBehavior = 0;
-    public static int DeviceIDSpoofType = 0;
+    public static int VerboseLevel;
+    public static boolean SkipAssembly;
+    public static boolean SkipCleanup;
+    public static boolean DecodeResources;
+    public static boolean SignOnly;
+    public static boolean DetectOnly;
+    public static boolean InfoOnly;
+    public static boolean AssembleOnly;
+    public static boolean AllowOverwrites;
+    public static boolean ListFPsOnly;
+    public static boolean SkipHints;
+    public static int CheckSigsBehavior;
+    public static int GetPIBehavior;
+    public static int SigVerifyBehavior;
+    public static int DeviceIDSpoofType;
     public static String DeviceIDSpoof = "";
-    public static int WifiMacSpoofType = 0;
+    public static int WifiMacSpoofType;
     public static String WifiMacSpoof = "";
-    public static int BTMacSpoofType = 0;
+    public static int BTMacSpoofType;
     public static String BTMacSpoof = "";
-    public static int AccountNameSpoofType = 0;
+    public static int AccountNameSpoofType;
     public static String AccountNameSpoof = "";
     public static String NetworkOperatorSpoof = "";
     public static String DeviceModelSpoof = "";
@@ -53,10 +53,10 @@ public class Options {
     public static String AaptPath = "";
     public static String ZipalignPath = "";
     public static String KeyApkPath = "";
-    public static File SignKey = null;
-    public static File SignCert = null;
-    public static String SignPass = null;
-    public static boolean DebugHooks = false;
+    public static File SignKey;
+    public static File SignCert;
+    public static String SignPass;
+    public static boolean DebugHooks;
 
     // returns false if options are not valid
     public static void parseArgs(String[] args) {

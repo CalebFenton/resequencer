@@ -19,9 +19,9 @@ import com.memetix.mst.translate.Translate;
  * @author Caleb Fenton
  */
 public class SmaliHinter {
-    public static long HintsAdded = 0;
+    public static long HintsAdded;
 
-    public static boolean ShouldTranslate = false;
+    public static boolean ShouldTranslate;
     private static int TranslateBatchSize = 25;
 
     static private String[] LineArray;

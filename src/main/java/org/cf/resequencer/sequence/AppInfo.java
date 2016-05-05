@@ -28,7 +28,7 @@ public class AppInfo {
     public String AppVersionName;
     public String AppVersionCode;
     public String AppPackageName;
-    public int AppMinSDK = 0;
+    public int AppMinSDK;
     public String[] SignatureChars;
     public String[] SignatureHashes;
     public String LaunchActivity;
@@ -43,15 +43,15 @@ public class AppInfo {
     public String DexDigestSHA1;
     public long DexChecksumCRC32;
     public long DexChecksumAdler32;
-    public long ZipClassesDexCrc = 0;
-    public long ZipClassesDexSize = 0;
-    public long ZipClassesDexCompressedSize = 0;
+    public long ZipClassesDexCrc;
+    public long ZipClassesDexSize;
+    public long ZipClassesDexCompressedSize;
     public Certificate[] Certificates;
     public long ApkFileSize;
     public long ApkLastModified;
     public long ClassesDexFileSize;
     public long ClassesDexLastModified;
-    public int CertsLoaded = 0;
+    public int CertsLoaded;
     private String mApkPath, mAaptPath;
     private static final Object mSync = new Object();
     private WeakReference<byte[]> mReadBuffer;

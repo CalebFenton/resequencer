@@ -22,8 +22,8 @@ class Fingerprint implements Cloneable {
     public Map<Integer, Region> Regions = new HashMap<Integer, Region>();
     public boolean Enabled = true;
     public boolean Notify = true; // notify user when found
-    public boolean FindOnce = false;
-    public boolean DependenciesTraced = false;
+    public boolean FindOnce;
+    public boolean DependenciesTraced;
     public String[] SmaliHooksToInstall;
 
     Fingerprint(String n) {

@@ -37,9 +37,9 @@ public class FingerprintReader {
                     "name", "type", "afterRegex", "beforeRegex", "insideRegex", "afterOP", "beforeOP", "insideOP",
                     "replaceWhat", "deletePath" };
     private final Map<String, String> ScriptVars;
-    private Fingerprint FP = null;
-    private Region REG = null;
-    private Operation OP = null;
+    private Fingerprint FP;
+    private Region REG;
+    private Operation OP;
     private List<String> ExcludedFPs;
     private List<String> IncludedFPs;
     private String HookResourcePath;
