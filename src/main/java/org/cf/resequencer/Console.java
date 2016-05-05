@@ -95,7 +95,7 @@ public class Console {
 
             String s;
             while ((s = stdInput.readLine()) != null) {
-                output.append(s).append("\n");
+                output.append(s).append('\n');
             }
 
             status = child.waitFor();
