@@ -34,7 +34,7 @@ public class SmaliHook {
     /*
      * If a hook is not to be obfuscated, this should be set to true.
      */
-    public boolean ForceNoObfuscation = false;
+    public boolean ForceNoObfuscation;
 
     /*
      * Method of anti-decompile protection for baksmali (defunct) is to use invalid file names in Windows. Retained here
