@@ -132,7 +132,7 @@ public class SmaliHinter {
             while (m.find()) {
                 insert = new StringBuilder("    .line ");
                 insert.append(line);
-                insert.append("\n");
+                insert.append('\n');
                 HintsAdded++;
                 sf.addInsert(m.start(), insert.toString());
 
@@ -165,7 +165,7 @@ public class SmaliHinter {
                     if (resItem.Type.equals("string")) {
                         insert.append(" val=\"");
                         insert.append(resItem.Value);
-                        insert.append("\"");
+                        insert.append('"');
                     }
                 } else {
                     insert.append("possibly not resource / unknown res ID");
@@ -174,7 +174,7 @@ public class SmaliHinter {
                 insert.append("error parsing resources");
             }
 
-            insert.append("\n");
+            insert.append('\n');
 
             HintsAdded++;
 
@@ -234,7 +234,7 @@ public class SmaliHinter {
                     insert.append((char) longVal);
                 }
 
-                insert.append("\n");
+                insert.append('\n');
 
                 HintsAdded++;
                 String finalInsert = insert.toString().replaceAll("[\\p{Cntrl}&&[^\\n]]", "");
@@ -281,7 +281,7 @@ public class SmaliHinter {
                 if ((longVal >= 0x20) && (longVal <= 0xFFFC)) {
                     insert.append(" char='");
                     insert.append((char) longVal);
-                    insert.append("'");
+                    insert.append('\'');
                 }
 
                 HintsAdded++;
@@ -427,7 +427,7 @@ public class SmaliHinter {
                 // If original string was unicode escaped, show the actual symbols in comments
                 insert.append("    #");
                 if (foundStringsOrig.get(i + j).matches(".*?(\\\\u[a-fA-f0-9]{4}?).*?")) {
-                    insert.append(" orig=\"").append(strVal).append("\"");
+                    insert.append(" orig=\"").append(strVal).append('"');
                 }
                 try {
                     insert.append(" lang=").append(detectedLang.getName(Language.ENGLISH));
@@ -435,7 +435,7 @@ public class SmaliHinter {
                     Console.warn("  Odd, I can't figure out what language this is: " + detectedLang);
                 }
 
-                insert.append("\n").append("    # trans=\"").append(translations[j]).append("\"");
+                insert.append('\n').append("    # trans=\"").append(translations[j]).append('"');
 
                 HintsAdded++;
                 sf.addInsert(pos, insert + "\n");
