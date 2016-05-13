@@ -13,10 +13,14 @@ import org.apache.commons.io.IOUtils;
  * 
  * @author Caleb Fenton
  */
-public class Console {
+public final class Console {
     private static final boolean StackTrace = false;
     public static int VerboseLevel;
     public static String LogFile = "console.log";
+
+    private Console () throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
 
     public static void msgln() {
         System.out.println();

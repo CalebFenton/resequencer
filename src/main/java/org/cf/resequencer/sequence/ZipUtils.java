@@ -17,7 +17,12 @@ import org.cf.resequencer.Console;
  * 
  * @author Caleb Fenton
  */
-public class ZipUtils {
+public final class ZipUtils {
+
+    private ZipUtils() throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
+
     private static File renameZipToTemp(File zipFile) throws IOException {
         File tempFile = File.createTempFile("zipapk", null);
         tempFile.delete();

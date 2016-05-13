@@ -14,7 +14,7 @@ import org.cf.resequencer.patch.SmaliHinter;
  * 
  * @author Caleb Fenton
  */
-public class Options {
+public final class Options {
 
     private static final int MaxVerboseLevel = 3;
     public static int VerboseLevel;
@@ -57,6 +57,10 @@ public class Options {
     public static File SignCert;
     public static String SignPass;
     public static boolean DebugHooks;
+
+    private Options() throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
 
     // returns false if options are not valid
     public static void parseArgs(String[] args) {
