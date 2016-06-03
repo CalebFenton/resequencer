@@ -1,5 +1,7 @@
 package org.cf.resequencer.sequence;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * Base64 converter class. This code is not a full-blown MIME encoder;
  * it simply converts binary data to base64 data and back.
@@ -183,7 +185,7 @@ class Base64 {
 			outLen -= 1;
 		}
 
-		return new String(outBuff, 0, outLen);
+		return new String(outBuff, 0, outLen, StandardCharsets.UTF_8);
 	}
 
 	/**
@@ -317,7 +319,7 @@ class Base64 {
 	 * @since 1.4
 	 */
 	protected static byte[] decode(String s) throws Exception {
-		byte[] bytes = s.getBytes();
+		byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
 		return decode(bytes, 0, bytes.length);
 	}
 
