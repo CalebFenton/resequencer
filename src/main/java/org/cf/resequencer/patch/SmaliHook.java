@@ -202,7 +202,7 @@ public class SmaliHook {
             String[] found = matchedLine.split("\\s");
             StringBuilder methodCall = new StringBuilder(found[found.length - 1]);
             methodCall.append(methodCall.substring(0, methodCall.indexOf("(")))
-                    .append(classPackage + "->" + methodCall);
+                    .append(classPackage).append("->").append(methodCall);
 
             if (MyMethods.containsKey(methodCall)) {
                 continue;
@@ -214,7 +214,7 @@ public class SmaliHook {
             if (ForceNoObfuscation) {
                 methodMunge = methodCall;
             } else {
-                methodMunge.append(classPackage + "->").append(SmaliHook.getRandomMethod());
+                methodMunge.append(classPackage).append("->").append(SmaliHook.getRandomMethod());
             }
 
             String methodCallStr = methodCall.toString();
