@@ -1,6 +1,6 @@
 /*
  * Sequencer
- * 
+ *
  * TODO:
  * implement --sign-key and --sign-cert
  * add region resolution to variables (impossible)
@@ -31,7 +31,7 @@ import org.cf.resequencer.sequence.ApkFile;
 import org.cf.resequencer.sequence.ApkFile.DecodeResOption;
 
 /**
- * 
+ *
  * @author Caleb Fenton
  */
 public class Main {
@@ -232,9 +232,9 @@ public class Main {
             if (!myReader.isEnabled(fpName)) {
                 msg.append(" *disabled*");
             }
-            Console.msgln(msg.toString());
+            msg.append('\n');
         }
-
+        Console.msgln(msg.toString());
         Console.msgln("Total: " + myReader.FingerprintNames.size());
     }
 
