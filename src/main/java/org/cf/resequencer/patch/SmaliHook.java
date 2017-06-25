@@ -14,7 +14,7 @@ import org.cf.resequencer.sequence.StringUtils;
 
 /**
  * TODO: add static vars that house all methods then migrate code to use static vars
- * 
+ *
  * @author Caleb Fenton
  */
 public class SmaliHook {
@@ -128,7 +128,7 @@ public class SmaliHook {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getFileLines() {
@@ -136,7 +136,7 @@ public class SmaliHook {
     }
 
     /**
-     * 
+     *
      * @param lines
      */
     public void setFileLines(String lines) {
@@ -200,11 +200,12 @@ public class SmaliHook {
             }
 
             String[] found = matchedLine.split("\\s");
-            StringBuilder methodCall = new StringBuilder(found[found.length - 1]);
-            methodCall.append(methodCall.substring(0, methodCall.indexOf("(")))
-                    .append(classPackage).append("->").append(methodCall);
+            StringBuilder methodCall = new StringBuilder();
+            String methodName = found[found.length - 1];
+            methodName = methodName.substring(0, methodName.indexOf('('));
+            methodCall.append(classPackage).append("->").append(methodName);
 
-            if (MyMethods.containsKey(methodCall)) {
+            if (MyMethods.containsKey(methodCall.toString())) {
                 continue;
             }
 
@@ -235,16 +236,16 @@ public class SmaliHook {
             String[] found = m.group().split("\\s");
 
             // .field static final synthetic $assertionsDisabled:Z = false
-            StringBuilder fieldCall = new StringBuilder();
+            int nameAndTypeIndex;
             if (found[found.length - 2].equals("=")) {
-                fieldCall.append(found[found.length - 3]);
+                nameAndTypeIndex = found.length - 3;
             } else {
-                fieldCall.append(found[found.length - 1]);
+                nameAndTypeIndex = found.length -1;
             }
+            StringBuilder fieldCall = new StringBuilder();
+            fieldCall.append(classPackage).append("->").append(found[nameAndTypeIndex]);
 
-            fieldCall.append(fieldCall.substring(0, fieldCall.indexOf(":"))).append(classPackage).append("->").append(fieldCall);
-
-            if (MyFields.containsKey(fieldCall)) {
+            if (MyFields.containsKey(fieldCall.toString())) {
                 continue;
             }
 
@@ -373,7 +374,7 @@ public class SmaliHook {
     }
 
     /**
-     * 
+     *
      * @param outPath
      */
     public void saveAs(String outPath) {
@@ -401,7 +402,7 @@ public class SmaliHook {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public static String getRandomPackage() {
@@ -409,7 +410,7 @@ public class SmaliHook {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public static String getRandomClass() {
@@ -425,7 +426,7 @@ public class SmaliHook {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public static String getRandomMethod() {
@@ -433,7 +434,7 @@ public class SmaliHook {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public static String getRandomField() {
