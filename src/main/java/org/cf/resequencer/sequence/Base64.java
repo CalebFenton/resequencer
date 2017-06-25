@@ -4,8 +4,6 @@ package org.cf.resequencer.sequence;
  * Base64 converter class. This code is not a full-blown MIME encoder;
  * it simply converts binary data to base64 data and back.
  *
- * <p>Note {@link CharBase64} is a GWT-compatible implementation of this
- * class.
  */
 class Base64 {
 
@@ -368,7 +366,7 @@ class Base64 {
 		int outBuffPosn = 0;
 
 		byte[] b4 = new byte[4];
-		int b4Posn;
+		int b4Posn = 0;
 		int i;
 		byte sbiCrop;
 		byte sbiDecode;

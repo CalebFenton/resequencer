@@ -15,7 +15,7 @@ import com.memetix.mst.language.Language;
 import com.memetix.mst.translate.Translate;
 
 /**
- * 
+ *
  * @author Caleb Fenton
  */
 public class SmaliHinter {
@@ -39,7 +39,7 @@ public class SmaliHinter {
     }
 
     /**
-     * 
+     *
      * @param sf
      */
     public static void generateHints(SmaliFile sf) {
@@ -47,7 +47,7 @@ public class SmaliHinter {
     }
 
     /**
-     * 
+     *
      * @param sf
      * @param appRes
      */
@@ -103,7 +103,7 @@ public class SmaliHinter {
                     .append(thisClass)
                     .append("_sup-")
                     .append(superClass);
-            
+
             if (!interfaceClass.isEmpty()) {
                 insert.append("_impl-").append(interfaceClass);
             }
@@ -262,7 +262,7 @@ public class SmaliHinter {
                 }
 
                 // do not add base 10 hint for resource ids
-                if (strVal.startsWith("7f") && (strVal.length() == 8)) {
+                if (strVal.toString().startsWith("7f") && (strVal.length() == 8)) {
                     continue;
                 }
 

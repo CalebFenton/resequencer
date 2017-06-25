@@ -24,6 +24,7 @@ import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -280,7 +281,6 @@ class ApkSigner {
             main.putValue("Created-By", "Resequencer");
         }
 
-        BASE64Encoder base64 = new BASE64Encoder();
         MessageDigest md = MessageDigest.getInstance("SHA1");
         byte[] buffer = new byte[BUFF_SIZE];
 
@@ -314,7 +314,7 @@ class ApkSigner {
                     attr = input.getAttributes(name);
                 }
                 attr = attr != null ? new Attributes(attr) : new Attributes();
-                attr.putValue("SHA1-Digest", base64.encode(md.digest()));
+                attr.putValue("SHA1-Digest", Base64.encode(md.digest()));
                 output.getEntries().put(name, attr);
             }
         }
@@ -329,14 +329,13 @@ class ApkSigner {
         main.putValue("Signature-Version", "1.0");
         main.putValue("Created-By", "Resequencer");
 
-        BASE64Encoder base64 = new BASE64Encoder();
         MessageDigest md = MessageDigest.getInstance("SHA1");
         PrintStream print = new PrintStream(new DigestOutputStream(new ByteArrayOutputStream(), md), true, "UTF-8");
 
         // Digest of the entire manifest
         manifest.write(print);
         print.flush();
-        main.putValue("SHA1-Digest-Manifest", base64.encode(md.digest()));
+        main.putValue("SHA1-Digest-Manifest", Base64.encode(md.digest()));
 
         Map<String, Attributes> entries = manifest.getEntries();
         for (Map.Entry<String, Attributes> entry : entries.entrySet()) {
@@ -349,7 +348,7 @@ class ApkSigner {
             print.flush();
 
             Attributes sfAttr = new Attributes();
-            sfAttr.putValue("SHA1-Digest", base64.encode(md.digest()));
+            sfAttr.putValue("SHA1-Digest", Base64.encode(md.digest()));
             sf.getEntries().put(entry.getKey(), sfAttr);
         }
 

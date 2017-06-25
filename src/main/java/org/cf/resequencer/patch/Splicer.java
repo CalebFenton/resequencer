@@ -4,13 +4,14 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.cf.resequencer.Console;
 
 /**
  * Central class for performing all region operations on smali file matches.
- * 
+ *
  * @author Caleb Fenton
  */
 public class Splicer {
@@ -20,7 +21,7 @@ public class Splicer {
 
     /**
      * Expects result from SmaliMatcher.performMatching()
-     * 
+     *
      * @param fileMatches
      * @param smaliDir
      * @param appMinSdk
@@ -34,7 +35,7 @@ public class Splicer {
     /**
      * Loops through all operations in SmaliFileMatches and performs them. When it's finished it saves all the
      * SmaliFiles.
-     * 
+     *
      * @return true if it did stuff, false if it did nothing
      */
     public boolean splice() {
