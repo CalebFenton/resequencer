@@ -18,13 +18,17 @@ import com.memetix.mst.translate.Translate;
  *
  * @author Caleb Fenton
  */
-public class SmaliHinter {
+public final class SmaliHinter {
     public static long HintsAdded;
 
     public static boolean ShouldTranslate;
     private static int TranslateBatchSize = 25;
 
     static private String[] LineArray;
+
+    private SmaliHinter() throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
 
     public static void enableTranslations() {
         // Microsoft Bing API key

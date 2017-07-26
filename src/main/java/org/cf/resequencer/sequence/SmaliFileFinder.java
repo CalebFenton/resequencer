@@ -24,7 +24,12 @@ class SmaliFilenameFilter implements FilenameFilter {
  * 
  * @author Caleb Fenton
  */
-public class SmaliFileFinder {
+public final class SmaliFileFinder {
+
+    private SmaliFileFinder() throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
+
     public static File[] getSmailFiles(File dir) {
         return getSmaliFiles(dir, true);
     }

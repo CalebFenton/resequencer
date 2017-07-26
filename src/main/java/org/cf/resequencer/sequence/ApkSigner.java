@@ -52,7 +52,7 @@ import sun.security.pkcs.SignerInfo;
 import sun.security.x509.AlgorithmId;
 import sun.security.x509.X500Name;
 
-class ApkSigner {
+final class ApkSigner {
 
     private static final String CERT_SF_NAME = "META-INF/CERT.SF";
     private static final String CERT_RSA_NAME = "META-INF/CERT.RSA";
@@ -60,6 +60,10 @@ class ApkSigner {
     private static final String KEY_PATH = "/keys/key.pk8";
 
     private static final int BUFF_SIZE = 4096;
+
+    private ApkSigner() throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
 
     private static class SignatureOutputStream extends FilterOutputStream {
 

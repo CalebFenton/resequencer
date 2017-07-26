@@ -34,7 +34,7 @@ import org.cf.resequencer.sequence.ApkFile.DecodeResOption;
  *
  * @author Caleb Fenton
  */
-public class Main {
+public final class Main {
 
     public static final String VERSION = "1.1";
     private static final String UPDATED = "Feb 28th, 2016";
@@ -46,6 +46,10 @@ public class Main {
     private static final String MethodStarts = "(?sm)^\\s*\\.(locals|registers) \\d+((\\r)?\\n)+" + "(\\s*\\.parameter( \\\".*?\\\")?((\\r)?\\n)+)*" + "(\\s*\\.annotation.+?\\.end annotation((\\r)?\\n)+)*" + "(\\s*\\.end parameter((\\r)?\\n)+)*" + "(\\s*\\.annotation.+?\\.end annotation((\\r)?\\n)+)*" + "(\\s*\\.prologue((\\r)?\\n)+)?" + "(\\s*\\.line( \\d+)?((\\r)?\\n)+)?" + "(\\s*\\.local .+?((\\r)?\\n)+)?\\s*";
     private static ApkFile myApkFile;
     private static FingerprintReader myReader;
+
+    private Main() throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
 
     /**
      * @param args

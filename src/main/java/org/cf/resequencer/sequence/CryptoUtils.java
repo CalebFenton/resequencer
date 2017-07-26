@@ -22,7 +22,11 @@ import org.cf.resequencer.Console;
  * 
  * @author Caleb Fenton
  */
-public class CryptoUtils {
+public final class CryptoUtils {
+
+    private CryptoUtils() throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
 
     public static long getCRC32Chksum(String path) throws FileNotFoundException, IOException {
         byte[] bytes = new byte[0xFFFF];

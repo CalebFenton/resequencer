@@ -13,6 +13,10 @@ public class StringUtils {
     public static final String NUMSTR = "0123456789";
     public static final String SPECIALSTR = "~`!@#$%^&*()_+-=[]{}\\|;:'\",<.>/?";
 
+    private StringUtils() throws InstantiationException {
+        throw new InstantiationException("This class is not created for instantiation");
+    }
+
     public static String generateSpecialCharString(int len) {
         return generateString(ALPHASTR + NUMSTR + SPECIALSTR, len);
 
